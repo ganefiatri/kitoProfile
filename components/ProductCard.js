@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import house from '../assets/home.jpg' 
 
 function ProductCard() {
     return (
@@ -8,7 +7,7 @@ function ProductCard() {
             <div className="relative h-80 w-80">
                 <Image
                     className="rounded-xl"
-                    src={house}
+                    src='/assets/home.jpg'
                     layout="fill"
                 />
             </div>
