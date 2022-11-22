@@ -5,8 +5,12 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import LargeCard from '../components/LargeCard'
 import ProductCard from '../components/ProductCard'
+import { PrismaClient, Prisma } from '@prisma/client';
 
-export default function Home() {
+const prisma = new PrismaClient();
+
+export default function Home({products, categories}) {
+
   return (
     <div className>
       <Head>
@@ -25,19 +29,18 @@ export default function Home() {
         <section className='pt-6'>
           <h2 className='text-4xl font-semibold pb-5'>Category</h2>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            <Category />
-            <Category />
-            <Category />
-            <Category />
+            {categories.map(item =>(
+              <Category key={item.id} img={item.img} title={item.title} description={item.description} company={item.company}/>
+            ))}
           </div>
         </section>
 
         <section>
           <h2 className='text-4xl font-semibold py-8'>All Product</h2>
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {products.map(item => (
+              <ProductCard key={item.id} title={item.title} img={item.img}/>
+            ))}
           </div>
         </section>
 
@@ -54,3 +57,15 @@ export default function Home() {
     </div>
   )
 }
+
+export async function getServerSideProps() {
+  const products = await prisma.product.findMany();
+  const categories = await prisma.category.findMany();
+  console.log(categories)
+  return {
+    props: {
+       products,
+       categories,
+    }
+  };
+} 

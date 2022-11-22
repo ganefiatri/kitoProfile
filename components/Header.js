@@ -1,12 +1,19 @@
 import React from 'react'
 import { MenuIcon, SearchIcon, UserCircleIcon } from "@heroicons/react/solid"
+import { useRouter } from 'next/router'
 
 function Header() {
+    const router = useRouter();
+    const handleClick = (e) => {
+        e.preventDefault()
+        router.push('/')
+      }
+
     return (
         <header className='sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10'>
             {/* first logo */}
-            <div className='relative flex items-center h-10 cursor-pointer my-auto'>
-                <h1 className='xl:text-xl font-bold text-gray-600'>HOSANA GROUP</h1>
+            <div className='relative flex items-center h-10 cursor-pointer my-auto' onClick={handleClick}>
+                <h1 className='xl:text-xl font-bold text-gray-600'>HOSANA KITO GROUP</h1>
             </div>
 
             {/* second search Button */}
