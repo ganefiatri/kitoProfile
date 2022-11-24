@@ -34,7 +34,7 @@ function Header() {
         <header className='sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10'>
             {/* first logo */}
             <div className='relative flex items-center h-10 cursor-pointer my-auto' onClick={handleClick}>
-                <Image src="http://localhost:3000/assets/hosana-logo1.jpg"
+                <Image src="../assets/hosana-logo1.jpg"
                     layout="fill"
                     objectFit="contain"
                     objectPosition="left"
