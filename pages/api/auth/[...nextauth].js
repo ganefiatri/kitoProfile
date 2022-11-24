@@ -68,6 +68,7 @@ export const authOptions = {
             }
         }),
     ],
+    secret: "xnlN4SO5KgqqGiLohH0fxw1bKCQuT5G62OrWss7QpXo=",
    database: process.env.DATABASE_URL,
 }
 
