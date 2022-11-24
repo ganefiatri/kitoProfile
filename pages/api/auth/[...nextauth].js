@@ -1,5 +1,5 @@
 import NextAuth from "next-auth"
-import GoogleProvider from 'next-auth/providers/google'
+// import GoogleProvider from 'next-auth/providers/google'
 import { PrismaClient } from "@prisma/client"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { bcrypt, compare }  from "bcryptjs"
@@ -25,10 +25,10 @@ export const authOptions = {
         maxAge: 30 * 24 * 60 * 60
     },
     providers: [
-        GoogleProvider({
-            clientId: process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_ID,
-            clientSecret: process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_SECRET
-        }),
+        // GoogleProvider({
+        //     clientId: process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_ID,
+        //     clientSecret: process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_SECRET
+        // }),
         CredentialsProvider({
             // id: "credentials",
             name: "Credentials",
