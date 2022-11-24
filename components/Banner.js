@@ -13,7 +13,7 @@ function Banner() {
   return (
     <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px]">
         <Image
-        src='/assets/home.jpg'
+        src='/assets/hosana-1.jpg'
         layout="fill"
         objectFit="cover"
         />
