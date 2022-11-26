@@ -19,9 +19,9 @@ function store({stores}) {
   return (
     <div>
         <Header />
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto px-8 sm:px-16">
                 <div className="pt-6">
-                    <h2 className='text-4xl font-semibold pb-5'>Our Store Location</h2>
+                    <h2 className='text-4xl font-semibold pb-3'>Our Store Location</h2>
                     {stores.map(store => (
                         <LargeCard 
                             img={store.img}

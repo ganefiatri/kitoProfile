@@ -5,16 +5,16 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import LargeCard from '../components/LargeCard'
 import ProductCard from '../components/ProductCard'
-import { PrismaClient, Prisma } from '@prisma/client';
-import { getSession, signOut, useSession } from 'next-auth/react'
+import { PrismaClient } from '@prisma/client';
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 const prisma = new PrismaClient();
 
-export default function Home({products, categories}) {
-  const { data:session } = useSession()
+export default function Home({ products, categories }) {
+  const { data: session } = useSession()
 
-  function handleSignOut(){
+  function handleSignOut() {
     signOut()
   }
 
@@ -35,30 +35,32 @@ export default function Home({products, categories}) {
       <main className='max-w-7xl mx-auto px-8 sm:px-16'>
         <section className='pt-6'>
           <h2 className='text-4xl font-semibold pb-5'>Category</h2>
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            {categories.map(item =>(
-              <Category key={item.id} img={item.img} title={item.title} description={item.description} company={item.company}/>
-            ))}
-          </div>
+          
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-3 ml-3'>
+              {categories.map(item => (
+                <Category key={item.id} img={item.img} title={item.title} description={item.description} company={item.company} />
+              ))}
+            </div>
+
         </section>
 
         <section>
           <h2 className='text-4xl font-semibold py-8'>All Product</h2>
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
             {products.map(item => (
-              <ProductCard key={item.id} title={item.title} img={item.img}/>
+              <ProductCard key={item.id} title={item.title} img={item.img} />
             ))}
           </div>
         </section>
 
-        <LargeCard 
+        <LargeCard
           img='/assets/hosana-1.jpg'
           title="Greatest Shopping Place In Medan"
           description="Wishlists created by Hosana Group."
           buttonText="Get Inspired"
         />
-        {session ?  User({session, handleSignOut}): Guest() }
-      </main> 
+        {session ? User({ session, handleSignOut }) : Guest()}
+      </main>
 
       {/* footer section */}
       <Footer />
@@ -72,14 +74,14 @@ function Guest() {
     <main className="container mx-auto text-center py-20">
       <h3 className='text-4xl font-bold'>Guest Home Page</h3>
       <div className='flex justify-center'>
-          <Link href={'/auth/login'}><span className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Sign In</span></Link>
+        <Link href={'/auth/login'}><span className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Sign In</span></Link>
       </div>
     </main>
   )
 }
 
 // For Authorize User
-function User({session, handleSignOut}) {
+function User({ session, handleSignOut }) {
   return (
     <main className="container mx-auto text-center py-20">
       <h3 className='text-4xl font-bold'>Authorize User Home Page</h3>
@@ -91,7 +93,7 @@ function User({session, handleSignOut}) {
         <button onClick={handleSignOut} className='mt-5 mb-5 p-10 py-1 bg-indigo-500 text-gray-50'>Sign Out</button>
       </div>
       <div className='flex justify-center'>
-          <Link href={'/profile'}><span className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Profile</span></Link>
+        <Link href={'/profile'}><span className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Profile</span></Link>
       </div>
     </main>
   )
@@ -103,8 +105,8 @@ export async function getServerSideProps() {
   console.log(categories)
   return {
     props: {
-       products,
-       categories,
+      products,
+      categories,
     }
   };
 } 

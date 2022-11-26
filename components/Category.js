@@ -1,4 +1,3 @@
-import { FaShower } from 'react-icons/fa'
 import React from 'react'
 import Image from 'next/image'
 

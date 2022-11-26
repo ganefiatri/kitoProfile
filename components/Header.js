@@ -26,9 +26,11 @@ function Header() {
         signOut()
     }
 
-    function handleSignIn() {
-        signIn()
+    const handleSignIn = (e) => {
+        e.preventDefault()
+        router.push('/auth/login')
     }
+
 
 
     return (
@@ -58,7 +60,7 @@ function Header() {
                 <div className='flex items-center justify-end text-gray-500 space-x-2'>
                     {session ? (
                         <div className='flex items-center space-x-2 border-2 p-2 cursor-pointer rounded-full'>
-                            <Link href={'/dashboard'}>Dashboard</Link>
+                            <Link href={'/admin/dashboard'}>Dashboard</Link>
                         </div>
                     ) : ''}
                     <Menu as="div" className="relative inline-block text-left">
@@ -117,7 +119,13 @@ function Header() {
                                                 >
                                                     Sign out
                                                 </button>
-                                            ) : <Link href={'/auth/login'} className='block w-full px-4 py-2 text-left text-sm'>SignIn</Link>}
+                                            ) :  <button
+                                            onClick={handleSignIn}
+                                            type="submit"
+                                            className='block w-full px-4 py-2 text-left text-sm'
+                                        >
+                                            Sign In
+                                        </button>}
                                         </Menu.Item>
                                     </form>
                                 </div>
