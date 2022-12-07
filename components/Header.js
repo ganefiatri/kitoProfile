@@ -52,7 +52,7 @@ function Header() {
 
                 {/* second search Button */}
                 <div className='flex items-center md:border-2 rounded-full py-2 md:shadow-sm'>
-                    <input type="text" placeholder='Search product' className='flex-grow pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400' />
+                    <input type="text" placeholder='Search product' className='flex-grow hidden md:inline-flex pl-5 bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400' />
                     <SearchIcon className='hidden md:inline-flex text-white h-8 bg-gray-700 rounded-full p-2 cursor-pointer md:mx-2' />
                 </div>
 
@@ -82,20 +82,6 @@ function Header() {
                         >
                             <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div className="py-1">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Account settings
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-
                                     <Menu.Item>
                                         {({ active }) => (
                                             <a

@@ -1,13 +1,14 @@
 import Head from 'next/head'
-import Banner from '../components/Banner'
+import Banner from '../components/frontend/Banner'
 import Category from '../components/Category'
 import Footer from '../components/Footer'
-import Header from '../components/Header'
+import Header from '../components/frontend/Header'
 import LargeCard from '../components/LargeCard'
 import ProductCard from '../components/ProductCard'
 import { PrismaClient } from '@prisma/client';
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import Cardinfo from '../components/frontend/Cardinfo'
 
 const prisma = new PrismaClient();
 
@@ -30,6 +31,9 @@ export default function Home({ products, categories }) {
 
       {/* Banner Section */}
       <Banner />
+
+      {/* Card Info Section */}
+      <Cardinfo />
 
       {/* Category Section */}
       <main className='max-w-7xl mx-auto px-8 sm:px-16'>
@@ -59,7 +63,7 @@ export default function Home({ products, categories }) {
           description="Wishlists created by Hosana Group."
           buttonText="Get Inspired"
         />
-        {session ? User({ session, handleSignOut }) : Guest()}
+        {/* {session ? User({ session, handleSignOut }) : Guest()} */}
       </main>
 
       {/* footer section */}
@@ -102,7 +106,6 @@ function User({ session, handleSignOut }) {
 export async function getServerSideProps() {
   const products = await prisma.product.findMany();
   const categories = await prisma.category.findMany();
-  console.log(categories)
   return {
     props: {
       products,
