@@ -8,7 +8,7 @@ const Banner = () => {
                     type="button"
                     data-bs-target="#carouselExampleIndicators"
                     data-bs-slide-to="0"
-                    class="active"
+                    className="active"
                     aria-current="true"
                     aria-label="Slide 1"
                 ></button>
@@ -32,10 +32,10 @@ const Banner = () => {
                         className="block w-full h-auto"
                         alt="Wild Landscape"
                     />
-                    <div class="carousel-caption hidden md:block absolute justify-center items-start mb-56">
-                        <h5 class="text-2xl font-extralight">Hosana Kito Group</h5>
-                        <h5 class="text-5xl font-bold">Inovations that</h5>
-                        <h5 class="text-5xl font-thin">Never Ends</h5>
+                    <div className="carousel-caption hidden md:block absolute justify-center items-start mb-56">
+                        <h5 className="text-2xl font-extralight">Hosana Kito Group</h5>
+                        <h5 className="text-5xl font-bold">Inovations that</h5>
+                        <h5 className="text-5xl font-thin">Never Ends</h5>
                     </div>
                 </div>
                 <div className="carousel-item float-left w-full">
@@ -44,10 +44,10 @@ const Banner = () => {
                         className="block w-full h-auto"
                         alt="Camera"
                     />
-                    <div class="carousel-caption hidden md:block absolute justify-center items-start mb-56">
-                        <h5 class="text-2xl font-extralight">Hosana Kito Group</h5>
-                        <h5 class="text-5xl font-bold">We will Guide You</h5>
-                        <h5 class="text-5xl font-thin">To Inovate</h5>
+                    <div className="carousel-caption hidden md:block absolute justify-center items-start mb-56">
+                        <h5 className="text-2xl font-extralight">Hosana Kito Group</h5>
+                        <h5 className="text-5xl font-bold">We will Guide You</h5>
+                        <h5 className="text-5xl font-thin">To Inovate</h5>
                     </div>
                 </div>
                 <div className="carousel-item float-left w-full">
@@ -56,10 +56,10 @@ const Banner = () => {
                         className="block w-full h-auto"
                         alt="Exotic Fruits"
                     />
-                    <div class="carousel-caption hidden md:block absolute justify-center items-start mb-56">
-                        <h5 class="text-2xl font-extralight">Hosana Kito Group</h5>
-                        <h5 class="text-5xl font-bold">Your Happiness is</h5>
-                        <h5 class="text-5xl font-thin">Our Concern</h5>
+                    <div className="carousel-caption hidden md:block absolute justify-center items-start mb-56">
+                        <h5 className="text-2xl font-extralight">Hosana Kito Group</h5>
+                        <h5 className="text-5xl font-bold">Your Happiness is</h5>
+                        <h5 className="text-5xl font-thin">Our Concern</h5>
                     </div>
                 </div>
             </div>

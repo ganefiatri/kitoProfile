@@ -36,19 +36,19 @@ const Header = () => {
                             <Link href="/">About</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/#gallery">Product</Link>
+                            <Link href="/">Product</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/#portfolio">Catalogue</Link>
+                            <Link href="/">Catalogue</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/#contact">Showroom</Link>
+                            <Link href="/">Showroom</Link>
                         </li>
                     </ul>
                 </div>
                 <div className="flex items-center justify-center">
                     <Link href="/">
-                        <Image src="/assets/hosana-logo1.jpg" width={90} height={90} />
+                        <Image src="/assets/hosana-logo1.jpg" width={90} height={90} alt="hosanalogo"/>
                     </Link>
                 </div>
                 <div className="flex items-center justify-end">
@@ -57,13 +57,13 @@ const Header = () => {
                             <Link href="/">Project</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/#gallery">Find Store</Link>
+                            <Link href="/">Find Store</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/#portfolio">Contact</Link>
+                            <Link href="/">Contact</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/#contact">Shop</Link>
+                            <Link href="/">Shop</Link>
                         </li>
                     </ul>
                 </div>
@@ -95,19 +95,19 @@ const Header = () => {
                             onClick={handleNav}
                             className="p-4 text-4xl hover:text-gray-500"
                         >
-                            <Link href="/#gallery">Gallery</Link>
+                            <Link href="/">Gallery</Link>
                         </li>
                         <li
                             onClick={handleNav}
                             className="p-4 text-4xl hover:text-gray-500"
                         >
-                            <Link href="/#portfolio">My roads</Link>
+                            <Link href="/">My roads</Link>
                         </li>
                         <li
                             onClick={handleNav}
                             className="p-4 text-4xl hover:text-gray-500"
                         >
-                            <Link href="/#contact">Contact</Link>
+                            <Link href="/">Contact</Link>
                         </li>
                     </ul>
                 </div>
