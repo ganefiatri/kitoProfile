@@ -48,7 +48,7 @@ const Header = () => {
                 </div>
                 <div className="flex items-center justify-center">
                     <Link href="/">
-                        <Image src="/assets/hosana-logo1.jpg" width={90} height={90} alt="hosanalogo"/>
+                        <Image src="/assets/logo-hosana.png" width={90} height={90} alt="hosanalogo"/>
                     </Link>
                 </div>
                 <div className="flex items-center justify-end">

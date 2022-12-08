@@ -2,30 +2,30 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-y-10 px-32 py-14 bg-gray-100 text-gray-600">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-y-10 gap-x-10 px-16 py-14 bg-gray-100 text-gray-600">
         <div className="space-y-4 text-xs text-gray-800">
-            <h5 className="font-bold">HELP</h5>
-            <p>How to Shop ?</p>
-            <p>q&a</p>
-            <p>Call us</p>
+            <h5 className="font-bold">About</h5>
+            <p className='text-left leading-loose'>We always prioritize innovation and technology for our products. To maximize customer satisfaction, we provide 5 years warranty for our products and outstanding after-sales services.</p>
+            <p className='text-gray-400 font-extralight pb-5 cursor-pointer underline'>View all </p>
         </div>
         <div className="space-y-4 text-xs text-gray-800">
-            <h5 className="font-bold">SHOPPING AT HOSANA</h5>
-            <p>Card Member Hosana</p>
-            <p>Hosana Store Branch</p>
-            <p>Product Catalog</p>
+            <h5 className="font-bold">Address</h5>
+            <p>Front Office</p>
+            <p>JL Jenderal Gatot Subroto No.162</p>
+            <p>Sumatera Utara, 20118</p>
+            <p className='text-gray-400 font-extralight pb-5 cursor-pointer underline'>View all </p>
         </div>
         <div className="space-y-4 text-xs text-gray-800">
-            <h5 className="font-bold">ABOUT</h5>
-            <p>About Hosana Group</p>
-            <p>Newsroom & Event</p>
+            <h5 className="font-bold">Contact</h5>
+            <p>(061) 4522845</p>
         </div>
         <div className="space-y-4 text-xs text-gray-800">
-            <h5 className="font-bold">OUR POLICY</h5>
+            <h5 className="font-bold">Info</h5>
             <p>Terms Of use</p>
-            <p>Product Returns</p>
-            <p>Privacy Policy</p>
-            <p>Shipping Terms</p>
+            <p>Become Our Partner</p>
+            <p>Catalogue</p>
+            <p>Gallery</p>
+            <p>Projects</p>
         </div>
     </div>
   )
