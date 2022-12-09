@@ -33,7 +33,7 @@ const Banner = () => {
                             className="block w-full h-auto"
                             alt="Wild Landscape"
                         />
-                        <div className="carousel-caption animate-bounce hidden md:block absolute justify-center items-start mb-56">
+                        <div className="carousel-caption space-y-5 animate-bounce hidden md:block absolute justify-center items-start mb-56">
                             <h5 className="text-2xl font-extralight">Hosana Kito Group</h5>
                             <h5 className="text-5xl font-bold">Inovations that</h5>
                             <h5 className="text-5xl font-thin">Never Ends</h5>
@@ -45,7 +45,7 @@ const Banner = () => {
                             className="block w-full h-auto"
                             alt="Camera"
                         />
-                        <div className="carousel-caption animate-bounce hidden md:block absolute justify-center items-start mb-56">
+                        <div className="carousel-caption space-y-5 animate-bounce hidden md:block absolute justify-center items-start mb-56">
                             <h5 className="text-2xl font-extralight">Hosana Kito Group</h5>
                             <h5 className="text-5xl font-bold">We will Guide You</h5>
                             <h5 className="text-5xl font-thin">To Inovate</h5>
@@ -57,7 +57,7 @@ const Banner = () => {
                             className="block w-full h-auto"
                             alt="Exotic Fruits"
                         />
-                        <div className="carousel-caption animate-bounce hidden md:block absolute justify-center items-start mb-56">
+                        <div className="carousel-caption space-y-5 animate-bounce hidden md:block absolute justify-center items-start mb-56">
                             <h5 className="text-2xl font-extralight">Hosana Kito Group</h5>
                             <h5 className="text-5xl font-bold">Your Happiness is</h5>
                             <h5 className="text-5xl font-thin">Our Concern</h5>

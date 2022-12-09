@@ -33,7 +33,7 @@ const Header = () => {
                 <div className="flex items-center my-auto">
                     <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/">About</Link>
+                            <Link href="/about">About</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/">Product</Link>
