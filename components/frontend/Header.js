@@ -33,13 +33,14 @@ const Header = () => {
                 <div className="flex items-center my-auto">
                     <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/about">About</Link>
+                            <Link href="/">Home</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
+                            {/*  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" */}
                             <Link href="/">Product</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/">Catalogue</Link>
+                            <Link href="/about">About</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/">Showroom</Link>
@@ -48,7 +49,7 @@ const Header = () => {
                 </div>
                 <div className="flex items-center justify-center">
                     <Link href="/">
-                        <Image src="/assets/logo-hosana.png" width={90} height={90} alt="hosanalogo"/>
+                        <Image src="/assets/logo-hosana.png" width={90} height={90} alt="hosanalogo" />
                     </Link>
                 </div>
                 <div className="flex items-center justify-end">
@@ -60,14 +61,13 @@ const Header = () => {
                             <Link href="/">Find Store</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/">Contact</Link>
+                            <Link href="/contact">Contact</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/">Shop</Link>
                         </li>
                     </ul>
                 </div>
-
                 {/* Mobile Button */}
                 <div onClick={handleNav} className="relative -mt-10 sm:hidden z-10">
                     {nav ? (
@@ -110,6 +110,58 @@ const Header = () => {
                             <Link href="/">Contact</Link>
                         </li>
                     </ul>
+                </div>
+            </div>
+            <div className="absolute">
+                <div className="collapse collapse-horizontal" id="collapseWidthExample">
+                    <div className="block p-2 shadow-lg bg-white w-full">
+                        <div class="flex justify-center">
+                            <div class="bg-white w-[250px] h-auto p-5">
+                                <a href="#!">
+                                    <img src="https://images.unsplash.com/photo-1604014237256-11d475e2a2d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80" alt="" className="h-[140px] w-[250px]" />
+                                </a>
+                                <div class="text-center pt-2">
+                                    <h5 class="text-gray-600 text-sm font-medium">Luxury Series</h5>
+                                </div>
+                            </div>
+                            <div class="bg-white w-[250px] h-auto p-5">
+                                <a href="#!">
+                                    <img src="https://images.unsplash.com/photo-1661107259637-4e1c55462428?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxzaG93ZXIlMjBpbnRlcmlvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60" alt="" className="h-[140px] w-[250px]" />
+                                </a>
+                                <div class="text-center pt-2">
+                                    <h5 class="text-gray-600 text-sm font-medium">Gold Series</h5>
+                                </div>
+                            </div>
+                            <div className="p-5">
+                                <h5 className='text-xl font-thin tracking-widest pl-10 text-gray-400'>Browse By Category</h5>
+                                <div className="grid grid-cols-5 pl-10">
+                                    <div className="grid pt-2 pr-4">
+                                        <Link href="/" className="text-sm font-medium tracking-widest text-gray-600">All Products</Link>
+                                        <Link href="/" className="text-sm font-medium tracking-widest pt-2 text-gray-600">Pub Singapore</Link>
+                                        <Link href="/" className="text-sm font-medium tracking-widest pt-2 text-gray-600">Certified</Link>
+                                        <Link href="/" className="text-sm font-medium tracking-widest pt-2 text-gray-600">Products</Link>
+                                        <Link href="/" className="text-sm font-medium tracking-widest pt-2 text-gray-600">Excellence</Link>
+                                    </div>
+                                    <div className="grid pt-2 pr-4">
+                                        <Link href="/" className="text-sm font-medium tracking-widest text-gray-600">Fitings</Link>
+                                        <Link href="/" className="text-xs tracking-widest pt-2 text-gray-600"> ~ Mixer Faucet</Link>
+                                        <Link href="/" className="text-xs tracking-widest pt-2 text-gray-600"> ~ Shower</Link>
+                                        <Link href="/" className="text-xs tracking-widest pt-2 text-gray-600"> ~ Others</Link>
+                                    </div>
+                                    <div className="grid pt-10 pr-4">
+                                        <Link href="/" className="text-xs tracking-widest pt-2 text-gray-600"> ~ Single Faucet</Link>
+                                        <Link href="/" className="text-xs tracking-widest pb-6 text-gray-600"> ~ Hose</Link>
+                                    </div>
+                                    <div className="grid pt-2">
+                                        <Link href="/" className="text-sm font-medium tracking-widest text-gray-600">Sanitary Wares</Link>
+                                        <Link href="/" className="text-xs tracking-widest pt-2 text-gray-600"> ~ Toilet</Link>
+                                        <Link href="/" className="text-xs tracking-widest pt-2 text-gray-600"> ~ Washbasin</Link>
+                                        <Link href="/" className="text-xs tracking-widest pt-2 text-gray-600"> ~ Urinal</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
