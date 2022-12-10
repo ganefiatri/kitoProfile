@@ -1,4 +1,4 @@
-import { prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import Head from 'next/head';
 import React from 'react';
 import Banner from '../components/about/Banner';
