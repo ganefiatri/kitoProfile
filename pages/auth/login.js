@@ -46,7 +46,7 @@ function Login() {
             </Head>
             <section className="w-3/4 mx-auto flex flex-col gap-10">
                 <div className="title">
-                    <h1 className="text-gray-800 text-4xl font-bold py-4">KITO LOGIN</h1>
+                    <h1 className="text-gray-800 text-4xl font-bold py-4">LOGIN</h1>
                     <p className="w-3/4 mx-auto text-gray-400">Sign In to this page to see stock Product</p>
                 </div>
                 {/* form */}

@@ -14,7 +14,7 @@ const Header = () => {
 
     useEffect(() => {
         const changeColor = () => {
-            if (window.scrollY >= 90) {
+            if (window.scrollY >= 90 ) {
                 setColor("#ffffff");
                 setTextColor("#000000");
             } else {
@@ -37,7 +37,7 @@ const Header = () => {
                         </li>
                         <li className="p-4 text-sm uppercase">
                             {/*  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" */}
-                            <Link href="/">Product</Link>
+                            <Link href="/" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">Product</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/about">About</Link>
@@ -58,7 +58,7 @@ const Header = () => {
                             <Link href="/">Project</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/">Find Store</Link>
+                            <Link href="/store">Find Store</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/contact">Contact</Link>
