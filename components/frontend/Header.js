@@ -43,7 +43,7 @@ const Header = () => {
                             <Link href="/about">About</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/">Showroom</Link>
+                            <Link href="/showroom">Showroom</Link>
                         </li>
                     </ul>
                 </div>

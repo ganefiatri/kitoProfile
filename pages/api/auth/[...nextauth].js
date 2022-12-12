@@ -1,10 +1,11 @@
 import NextAuth from "next-auth"
-// import GoogleProvider from 'next-auth/providers/google'
+import GoogleProvider from 'next-auth/providers/google'
 import { PrismaClient } from "@prisma/client"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { bcrypt, compare }  from "bcryptjs"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
-let userAccount = null;
+// let userAccount = null;
 
 const prisma = new PrismaClient();
 
@@ -20,15 +21,15 @@ const prisma = new PrismaClient();
 
 export const authOptions = {
     // Configure one or more authentication providers
-    session: {
-        jwt: true,
-        maxAge: 30 * 24 * 60 * 60
-    },
+    // session: {
+    //     jwt: true,
+    //     maxAge: 30 * 24 * 60 * 60, // 30 days
+    // },
     providers: [
-        // GoogleProvider({
-        //     clientId: process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_ID,
-        //     clientSecret: process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_SECRET
-        // }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+        }),
         CredentialsProvider({
             // id: "credentials",
             name: "Credentials",
@@ -37,7 +38,7 @@ export const authOptions = {
                 try
                 {
                     // check user exist
-                    const user = await prisma.users.findFirst({
+                    const user = await prisma.user.findFirst({
                         where: {
                             email: credentials.email
                         }
@@ -68,8 +69,10 @@ export const authOptions = {
             }
         }),
     ],
-    secret: "xnlN4SO5KgqqGiLohH0fxw1bKCQuT5G62OrWss7QpXo=",
-   database: process.env.DATABASE_URL,
+    adapter: PrismaAdapter(prisma),
+    secret: process.env.NEXTAUTH_SECRET,
+    session: { strategy: "jwt" },
+    // database: process.env.DATABASE_URL,
 }
 
 export default (req, res) => NextAuth(req, res, authOptions)

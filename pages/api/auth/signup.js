@@ -10,7 +10,7 @@ export default async (req, res) => {
         const { username, email, password } = req.body;
 
         // checck user
-        const users = await prisma.users.findFirst({
+        const users = await prisma.user.findFirst({
             where:{
                 email: email
             }
@@ -20,9 +20,9 @@ export default async (req, res) => {
 
         // store data to database
         const hash = await bcrypt.hash(password, 0);
-        await prisma.users.create({
+        await prisma.user.create({
             data: {
-                username: username,
+                name: username,
                 email: email,
                 password: hash
             }
