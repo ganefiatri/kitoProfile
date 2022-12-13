@@ -115,21 +115,21 @@ const Header = () => {
             <div className="absolute">
                 <div className="collapse collapse-horizontal" id="collapseWidthExample">
                     <div className="block p-2 shadow-lg bg-white w-full">
-                        <div class="flex justify-center">
-                            <div class="bg-white w-[250px] h-auto p-5">
+                        <div className="flex justify-center">
+                            <div className="bg-white w-[250px] h-auto p-5">
                                 <a href="#!">
                                     <img src="https://images.unsplash.com/photo-1604014237256-11d475e2a2d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80" alt="" className="h-[140px] w-[250px]" />
                                 </a>
-                                <div class="text-center pt-2">
-                                    <h5 class="text-gray-600 text-sm font-medium">Luxury Series</h5>
+                                <div className="text-center pt-2">
+                                    <h5 className="text-gray-600 text-sm font-medium">Luxury Series</h5>
                                 </div>
                             </div>
-                            <div class="bg-white w-[250px] h-auto p-5">
+                            <div className="bg-white w-[250px] h-auto p-5">
                                 <a href="#!">
                                     <img src="https://images.unsplash.com/photo-1661107259637-4e1c55462428?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxzaG93ZXIlMjBpbnRlcmlvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60" alt="" className="h-[140px] w-[250px]" />
                                 </a>
-                                <div class="text-center pt-2">
-                                    <h5 class="text-gray-600 text-sm font-medium">Gold Series</h5>
+                                <div className="text-center pt-2">
+                                    <h5 className="text-gray-600 text-sm font-medium">Gold Series</h5>
                                 </div>
                             </div>
                             <div className="p-5">
