@@ -29,10 +29,10 @@ function Register() {
             body: JSON.stringify(values)
         }
 
-        await fetch(`${process.env.NEXTAUTH_URL}/api/auth/signup`, option)
+        await fetch('/api/auth/signup', option)
             .then(res => res.json())
             .then(() => {
-                 router.push(`${process.env.NEXTAUTH_URL}/auth/login`)
+                 router.push('/auth/login')
             })
 
 
