@@ -22,7 +22,8 @@ function Header() {
 
     const { data: session } = useSession()
 
-    function handleSignOut() {
+    function handleSignOut(e) {
+        e.preventDefault()
         signOut()
     }
 
@@ -95,7 +96,7 @@ function Header() {
                                             </a>
                                         )}
                                     </Menu.Item>
-                                    <form method="POST" action="#">
+                                    <form method="POST">
                                         <Menu.Item>
                                             {session ? (
                                                 <button
