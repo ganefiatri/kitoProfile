@@ -69,7 +69,7 @@ export default function Home({ products, categories }) {
 
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-3 ml-3'>
             {categories.map(item => (
-              <Category key={item.id} img={item.img} title={item.title} description={item.description} company={item.company} />
+              <Category key={item.id} img={item.image} title={item.title} description={item.description} company={item.company} />
             ))}
           </div>
 
