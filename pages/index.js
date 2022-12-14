@@ -14,6 +14,7 @@ import LargeCardSecond from '../components/LargeCardSecond'
 const prisma = new PrismaClient();
 
 export default function Home({ products, categories }) {
+  console.log(products)
   const { data: session } = useSession()
 
   function handleSignOut() {
@@ -69,7 +70,7 @@ export default function Home({ products, categories }) {
 
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-3 ml-3'>
             {categories.map(item => (
-              <Category key={item.id} img={item.image} title={item.title} description={item.description} company={item.company} />
+              <Category key={item.id} img={item.img} title={item.title} description={item.description} company={item.company} />
             ))}
           </div>
 
@@ -80,7 +81,7 @@ export default function Home({ products, categories }) {
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'>View all </p>
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
             {products.map(item => (
-              <ProductCard key={item.id} title={item.title} img={item.img} />
+              <ProductCard key={item.id} title={item.title} img={item.image} />
             ))}
           </div>
         </section>
@@ -130,7 +131,7 @@ export async function getServerSideProps() {
   const categories = await prisma.category.findMany();
   return {
     props: {
-      products,
+      products: JSON.parse(JSON.stringify(products)),
       categories,
     }
   };
