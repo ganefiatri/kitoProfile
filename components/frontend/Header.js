@@ -55,7 +55,7 @@ const Header = () => {
                 <div className="flex items-center justify-end">
                     <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/">Project</Link>
+                            <Link href="/project">Project</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/store">Find Store</Link>
@@ -95,19 +95,43 @@ const Header = () => {
                             onClick={handleNav}
                             className="p-4 text-4xl hover:text-gray-500"
                         >
-                            <Link href="/">Gallery</Link>
+                            <Link href="/product">Product</Link>
                         </li>
                         <li
                             onClick={handleNav}
                             className="p-4 text-4xl hover:text-gray-500"
                         >
-                            <Link href="/">My roads</Link>
+                            <Link href="/about">About</Link>
                         </li>
                         <li
                             onClick={handleNav}
                             className="p-4 text-4xl hover:text-gray-500"
                         >
-                            <Link href="/">Contact</Link>
+                            <Link href="/showroom">Showroom</Link>
+                        </li>
+                        <li
+                            onClick={handleNav}
+                            className="p-4 text-4xl hover:text-gray-500"
+                        >
+                            <Link href="/project">Project</Link>
+                        </li>
+                        <li
+                            onClick={handleNav}
+                            className="p-4 text-4xl hover:text-gray-500"
+                        >
+                            <Link href="/store">Store</Link>
+                        </li>
+                        <li
+                            onClick={handleNav}
+                            className="p-4 text-4xl hover:text-gray-500"
+                        >
+                            <Link href="/contact">Contact</Link>
+                        </li>
+                        <li
+                            onClick={handleNav}
+                            className="p-4 text-4xl hover:text-gray-500"
+                        >
+                            <Link href="/">Shop</Link>
                         </li>
                     </ul>
                 </div>
