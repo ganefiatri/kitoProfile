@@ -13,7 +13,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { BiMessageSquareDots } from "react-icons/bi";
 import Link from "next/link";
-import { getSession, signOut, useSession } from 'next-auth/react'
+import { getSession, signOut, useSession } from 'next-auth/react';
 
 function SideNavbar({ children }) {
     const { data: session } = useSession()
@@ -33,16 +33,17 @@ function SideNavbar({ children }) {
                                 aria-hidden="true"
                             />
                         </Disclosure.Button>
+                   
                         <div className="p-5 w-1/2 h-screen bg-white z-20 fixed top-0 -left-96 lg:left-0 lg:w-60  peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
                             <div className="flex flex-col justify-start item-center">
                                 <h1 className="text-base text-center cursor-pointer font-bold text-blue-900 border-b border-gray-100 pb-4 w-full">
                                     Hosana Dashboard
                                 </h1>
                                 <div className=" my-4 border-b border-gray-100 pb-4">
-                                    <div className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
+                                    <div className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                                         <MdOutlineSpaceDashboard className="text-2xl text-gray-600 group-hover:text-white " />
-                                        <Link href="/admin/homePage" className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                                            HomePage
+                                        <Link href="/admin/homePage" className="text-base text-gray-800 group-hover:text-white font-semibold">
+                                            Dashboard
                                         </Link>
                                     </div>
                                     <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
