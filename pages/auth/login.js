@@ -77,15 +77,15 @@ function Login() {
                     <div className="input-button">
                         <button type="submit" className={styles.button}>Login</button>
                     </div>
-                    <div className="input-button">
+                    {/* <div className="input-button">
                         <button type="button" onClick={() => signIn("google", { callbackUrl: '/admin/dashboard' })} className={styles.button_custom}>Sign In With Google
                         <Image src={'/assets/google.svg'} width="20" height={20} alt="logo-google"/>
                         </button>
-                    </div>
+                    </div> */}
 
                     {/* handle to sign up */}
                     <p className="text-center text-gray-400">
-                        don't have an account yet? <Link href={'/auth/register'}><span className="text-blue-700">Sign Up</span></Link>
+                        {/* don't have an account yet? <Link href={'/auth/register'}><span className="text-blue-700">Sign Up</span></Link> */}
                     </p>
                 </form>
             </section>
