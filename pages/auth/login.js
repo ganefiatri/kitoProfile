@@ -28,7 +28,7 @@ function Login() {
             redirect: false,
             email: values.email,
             password: values.password,
-            callbackUrl: "/admin/dashboard"
+            callbackUrl: "/"
         })
         console.log(status)
         if (status.ok) router.push(status.url)
@@ -85,7 +85,7 @@ function Login() {
 
                     {/* handle to sign up */}
                     <p className="text-center text-gray-400">
-                        {/* don't have an account yet? <Link href={'/auth/register'}><span className="text-blue-700">Sign Up</span></Link> */}
+                        don't have an account yet? <Link href={'/auth/register'}><span className="text-blue-700">Sign Up</span></Link>
                     </p>
                 </form>
             </section>

@@ -13,7 +13,7 @@ import {
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
-import { BiMessageSquareDots } from "react-icons/bi";
+import { BiMessageSquareDots, BiUser } from "react-icons/bi";
 import Link from "next/link";
 import { getSession, signOut, useSession } from 'next-auth/react';
 import Header from "../components/admin/Header";
@@ -40,6 +40,10 @@ function SideNavbar({ children }) {
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/productPage">
                         <MdOutlineProductionQuantityLimits className="w-5 h-5 mx-4"/>
                         <span>Product</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/productPage">
+                        <BiUser className="w-5 h-5 mx-4"/>
+                        <span>Users</span>
                     </a>
                 </div>
             </aside>

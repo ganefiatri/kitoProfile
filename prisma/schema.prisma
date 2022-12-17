@@ -92,17 +92,24 @@ model product {
   quantity    Int
   image       String
   createdAt   DateTime  @default(now())
-  category    category? @relation(fields: [categoryId], references: [id])
-  categoryId  String?
+  subCategory    subCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId  String?
   history     history[]
   }
 
 model category {
   id          String    @id @default(cuid())
   name        String    @unique
-  description String?
-  company     String?
   img         String?
+  subCategory    subCategory[]
+}
+
+model subCategory {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  img         String?
+  category    category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
   products    product[]
 }
 
