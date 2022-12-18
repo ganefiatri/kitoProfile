@@ -26,7 +26,7 @@ function SideNavbar({ children }) {
         signOut()
     }
     return (
-        <div className='flex flex-1 pt-20'>
+        <div className='flex flex-1 pt-20 bg-gray-100'>
             <aside className="xl:w-76 ltr:left-0 ltr:right-auto rtl:right-0 rtl:left-auto fixed bottom-0 hidden h-full w-72 overflow-y-auto bg-white px-4 pt-24 shadow lg:block">
                 <div className="flex flex-col space-y-6 py-3">
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
@@ -48,7 +48,7 @@ function SideNavbar({ children }) {
                 </div>
             </aside>
             <main className="lg:pl-72 xl:pl-76 lg:pr-72 xl:pr-1 w-full">
-                <div className="h-screen w-full p-5 md:p-8 bg-gray-100">
+                <div className="w-full p-5 md:p-8">
                     {children}
                 </div>
             </main>
