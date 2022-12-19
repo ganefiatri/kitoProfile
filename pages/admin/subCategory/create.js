@@ -1,40 +1,12 @@
-import axios from 'axios';
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
 
 const Create = () => {
-    const { data: session } = useSession();
-    const [image, setImage] = useState(null);
-    const [imageInput, setImageInput] = useState(null);
-    const [name, setName] = useState('');
-
-
-    const handleImage = (e) => {
-        const file = e.target.files[0];
-        setImageInput(file);
-        const fileReader = new FileReader();
-        fileReader.onload = function(e) {
-            console.log(e.target.result);
-            setImage(e.target.result);
-        }
-        fileReader?.readAsDataURL(file)
-    }
-
-    const handleFormData = async (e) => {
-        e.preventDefault();
-
-        const form = new FormData();
-        form.append('name', name);
-        form.append('image', imageInput);
-        const {data} = await axios.post("/api/category/createdata", form);
-        console.log(data);
-        
-    }
-
+    const { data: session } = useSession()
     return (
         <>
             <Header />
@@ -47,12 +19,12 @@ const Create = () => {
                     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
                     <link rel="icon" href="/assets/favicon/favicon.ico" />
                 </Head>
-                {/* Category */}
+                {/* subCategory */}
                 <section>
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
-                        <h1 className='text-lg font-semibold text-heading'>Create New Category</h1>
+                        <h1 className='text-lg font-semibold text-heading'>Create New SubCategory</h1>
                     </div>
-                    <form onSubmit={handleFormData}>
+                    <form>
                         <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
                             <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
                                 <h4 className='text-base font-semibold mb-2'>Image</h4>
@@ -68,10 +40,7 @@ const Create = () => {
                                             <br />
                                             <span className='text-xs'>PNG, JPG</span>
                                         </p>
-                                        <input id="dropzone-file" onChange={handleImage} type="file" className='hidden' />
-                                        <div className='flex mb-5'>    
-                                            {image &&<img src={image} alt="image" width={100} className='h-[100px] object-contain'/>}         
-                                        </div>     
+                                        <input id="dropzone-file" type="file" className='hidden'/>
                                     </label>
                                 </section>
                             </div>
@@ -84,12 +53,18 @@ const Create = () => {
                             <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                 <div className='mb-5'>
                                     <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
-                                    <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    <input type="text" name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                </div>
+                                <div>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Parent Category</label>
+                                    <select className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        <option>test</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div className='mb-4 text-end'>
-                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
+                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add SubCategory</button>
                         </div>
                     </form>
                 </section>
