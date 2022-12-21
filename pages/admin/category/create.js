@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -6,33 +5,41 @@ import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
 
-const Create = () => {
+export default function Create() {
     const { data: session } = useSession();
-    const [image, setImage] = useState(null);
-    const [imageInput, setImageInput] = useState(null);
+    const [imageUploaded, setImageUploaded] = useState();
+    const [createObjectURL, setCreateObjectURL] = useState(null);
     const [name, setName] = useState('');
 
 
     const handleImage = (e) => {
         const file = e.target.files[0];
-        setImageInput(file);
+        console.log(file)
+        setImageUploaded(file);
         const fileReader = new FileReader();
-        fileReader.onload = function(e) {
+        fileReader.onload = function (e) {
             console.log(e.target.result);
-            setImage(e.target.result);
-        }
-        fileReader?.readAsDataURL(file)
+            setCreateObjectURL(e.target.result);
+        };
+        fileReader.readAsDataURL(file);
+        // setImageUploaded(e.target.files[0]);
+        // setCreateObjectURL(URL.createObjectURL(e.target.files[0]));
     }
 
     const handleFormData = async (e) => {
         e.preventDefault();
+            const forms = new FormData();
+            forms.append('name', name);
+            forms.append('image', imageUploaded);
+            // await axios.post("/api/category/createdata",forms);
+            const result = await fetch("/api/category/createdata", {
+                method: "POST",
+                body: forms
+            });
 
-        const form = new FormData();
-        form.append('name', name);
-        form.append('image', imageInput);
-        const {data} = await axios.post("/api/category/createdata", form);
-        console.log(data);
-        
+            console.log({result});
+
+
     }
 
     return (
@@ -69,9 +76,9 @@ const Create = () => {
                                             <span className='text-xs'>PNG, JPG</span>
                                         </p>
                                         <input id="dropzone-file" onChange={handleImage} type="file" className='hidden' />
-                                        <div className='flex mb-5'>    
-                                            {image &&<img src={image} alt="image" width={100} className='h-[100px] object-contain'/>}         
-                                        </div>     
+                                        <div className='flex mb-5'>
+                                            {createObjectURL && <img src={createObjectURL} alt="image" width={100} className='h-[100px] object-contain' />}
+                                        </div>
                                     </label>
                                 </section>
                             </div>
@@ -98,7 +105,6 @@ const Create = () => {
     );
 }
 
-export default Create;
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })
 

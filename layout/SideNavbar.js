@@ -33,15 +33,15 @@ function SideNavbar({ children }) {
                         <MdOutlineSpaceDashboard className="w-5 h-5 mx-4"/>
                         <span>Dashboard</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/categoryPage">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
                         <MdCategory className="w-5 h-5 mx-4"/>
                         <span>Category</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/productPage">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
                         <MdOutlineProductionQuantityLimits className="w-5 h-5 mx-4"/>
                         <span>Product</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/productPage">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
                         <BiUser className="w-5 h-5 mx-4"/>
                         <span>Users</span>
                     </a>

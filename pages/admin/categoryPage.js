@@ -10,6 +10,7 @@ import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
+import axios from '../../utils/axios';
 
 const CategoryPage = () => {
     const { data: session } = useSession();
@@ -27,6 +28,19 @@ const CategoryPage = () => {
             setCategories(data)
         }))
     }
+
+    const handleButtonDelete = async (e, id) => {
+        e.preventDefault();
+        try {
+            await fetch("/api/category/deletedata?id="+id, {
+                method:"DELETE",
+                headers: {"Content-Type": "application/json"}
+            })
+            window.location.reload()
+        } catch (err) {
+            console.log(err)
+        }
+    };
 
     const subHeaderComponent = useMemo(() => {
         const handleClear = () => {
@@ -48,6 +62,11 @@ const CategoryPage = () => {
             selector: row => row.name,
         },
         {
+            name: 'Images',
+            grow: 0,
+            cell: row => <img height="84px" width="56px" alt={row.name} src={row.img}/>
+        },
+        {
             name: "Action",
             button: true,
             cell: row =>
@@ -59,7 +78,7 @@ const CategoryPage = () => {
                             </Link>
                         </button>
                         <button 
-                        onClick={(e) => handleButtonClick(e, row.id)}>
+                        onClick={(e) => handleButtonDelete(e, row.id)}>
                             <MdDelete className='h-5 w-5'/>
                         </button>
                     </>
@@ -112,7 +131,6 @@ const CategoryPage = () => {
                     subHeader
                     subHeaderComponent={subHeaderComponent}
                 />
-
             </SideNavbar>
         </>
     );

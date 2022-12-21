@@ -35,9 +35,9 @@ function Login() {
     }
 
     // Google Handler function
-    // async function handleGoogleSignin() {
-    //     signIn('google', { callbackUrl: "process.env.NEXTAUTH_URL" })
-    // }
+    async function handleGoogleSignin() {
+        signIn('google', { callbackUrl: "process.env.NEXTAUTH_URL" })
+    }
 
     return (
         <Layout>
@@ -77,11 +77,11 @@ function Login() {
                     <div className="input-button">
                         <button type="submit" className={styles.button}>Login</button>
                     </div>
-                    {/* <div className="input-button">
-                        <button type="button" onClick={() => signIn("google", { callbackUrl: '/admin/dashboard' })} className={styles.button_custom}>Sign In With Google
+                    <div className="input-button">
+                        <button type="button" onClick={() => signIn("google", { callbackUrl: '/' })} className={styles.button_custom}>Sign In With Google
                         <Image src={'/assets/google.svg'} width="20" height={20} alt="logo-google"/>
                         </button>
-                    </div> */}
+                    </div>
 
                     {/* handle to sign up */}
                     <p className="text-center text-gray-400">

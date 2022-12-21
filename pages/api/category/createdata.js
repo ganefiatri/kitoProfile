@@ -1,54 +1,62 @@
-import { PrismaClient } from "@prisma/client"
-import formidable from "formidable";
+import nc from "next-connect";
 import multer from "multer";
 import path from "path";
-import fs from "fs/promises";
-
-const prisma = new PrismaClient();
+import { getSession } from "next-auth/react";
+import prisma from "../../../utils/prisma";
+import { staticResourceUrl } from "../../../utils/config";
+import { error } from "console";
 
 export const config = {
     api: {
-        bodyParser: false,
+        bodyParser: false
     }
 }
 
-// const upload = multer({
-//     storage: multer.diskStorage({
-//         destination: function (req, file, cb) {
-//             cb(null, path.join(process.cwd(), "public", "uploads"));
-//         },
-//         filename: function (req, file, cb) {
-//             cb(null, new Date().getTime() + "-" + file.originalname);
-//         },
-//     }),
-// });
-
-const readFile = (req, saveLocally) => {
-    const option = formidable.Options = {};
-    if(saveLocally){
-        option.uploadDir = path.join(process.cwd(), "public/images");
-        option.filename = (name, ext, path, form) => {
-            return Date.now().toString() + "_" + path.originalFilename;
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, path.join(process.cwd(), "public", "images"))
+        },
+        filename: (req, file, cb) => {
+            cb(null, new Date().getTime() + "-" + file.originalname)
         }
+    })
+});
+
+const handler = nc({
+    onError: (err, req, res, next) => {
+      console.error(err.stack);
+      res.status(500).end("Something broke!");
+    },
+    onNoMatch: (req, res) => {
+      res.status(404).end("Page is not found");
+    },
+  }).use(upload.single("image"))
+  .post(async (req, res) =>{
+    try {
+        const session = await getSession({req});
+        if (!session) {
+            error("Access denied", res);
+        } else {
+            const url = staticResourceUrl + req.file.filename
+            const post = await prisma.category.create({
+                data: {
+                    name: req.body.name,
+                    img: url,
+                }
+            });
+            if (post) {
+                return res.status(200).json({ message: "Success fully create category!" });
+            } else {
+                return res.status(405).json({ error: "failed to insert data" })
+            }
+            // res.json({body: req.body, file: req.file})
+        }
+    } catch (error) {
+        return res.status(405).json({ error })
     }
+  })
 
-    const form = formidable(option);
-    return new Promise((resolve, reject) => {
-        form.parse(req, (err, fields, files) => {
-            if(err) reject(err)
-            resolve(fields, files)
-        })
-    });
-}
+  export default handler;
 
-const handler = async (req, res) => {
-    try{
-        await fs.readdir(path.join(process.cwd() + "/public", "/images" ));
-    }catch{
-        await fs.mkdir(path.join(process.cwd() + "/public", "/images" ));
-    }
-    await readFile(req, true);
-    res.json({done: "ok"});
-}
 
-export default handler;
