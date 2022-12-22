@@ -29,19 +29,19 @@ function SideNavbar({ children }) {
         <div className='flex flex-1 pt-20 bg-gray-100'>
             <aside className="xl:w-76 ltr:left-0 ltr:right-auto rtl:right-0 rtl:left-auto fixed bottom-0 hidden h-full w-72 overflow-y-auto bg-white px-4 pt-24 shadow lg:block">
                 <div className="flex flex-col space-y-6 py-3">
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/dashboard">
                         <MdOutlineSpaceDashboard className="w-5 h-5 mx-4"/>
                         <span>Dashboard</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/dashboard">
                         <MdCategory className="w-5 h-5 mx-4"/>
                         <span>Category</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/dashboard">
                         <MdOutlineProductionQuantityLimits className="w-5 h-5 mx-4"/>
                         <span>Product</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/homePage">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/dashboard">
                         <BiUser className="w-5 h-5 mx-4"/>
                         <span>Users</span>
                     </a>

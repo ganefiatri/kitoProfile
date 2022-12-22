@@ -1,18 +1,36 @@
-import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
-import Header from '../../../components/admin/Header';
-import SideNavbar from '../../../layout/SideNavbar';
+import Header from '../../../../components/admin/Header';
+import SideNavbar from '../../../../layout/SideNavbar';
+import prisma from '../../../../utils/prisma';
+import {useRouter} from "next/router";
 
-export default function Create() {
-    const { data: session } = useSession();
-    const [imageUploaded, setImageUploaded] = useState();
-    const [createObjectURL, setCreateObjectURL] = useState(null);
-    const [name, setName] = useState('');
+export async function getServerSideProps({ params }) {
+    const categoryId = await prisma.category.findMany({
+        where: {
+            id: params.id
+        }
+    });
+  
+    return {
+        props: {
+            category: categoryId
+        },
+    }
+  }
 
+const CategorybyId = props => {
+    const { category } = props;
+    const router = useRouter()
+     //state
+     const [name, setName] = useState(category[0].name);
+     const [imageUploaded, setImageUploaded] = useState();
+     const [createObjectURL, setCreateObjectURL] = useState(category[0].img);
+     const setFilename = category[0].filename;
+     const id = category[0].id;
 
-    const handleImage = (e) => {
+     const handleImage = (e) => {
         const file = e.target.files[0];
         // console.log(file)
         setImageUploaded(file);
@@ -31,15 +49,15 @@ export default function Create() {
             const forms = new FormData();
             forms.append('name', name);
             forms.append('image', imageUploaded);
+            forms.append('filename', setFilename);
+            forms.append('id', id);
             // await axios.post("/api/category/createdata",forms);
-            const result = await fetch("/api/category/createdata", {
-                method: "POST",
+            const result = await fetch("/api/category/editdata", {
+                method: "PUT",
                 body: forms
             });
-
+            router.push("/admin/categoryPage")
             // console.log({result});
-
-
     }
 
     return (
@@ -57,7 +75,7 @@ export default function Create() {
                 {/* Category */}
                 <section>
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
-                        <h1 className='text-lg font-semibold text-heading'>Create New Category</h1>
+                        <h1 className='text-lg font-semibold text-heading'>Edit Category</h1>
                     </div>
                     <form onSubmit={handleFormData}>
                         <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
@@ -105,19 +123,4 @@ export default function Create() {
     );
 }
 
-export async function getServerSideProps({ req }) {
-    const session = await getSession({ req })
-
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false
-            }
-        }
-    }
-    // autorize user
-    return {
-        props: { session }
-    }
-}
+export default CategorybyId;    

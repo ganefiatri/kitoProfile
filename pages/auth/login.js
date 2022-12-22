@@ -28,7 +28,7 @@ function Login() {
             redirect: false,
             email: values.email,
             password: values.password,
-            callbackUrl: "/"
+            callbackUrl: "/admin/dashboard"
         })
         console.log(status)
         if (status.ok) router.push(status.url)
@@ -36,7 +36,7 @@ function Login() {
 
     // Google Handler function
     async function handleGoogleSignin() {
-        signIn('google', { callbackUrl: "process.env.NEXTAUTH_URL" })
+        signIn('google', { callbackUrl: `${process.env.NEXTAUTH_URL}/admin/dashboard` })
     }
 
     return (

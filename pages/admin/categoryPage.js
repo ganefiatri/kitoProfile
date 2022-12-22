@@ -34,7 +34,7 @@ const CategoryPage = () => {
         try {
             await fetch("/api/category/deletedata?id="+id, {
                 method:"DELETE",
-                headers: {"Content-Type": "application/json"}
+                headers: {"Content-Type": "application/json"},
             })
             window.location.reload()
         } catch (err) {
@@ -73,7 +73,7 @@ const CategoryPage = () => {
                  (
                     <>
                         <button>
-                            <Link href={`/edit/${row.id}`}>
+                            <Link href={`/admin/category/edit/${row.id}`}>
                                 <BiEdit className='h-5 w-5'/>
                             </Link>
                         </button>

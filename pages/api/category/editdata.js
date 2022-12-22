@@ -33,28 +33,47 @@ const handler = nc({
       res.status(404).end("Page is not found");
     },
   }).use(upload.single("image"))
-  .post(async (req, res) =>{
+  .put(async (req, res) =>{
+    // console.log({body: req.body, file: req.file})
     try {
         const session = await getSession({req});
         if (!session) {
             error("Access denied", res);
         } else {
-            const url = staticResourceUrl + req.file.filename;
+            const filePathDel = req.body.filename; 
             const file = req.file.path;
+            const url = staticResourceUrl + req.file.filename;
+            const catId = req.body.id;
+            
+            if(!filePathDel){
+                return res.status(405).json({ error: "no Path to delete" });
+            }else {
+                fs.unlink(filePathDel, (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                
+                    console.log("Delete File successfully.");
+                });
+            }
 
-            const post = await prisma.category.create({
+            const update = await prisma.category.update({
+                where: {
+                    id:catId
+
+                },
                 data: {
                     name: req.body.name,
                     img: url,
                     filename: file,
                 }
             });
-            if (post) {
+            if (update) {
                 return res.status(200).json({ message: "Success fully create category!" });
             } else {
                 return res.status(405).json({ error: "failed to insert data" })
             }
-            // res.json({body: req.body, file: req.file})
+            
         }
     } catch (error) {
         return res.status(405).json({ error })
@@ -62,5 +81,3 @@ const handler = nc({
   })
 
   export default handler;
-
-
