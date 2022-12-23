@@ -1,12 +1,22 @@
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
+import prisma from '../../../utils/prisma';
 
-const Create = () => {
-    const { data: session } = useSession()
+
+const Create = ({categories}) => {
+    const { data: session } = useSession();
+    const [category, setCategory] = useState('');
+
+    function clickHandler(e) {
+        setCategory(e.target.value);
+    }
+
+    console.log(clickHandler);
+
     return (
         <>
             <Header />
@@ -58,7 +68,9 @@ const Create = () => {
                                 <div>
                                     <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Parent Category</label>
                                     <select className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                        <option>test</option>
+                                    {categories.map(item => (
+                                        <option value={item.id} onChange={clickHandler}>{item.name}</option>
+                                    ))}
                                     </select>
                                 </div>
                             </div>
@@ -74,8 +86,10 @@ const Create = () => {
 }
 
 export default Create;
+
 export async function getServerSideProps({ req }) {
-    const session = await getSession({ req })
+    const session = await getSession({ req });
+    const categories = await prisma.category.findMany();
 
     if (!session) {
         return {
@@ -87,6 +101,6 @@ export async function getServerSideProps({ req }) {
     }
     // autorize user
     return {
-        props: { session }
+        props: { session, categories }
     }
 }

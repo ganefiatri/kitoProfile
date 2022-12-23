@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
+import {useRouter} from 'next/router';
 
 export default function Create() {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState();
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [name, setName] = useState('');
+    const router = useRouter();
 
 
     const handleImage = (e) => {
@@ -36,7 +38,8 @@ export default function Create() {
                 method: "POST",
                 body: forms
             });
-
+            
+            router.push("/admin/categoryPage");
             // console.log({result});
 
 

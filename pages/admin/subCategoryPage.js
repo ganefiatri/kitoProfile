@@ -12,7 +12,7 @@ import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import axios from '../../utils/axios';
 
-const CategoryPage = () => {
+const subCategoryPage = () => {
     const { data: session } = useSession();
     const [categories, setCategories] = useState([]);
     const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
@@ -24,7 +24,7 @@ const CategoryPage = () => {
     );
 
     const fetchCategory = () => {
-        fetch('/api/category/getdata').then(res => res.json().then((data) => {
+        fetch('/api/subCategory/getdata').then(res => res.json().then((data) => {
             setCategories(data)
         }))
     }
@@ -60,6 +60,10 @@ const CategoryPage = () => {
         {
             name: 'Name',
             selector: row => row.name,
+        },
+        {
+            name: 'Parent Category',
+            selector: row => row.category.name,
         },
         {
             name: 'Images',
@@ -106,7 +110,7 @@ const CategoryPage = () => {
                 </Head>
                 <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Category</h1>
+                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">SubCategory</h1>
                         <p class="text-sm font-medium text-gray-500">
                             Let's grow to your business! Create your category and upload here
                         </p>
@@ -134,7 +138,7 @@ const CategoryPage = () => {
     );
 }
 
-export default CategoryPage;
+export default subCategoryPage;
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })
