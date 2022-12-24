@@ -9,13 +9,28 @@ import prisma from '../../../utils/prisma';
 
 const Create = ({categories}) => {
     const { data: session } = useSession();
-    const [category, setCategory] = useState('');
+    // const [name, setName] = useState('');
+    // const [category, setCategory] = useState('');
 
-    function clickHandler(e) {
-        setCategory(e.target.value);
+    const handleFormData = async (e) => {
+        e.preventDefault();
+           const name = e.target.name.value;
+           const category = e.target.category.value;
+            // await axios.post("/api/category/createdata",forms);
+            const res = await fetch("/api/subCategory/createdata", {
+                method: "POST",
+                body:JSON.stringify({
+                    name: name,
+                    category: category
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            const result = await res.json();
+            router.push("/admin/subCategoryPage");
+
     }
-
-    console.log(clickHandler);
 
     return (
         <>
@@ -34,27 +49,7 @@ const Create = ({categories}) => {
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
                         <h1 className='text-lg font-semibold text-heading'>Create New SubCategory</h1>
                     </div>
-                    <form>
-                        <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
-                            <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
-                                <h4 className='text-base font-semibold mb-2'>Image</h4>
-                                <p className='text-sm'>Upload Your Category Image here</p>
-                            </div>
-                            <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
-                                <section className='upload'>
-                                    <label for="dropzone-file" className='border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none'>
-                                        <FaUpload />
-                                        <p className='mt-4 text-center text-xs'>
-                                            <span className='font-normal text-gray-600'>Upload an image </span>
-                                            or drag and drop
-                                            <br />
-                                            <span className='text-xs'>PNG, JPG</span>
-                                        </p>
-                                        <input id="dropzone-file" type="file" className='hidden'/>
-                                    </label>
-                                </section>
-                            </div>
-                        </div>
+                    <form onSubmit={handleFormData}>
                         <div className='my-5 flex flex-wrap sm:my-8'>
                             <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
                                 <h4 className='text-base font-semibold mb-2'>Details</h4>
@@ -67,9 +62,9 @@ const Create = ({categories}) => {
                                 </div>
                                 <div>
                                     <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Parent Category</label>
-                                    <select className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                    <select name='category' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
                                     {categories.map(item => (
-                                        <option value={item.id} onChange={clickHandler}>{item.name}</option>
+                                        <option value={item.id}>{item.name}</option>
                                     ))}
                                     </select>
                                 </div>

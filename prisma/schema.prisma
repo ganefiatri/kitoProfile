@@ -110,8 +110,6 @@ model category {
 model subCategory {
   id          String    @id @default(cuid())
   name        String    @unique
-  img         String?
-  filename    String?
   category    category? @relation(fields: [categoryId], references: [id])
   categoryId  String?
   products    product[]

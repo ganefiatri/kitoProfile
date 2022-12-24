@@ -33,7 +33,7 @@ function SideNavbar({ children }) {
                         <MdOutlineSpaceDashboard className="w-5 h-5 mx-4"/>
                         <span>Dashboard</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/dashboard">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/categoryPage">
                         <MdCategory className="w-5 h-5 mx-4"/>
                         <span>ParentCategory</span>
                     </a>
