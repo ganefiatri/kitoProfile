@@ -1,12 +1,113 @@
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import React from 'react';
-import { HiPlusSm, HiSearch, HiArrowDown } from 'react-icons/hi';
+import React, { useEffect, useMemo, useState } from 'react';
+import { HiPlusSm, HiSearch } from 'react-icons/hi';
 import Header from '../../components/admin/Header';
 import SideNavbar from '../../layout/SideNavbar';
+import Link from "next/link";
+import DataTable from 'react-data-table-component';
+import FilterComponent from '../../components/FilterComponent';
+import CustomLoader from '../../components/CustomLoader';
+import { BiEdit } from 'react-icons/bi';
+import { MdDelete } from 'react-icons/md';
+import axios from '../../utils/axios';
 
 const ProductPage = () => {
-    const { data: session } = useSession()
+    const { data: session } = useSession();
+    const [product, setProduct] = useState([]);
+    const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+    const [filterText, setFilterText] = useState('');
+    const [pending, setPending] = useState(true);
+
+    const filteredItems = product.filter(
+        item => item.title && item.title.toLowerCase().includes(filterText.toLowerCase()),
+    );
+
+    const fetchProduct = () => {
+        fetch('/api/product/getProduct').then(res => res.json().then((data) => {
+            setProduct(data)
+        }))
+    }
+
+    const handleButtonDelete = async (e, id) => {
+        e.preventDefault();
+        try {
+            await fetch("/api/category/deletedata?id=" + id, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+            })
+            window.location.reload()
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
+    const subHeaderComponent = useMemo(() => {
+        const handleClear = () => {
+            if (filterText) {
+                setResetPaginationToggle(!resetPaginationToggle);
+                setFilterText('');
+            }
+        };
+
+        return (
+            <FilterComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
+        );
+    }, [filterText, resetPaginationToggle]);
+
+    function toCurrency(numberString) {
+        let number = parseFloat(numberString);
+        return number.toLocaleString('IDR');
+    }
+
+    const column = [
+        {
+            name: 'Name',
+            selector: row => row.title,
+        },
+        {
+            name: 'Price',
+            cell: row => toCurrency(row.price)
+        },
+        {
+            name: 'Quantity',
+            selector: row => row.quantity,
+        },
+        {
+            name: 'Sub Category',
+            selector: row => row.subCategory.name,
+        },
+        {
+            name: 'Images',
+            grow: 0,
+            cell: row => <img height="84px" width="56px" alt={row.title} src={row.image} />
+        },
+        {
+            name: "Action",
+            button: true,
+            cell: row =>
+            (
+                <>
+                    <button>
+                        <Link href={`/admin/category/edit/${row.id}`}>
+                            <BiEdit className='h-5 w-5' />
+                        </Link>
+                    </button>
+                    <button onClick={(e) => handleButtonDelete(e, row.id)}>
+                        <MdDelete className='h-5 w-5' />
+                    </button>
+                </>
+            )
+        }
+    ];
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            fetchProduct();
+            setPending(false);
+        }, 2000);
+        return () => clearTimeout(timeout);
+    }, [])
     return (
         <>
             <Header />
@@ -19,41 +120,32 @@ const ProductPage = () => {
                     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
                     <link rel="icon" href="/assets/favicon/favicon.ico" />
                 </Head>
-                <div class="flex items-center justify-between pb-5">
-                    <div>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Products</h1>
+                <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
+                    <div className=''>
+                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Product</h1>
                         <p class="text-sm font-medium text-gray-500">
-                            Let's grow to your business! Create your product and upload here
+                            Let's grow to your business! Create your category and upload here
                         </p>
                     </div>
-                    <button
-                        class="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
+                    <Link href="/admin/categoryPage"
+                        className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
                     >
-                        <HiPlusSm class="w-6 h-6 fill-white" />
-                        <span class="text-sm font-semibold tracking-wide">Create Item</span>
-                    </button>
+                        <HiPlusSm className="w-6 h-6 fill-white" />
+                        <span className="text-sm font-semibold tracking-wide">Create Item</span>
+                    </Link>
                 </div>
-                <div className='p-5 md:p-8 bg-white shadow rounded mb-8 flex flex-col'>
-                    <div className='flex w-full flex-col items-center md:flex-row'>
-                        <div className='mb-4 md:mb-0 md:w-1/4'>
-                            <h1 className='text-lg font-semibold text-heading text-gray-600'>Products</h1>
-                        </div>
-                        <div className='flex w-full flex-col items-center mx-auto md:w-3/4'>
-                            <form className='relative flex w-full items-center' role="search">
-                                <label for="search" className='sr-only'>Search</label>
-                                <button type="button" className='col-start-1 absolute p-2 text-base outline-none focus:outline-none active:outline-none'>
-                                    <HiSearch className='h-5 w-5 text-gray-400'/>
-                                </button>
-                                <input type="text" name="searchText" id="search" placeholder='Type your query and press enter' aria-label='Search' autoComplete='off' className='px-10 py-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent'/>
-                            </form>
-                        </div>
-                        <button type="button" className='mt-5 flex items-center whitespace-nowrap text-base font-semibold text-gray-500 md:mt-0 md:mx-5'>
-                            Filter
-                            <HiArrowDown className='h-6 w-6 text-gray-600'/>
-                        </button>
-                    </div>
-                </div>
-            </SideNavbar >
+                <DataTable
+                    columns={column}
+                    data={filteredItems}
+                    defaultSortField="title"
+                    striped
+                    pagination
+                    progressPending={pending}
+                    progressComponent={<CustomLoader />}
+                    subHeader
+                    subHeaderComponent={subHeaderComponent}
+                />
+            </SideNavbar>
         </>
     );
 }

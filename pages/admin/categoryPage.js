@@ -66,23 +66,23 @@ const CategoryPage = () => {
             grow: 0,
             cell: row => <img height="84px" width="56px" alt={row.name} src={row.img} />
         },
-        // {
-        //     name: "Action",
-        //     button: true,
-        //     cell: row =>
-        //     (
-        //         <>
-        //             <button>
-        //                 <Link href={`/admin/category/edit/${row.id}`}>
-        //                     <BiEdit className='h-5 w-5' />
-        //                 </Link>
-        //             </button>
-        //             <button onClick={(e) => handleButtonDelete(e, row.id)}>
-        //                 <MdDelete className='h-5 w-5' />
-        //             </button>
-        //         </>
-        //     )
-        // }
+        {
+            name: "Action",
+            button: true,
+            cell: row =>
+            (
+                <>
+                    <button>
+                        <Link href={`/admin/category/edit/${row.id}`}>
+                            <BiEdit className='h-5 w-5' />
+                        </Link>
+                    </button>
+                    <button onClick={(e) => handleButtonDelete(e, row.id)}>
+                        <MdDelete className='h-5 w-5' />
+                    </button>
+                </>
+            )
+        }
     ];
 
     useEffect(() => {

@@ -31,14 +31,18 @@ const subCategoryPage = () => {
 
     const handleButtonDelete = async (e, id) => {
         e.preventDefault();
-        try {
-            await fetch("/api/category/deletedata?id=" + id, {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-            })
-            window.location.reload()
-        } catch (err) {
-            console.log(err)
+        if(confirm('Are you sure want to delete this ?')){
+            try {
+                await fetch("/api/subCategory/deletedata?id=" + id, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                })
+                window.location.reload()
+            } catch (err) {
+                console.log(err)
+            }
+        }else{
+            console.log("not gonna happen!")
         }
     };
 
@@ -72,7 +76,7 @@ const subCategoryPage = () => {
             (
                 <>
                     <button>
-                        <Link href={`/admin/category/edit/${row.id}`}>
+                        <Link href={`/admin/subCategory/edit/${row.id}`}>
                             <BiEdit className='h-5 w-5' />
                         </Link>
                     </button>
