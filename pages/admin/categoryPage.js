@@ -111,11 +111,11 @@ const CategoryPage = () => {
                             Let's grow to your business! Create your category and upload here
                         </p>
                     </div>
-                    <Link href="/admin/categoryPage"
+                    <Link href="/admin/category/create"
                         className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
                     >
                         <HiPlusSm className="w-6 h-6 fill-white" />
-                        <span className="text-sm font-semibold tracking-wide">Create Item</span>
+                        <span className="text-sm font-semibold tracking-wide">Create Category</span>
                     </Link>
                 </div>
                 <DataTable

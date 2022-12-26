@@ -90,7 +90,7 @@ model product {
   title       String    @unique
   description String
   price       String
-  quantity    Int
+  quantity    String
   image       String
   filename    String?
   createdAt   DateTime  @default(now())

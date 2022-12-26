@@ -2,11 +2,9 @@ import nc from "next-connect";
 import multer from "multer";
 import path from "path";
 import { getSession } from "next-auth/react";
+import prisma from "../../../utils/prisma";
 import { staticResourceUrlProduct } from "../../../utils/config";
 import { error } from "console";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 const fs = require("fs");
 
 export const config = {
@@ -35,34 +33,48 @@ const handler = nc({
       res.status(404).end("Page is not found");
     },
   }).use(upload.single("image"))
-  .post(async (req, res) =>{
+  .put(async (req, res) =>{
+     console.log({body: req.body, file: req.file})
     try {
         const session = await getSession({req});
         if (!session) {
             error("Access denied", res);
         } else {
-            const {title, description, price, quantity, subCategory} = req.body;
-            const url = staticResourceUrlProduct + req.file.filename;
+            const filePathDel = req.body.filename; 
             const file = req.file.path;
-            console.log(req.body)
+            const url = staticResourceUrlProduct + req.file.filename;
+            
+            if(!filePathDel){
+                return res.status(405).json({ error: "no Path to delete" });
+            }else {
+                fs.unlink(filePathDel, (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log("Delete File successfully.");
+                });
+            }
 
-            const post = await prisma.product.create({
+            const updateProduct = await prisma.product.update({
+                where: {
+                    id: req.body.id
+                },
                 data: {
-                    title: title,
-                    description: description,
-                    price: price,
-                    quantity: quantity,
-                    subCategoryId: subCategory,
+                    title: req.body.title,
+                    description: req.body.description,
+                    price: req.body.price,
+                    quantity: req.body.quantity,
+                    subCategoryId: req.body.subCategoryId,
                     image: url,
                     filename: file,
                 }
             });
-            if (post) {
+            if (updateProduct) {
                 return res.status(200).json({ message: "Success fully create category!" });
             } else {
                 return res.status(405).json({ error: "failed to insert data" })
             }
-            // res.json({body: req.body, file: req.file})
+            
         }
     } catch (error) {
         return res.status(405).json({ error })
@@ -70,5 +82,3 @@ const handler = nc({
   });
 
   export default handler;
-
-
