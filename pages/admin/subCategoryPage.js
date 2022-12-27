@@ -69,23 +69,23 @@ const subCategoryPage = () => {
             name: 'Parent Category',
             selector: row => row.category.name,
         },
-        {
-            name: "Action",
-            button: true,
-            cell: row =>
-            (
-                <>
-                    <button>
-                        <Link href={`/admin/subCategory/edit/${row.id}`}>
-                            <BiEdit className='h-5 w-5' />
-                        </Link>
-                    </button>
-                    <button onClick={(e) => handleButtonDelete(e, row.id)}>
-                        <MdDelete className='h-5 w-5' />
-                    </button>
-                </>
-            )
-        }
+        // {
+        //     name: "Action",
+        //     button: true,
+        //     cell: row =>
+        //     (
+        //         <>
+        //             <button>
+        //                 <Link href={`/admin/subCategory/edit/${row.id}`}>
+        //                     <BiEdit className='h-5 w-5' />
+        //                 </Link>
+        //             </button>
+        //             <button onClick={(e) => handleButtonDelete(e, row.id)}>
+        //                 <MdDelete className='h-5 w-5' />
+        //             </button>
+        //         </>
+        //     )
+        // }
     ];
 
     useEffect(() => {
@@ -114,12 +114,12 @@ const subCategoryPage = () => {
                             Let's grow to your business! Create your category and upload here
                         </p>
                     </div>
-                    <Link href="/admin/category/create"
+                    {/* <Link href="/admin/category/create"
                         className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
                     >
                         <HiPlusSm className="w-6 h-6 fill-white" />
                         <span className="text-sm font-semibold tracking-wide">Create Item</span>
-                    </Link>
+                    </Link> */}
                 </div>
                 <DataTable
                     columns={column}
