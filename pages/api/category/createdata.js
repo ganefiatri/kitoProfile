@@ -16,7 +16,7 @@ export const config = {
 const upload = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, path.join(process.cwd(), "public", "images"))
+            cb(null, path.join(process.cwd(), "images"))
         },
         filename: (req, file, cb) => {
             cb(null, new Date().getTime() + "-" + file.originalname)
@@ -24,7 +24,15 @@ const upload = multer({
     })
 });
 
-const handler = nc().use(upload.single("image"))
+const handler = nc({
+    onError: (err, req, res, next) => {
+      console.error(err.stack);
+      res.status(500).end("Something broke!");
+    },
+    onNoMatch: (req, res) => {
+      res.status(404).end("Page is not found");
+    },
+  }).use(upload.single("image"))
   .post(async (req, res) =>{
     try {
         const session = await getSession({req});
