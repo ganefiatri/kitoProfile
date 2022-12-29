@@ -12,20 +12,20 @@ import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import axios from '../../utils/axios';
 
-const subCategoryPage = () => {
+const UserPage = () => {
     const { data: session } = useSession();
-    const [categories, setCategories] = useState([]);
+    const [user, setUser] = useState([]);
     const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
     const [filterText, setFilterText] = useState('');
     const [pending, setPending] = useState(true);
 
-    const filteredItems = categories.filter(
+    const filteredItems = user.filter(
         item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
     );
 
-    const fetchCategory = () => {
-        fetch('/api/subCategory/getdata').then(res => res.json().then((data) => {
-            setCategories(data)
+    const fetchUser = () => {
+        fetch('/api/auth/getuser').then(res => res.json().then((data) => {
+            setUser(data)
         }))
     }
 
@@ -33,11 +33,11 @@ const subCategoryPage = () => {
         e.preventDefault();
         if(confirm('Are you sure want to delete this ?')){
             try {
-                await fetch("/api/subCategory/deletedata?id=" + id, {
+                await fetch("/api/auth/deletedata?id=" + id, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                 })
-                window.location.reload()
+                window.location.reload();
             } catch (err) {
                 console.log(err)
             }
@@ -66,9 +66,14 @@ const subCategoryPage = () => {
             selector: row => row.name,
         },
         {
-            name: 'Parent Category',
-            selector: row => row.category.name,
+            name: 'Email',
+            selector: row => row.email,
         },
+        {
+            name: 'Role',
+            selector: row => row.role,
+        },
+       
         {
             name: "Action",
             button: true,
@@ -76,7 +81,7 @@ const subCategoryPage = () => {
             (
                 <>
                     <button>
-                        <Link href={`/admin/subCategory/edit/${row.id}`}>
+                        <Link href={`/admin/user/edit/${row.id}`}>
                             <BiEdit className='h-5 w-5' />
                         </Link>
                     </button>
@@ -90,7 +95,7 @@ const subCategoryPage = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            fetchCategory();
+            fetchUser();
             setPending(false);
         }, 2000);
         return () => clearTimeout(timeout);
@@ -109,17 +114,11 @@ const subCategoryPage = () => {
                 </Head>
                 <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">SubCategory</h1>
+                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Users</h1>
                         <p class="text-sm font-medium text-gray-500">
-                            Let's grow to your business! Create your category and upload here
+                            All Users here
                         </p>
                     </div>
-                    <Link href="/admin/category/create"
-                        className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
-                    >
-                        <HiPlusSm className="w-6 h-6 fill-white" />
-                        <span className="text-sm font-semibold tracking-wide">Create Sub Category</span>
-                    </Link>
                 </div>
                 <DataTable
                     columns={column}
@@ -137,7 +136,7 @@ const subCategoryPage = () => {
     );
 }
 
-export default subCategoryPage;
+export default UserPage;
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })

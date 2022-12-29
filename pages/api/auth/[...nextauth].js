@@ -21,10 +21,7 @@ const prisma = new PrismaClient();
 
 export const authOptions = {
     // Configure one or more authentication providers
-    // session: {
-    //     jwt: true,
-    //     maxAge: 30 * 24 * 60 * 60, // 30 days
-    // },
+    
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -69,9 +66,29 @@ export const authOptions = {
             }
         }),
     ],
+    callbacks: {
+        async session({ session }) {
+            const userData = await prisma.user.findFirst({
+                where:{
+                    email: session.user.email,
+                }
+              });
+
+                session.user.name = userData.name,
+                session.user.email = userData.email,
+                session.user.image = userData.image,
+                session.user.role = userData.role
+              // Add role value to user object so it is passed along with session
+          return session
+        }
+      },
     secret: process.env.NEXTAUTH_SECRET,
     adapter: PrismaAdapter(prisma),
-    session: { strategy: "jwt" },
+    session: { 
+        strategy: "jwt" ,
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+        updateAge: 24 * 60 * 60, // 24 hours
+    },
     // database: process.env.DATABASE_URL,
 }
 

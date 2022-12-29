@@ -7,6 +7,7 @@ import { FiUsers } from "react-icons/fi";
 import { MdProductionQuantityLimits, MdCategory } from "react-icons/md"
 import Head from 'next/head';
 import Header from '../../components/admin/Header';
+// import prisma from '../../utils/prisma';
 
 const HomePage = () => {
     const { data: session } = useSession()
@@ -70,10 +71,11 @@ const HomePage = () => {
 
 export default HomePage;
 
-export async function getServerSideProps({ req }) {
-    const session = await getSession({ req })
 
-    if (!session) {
+export async function getServerSideProps({ req }) {
+    const session = await getSession({ req });
+    // console.log(session.user.role)
+    if (session?.user.role != "ADMIN") {
         return {
             redirect: {
                 destination: "/auth/login",
@@ -81,6 +83,7 @@ export async function getServerSideProps({ req }) {
             }
         }
     }
+    
     // autorize user
     return {
         props: { session }
