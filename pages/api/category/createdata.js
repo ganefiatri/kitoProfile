@@ -16,7 +16,7 @@ export const config = {
 const upload = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, path.join(process.cwd(), "images"))
+            cb(null, path.join("images"))
         },
         filename: (req, file, cb) => {
             cb(null, new Date().getTime() + "-" + file.originalname)
