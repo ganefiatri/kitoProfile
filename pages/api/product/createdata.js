@@ -4,10 +4,11 @@ import path from "path";
 import { getSession } from "next-auth/react";
 import { staticResourceUrlProduct } from "../../../utils/config";
 import { error } from "console";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../../../utils/prisma";
+import cloudinary from "../../../utils/cloudinary";
 const fs = require("fs");
+
+const DatauriParser = require('datauri/parser');
 
 export const config = {
     api: {
@@ -15,15 +16,21 @@ export const config = {
     }
 }
 
+const parser = new DatauriParser();
+
+const ALLOWED_FORMATS = ['image/jpeg', 'image/png', 'image/jpg'];
+
+const storage = multer.memoryStorage();
+
 const upload = multer({
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, path.join(process.cwd(), "public", "product"))
-        },
-        filename: (req, file, cb) => {
-            cb(null, new Date().getTime() + "-" + file.originalname)
+    storage,
+    fileFilter: function (req, file, cb) {
+        if (ALLOWED_FORMATS.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Not supported file type!'), false);
         }
-    })
+    }
 });
 
 const handler = nc({
@@ -37,14 +44,16 @@ const handler = nc({
   }).use(upload.single("image"))
   .post(async (req, res) =>{
     try {
+        const file64 = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer);
         const session = await getSession({req});
         if (!session) {
             error("Access denied", res);
         } else {
+            const result = await cloudinary.uploader.upload(file64.content, {
+                folder: 'posts',
+                use_filename: true
+            });
             const {title, description, price, quantity, subCategory} = req.body;
-            const url = staticResourceUrlProduct + req.file.filename;
-            const file = req.file.path;
-            console.log(req.body)
 
             const post = await prisma.product.create({
                 data: {
@@ -53,8 +62,8 @@ const handler = nc({
                     price: price,
                     quantity: quantity,
                     subCategoryId: subCategory,
-                    image: url,
-                    filename: file,
+                    image: result.secure_url,
+                    filename: result.public_id,
                 }
             });
             if (post) {

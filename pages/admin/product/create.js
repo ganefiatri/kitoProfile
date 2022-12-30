@@ -15,7 +15,7 @@ export default function Create ({subCategory}) {
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
-    const [subCategoryId, setSubcategory] = useState('');
+    // const [subCategoryId, setSubcategory] = useState('');
 
     const router = useRouter();
 
@@ -31,13 +31,14 @@ export default function Create ({subCategory}) {
 
     const handleFormData = async (e) => {
         e.preventDefault();
+            const subCategory = e.target.subCategory.value;
             const forms = new FormData();
             forms.append('title', title);
             forms.append('image', imageUploaded);
             forms.append('price', price);
             forms.append('quantity', quantity);
             forms.append('description', description);
-            forms.append('subCategory', subCategoryId);
+            forms.append('subCategory', subCategory);
 
             await fetch("/api/product/createdata", {
                 method: "POST",
@@ -107,7 +108,7 @@ export default function Create ({subCategory}) {
                                 </div>
                                 <div className='mb-5'>
                                     <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Sub Category</label>
-                                    <select name='subCategory' onChange={e => setSubcategory(e.target.value)} className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                    <select name='subCategory' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
                                         {subCategory.map(item => (
                                             <option value={item.id}>{item.name}</option>
                                         ))}

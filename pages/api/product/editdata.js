@@ -5,7 +5,9 @@ import { getSession } from "next-auth/react";
 import prisma from "../../../utils/prisma";
 import { staticResourceUrlProduct } from "../../../utils/config";
 import { error } from "console";
+import cloudinary from "../../../utils/cloudinary";
 const fs = require("fs");
+const DatauriParser = require('datauri/parser');
 
 export const config = {
     api: {
@@ -13,15 +15,21 @@ export const config = {
     }
 }
 
+const parser = new DatauriParser();
+
+const ALLOWED_FORMATS = ['image/jpeg', 'image/png', 'image/jpg'];
+
+const storage = multer.memoryStorage();
+
 const upload = multer({
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, path.join(process.cwd(), "public", "product"))
-        },
-        filename: (req, file, cb) => {
-            cb(null, new Date().getTime() + "-" + file.originalname)
+    storage,
+    fileFilter: function (req, file, cb) {
+        if (ALLOWED_FORMATS.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Not supported file type!'), false);
         }
-    })
+    }
 });
 
 const handler = nc({
@@ -34,8 +42,9 @@ const handler = nc({
     },
   }).use(upload.single("image"))
   .put(async (req, res) =>{
-     console.log({body: req.body, file: req.file})
+    //  console.log({body: req.body, file: req.file})
     try {
+        const file64 = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer);
         const session = await getSession({req});
         if (!session) {
             error("Access denied", res);
@@ -47,13 +56,17 @@ const handler = nc({
             if(!filePathDel){
                 return res.status(405).json({ error: "no Path to delete" });
             }else {
-                fs.unlink(filePathDel, (err) => {
-                    if (err) {
-                        throw err;
-                    }
-                    console.log("Delete File successfully.");
+                const deleteResult = await cloudinary.uploader.destroy(filePathDel, {
+                    folder: 'posts'
                 });
+                if (!deleteResult) {
+                    console.log("Delete File Failed.");
+                }
             }
+            const result = await cloudinary.uploader.upload(file64.content, {
+                folder: 'posts',
+                use_filename: true
+            });
 
             const updateProduct = await prisma.product.update({
                 where: {
@@ -65,8 +78,8 @@ const handler = nc({
                     price: req.body.price,
                     quantity: req.body.quantity,
                     subCategoryId: req.body.subCategoryId,
-                    image: url,
-                    filename: file,
+                    image: result.secure_url,
+                    filename: result.public_id,
                 }
             });
             if (updateProduct) {

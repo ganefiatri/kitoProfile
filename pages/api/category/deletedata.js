@@ -1,4 +1,5 @@
 import prisma from "../../../utils/prisma";
+import cloudinary from "../../../utils/cloudinary";
 const fs = require("fs");
 
 export default async function handler(req, res) {
@@ -12,12 +13,8 @@ export default async function handler(req, res) {
         if(!filePath){
                 return res.status(405).json({ error: "no data found" });
         }else{
-                fs.unlink(filePath, (err) => {
-                        if (err) {
-                            throw err;
-                        }
-                    
-                        console.log("Delete File successfully.");
+                await cloudinary.uploader.destroy(filePath, {
+                        folder: 'posts'
                     });
         }
         

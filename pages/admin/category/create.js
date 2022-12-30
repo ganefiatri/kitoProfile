@@ -34,7 +34,7 @@ export default function Create() {
             forms.append('name', name);
             forms.append('image', imageUploaded);
             // await axios.post("/api/category/createdata",forms);
-            const result = await fetch("/api/category/createdata", {
+            const result = await fetch("/api/category/upload", {
                 method: "POST",
                 body: forms
             });
