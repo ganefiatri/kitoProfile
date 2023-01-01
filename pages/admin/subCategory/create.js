@@ -1,5 +1,6 @@
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
+import { Router } from 'next/router';
 import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
@@ -28,7 +29,7 @@ const Create = ({categories}) => {
                 }
             });
             const result = await res.json();
-            router.push("/admin/subCategoryPage");
+            Router.push("/admin/subCategoryPage");
 
     }
 
