@@ -8,7 +8,7 @@ function ProductCard({img, title,}) {
                 <Image
                     className="rounded-xl"
                     src={img}
-                    layout="fill"
+                    layout="fill bg-contain"
                 />
             </div>
             <h3 className="text-2xl mt-3">{title}</h3>

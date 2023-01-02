@@ -9,7 +9,7 @@ function LargeCard({ img, company ,title, description, buttonText }) {
                   src={img}
                   layout="fill"
                   objectFit="cover"
-                  className="p-2"
+                  className="p-2 bg-contain"
               />
           </div>
           <div className="absolute top-60 left-12 text-white">
