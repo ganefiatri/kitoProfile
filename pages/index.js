@@ -14,7 +14,6 @@ import LargeCardSecond from '../components/LargeCardSecond'
 const prisma = new PrismaClient();
 
 export default function Home({ products, categories }) {
-  console.log(products)
   const { data: session } = useSession()
 
   function handleSignOut() {

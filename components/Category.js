@@ -9,7 +9,9 @@ function Category({ img, title }) {
                 <Image
                     className="rounded-xl"
                     src={img}
-                    layout="fill bg-contain"
+                    alt={title}
+                    width={500}
+                    height={500}
                 />
             </div>
             <div>

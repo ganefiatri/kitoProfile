@@ -7,7 +7,7 @@ const Address = () => {
                 <div className='w-20 h-20 pr-4'>
                     <h2 className='text-6xl text-gray-300'>01</h2>
                 </div>
-                <div className='pl-2'>
+                <div className='pl-2 w-full'>
                     <p className='text-justify text-sm leading-7 font-medium'>Kito Home Gallery</p>
                     <p className='text-justify text-xs leading-7'>Jl. Gatot Subroto No.317, Kota Medan, Sumatera Utara</p>
                     <p className='text-justify text-xs leading-7'>Contact : 0822 7777 9758 (Online Shop)</p>
@@ -22,7 +22,7 @@ const Address = () => {
                 <div className='w-20 h-20'>
                     <h2 className='text-6xl text-gray-300'>02</h2>
                 </div>
-                <div className='pl-2'>
+                <div className='pl-2 w-full'>
                     <p className='text-justify text-sm leading-7 font-medium'>Gallery Hosana</p>
                     <p className='text-justify text-xs leading-7'>Jl. Gatot Subroto No.162, Kota Medan, Sumatera Utara</p>
                     <p className='text-justify text-xs leading-7'>Contact : 0813 9746 0294</p>
@@ -35,7 +35,7 @@ const Address = () => {
                 <div className='w-20 h-20'>
                     <h2 className='text-6xl text-gray-300'>03</h2>
                 </div>
-                <div className='pl-2 lg:pl-3'>
+                <div className='pl-2 lg:pl-3 w-full'>
                     <p className='text-justify text-sm leading-7 font-medium'>Hosana Keramik Krakatau</p>
                     <p className='text-justify text-xs leading-7'>Jl. Gunung Krakatau No. 192 ABC, Sumatera Utara</p>
                     <p className='text-justify text-xs leading-7'>Contact : 0821 6654 5589</p>
@@ -48,7 +48,7 @@ const Address = () => {
                 <div className='w-20 h-20'>
                     <h2 className='text-6xl text-gray-300'>04</h2>
                 </div>
-                <div className='pl-2 lg:pl-3'>
+                <div className='pl-2 lg:pl-3 w-full'>
                     <p className='text-justify text-sm leading-7 font-medium'>Hosana Home Gallery Tj Morawa</p>
                     <p className='text-justify text-xs leading-7'>JL. Medan-Lubuk Pakam No.14 km 16.1, Kota Medan, Sumatera Utara</p>
                     <p className='text-justify text-xs leading-7'>Contact : 0851 0194 3533</p>
@@ -61,7 +61,7 @@ const Address = () => {
                 <div className='w-20 h-20'>
                     <h2 className='text-6xl text-gray-300'>05</h2>
                 </div>
-                <div className='pl-2 lg:pl-3'>
+                <div className='pl-2 lg:pl-3 w-full'>
                     <p className='text-justify text-sm leading-7 font-medium'>Hosana Keramik Siantar</p>
                     <p className='text-justify text-xs leading-7'>JL Sangnawaluh, Komplek Megaland Blok A No. 54, Kota Pematang Siantar, Sumatera Utara</p>
                     <p className='text-justify text-xs leading-7'>Contact : 0823 6999 5735</p>

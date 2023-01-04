@@ -5,8 +5,10 @@ import ContactInfo from '../components/contact/ContactInfo';
 import Footer from '../components/Footer';
 import Header from '../components/frontend/Header';
 import ProjectNav from '../components/project/ProjectNav';
+import prisma from '../utils/prisma';
 
-const Project = () => {
+const Project = props => {
+    const {projectAll, projectByOffice, projectByHotel, projectByResident, projectByRestaurant} = props;
     return (
         <div>
             <Head>
@@ -21,7 +23,7 @@ const Project = () => {
             <Banner />
             <main className='max-w-7xl mx-auto px-2 sm:px-16'>
                 <section className='pt-10 justify-items-center'>
-                    <ProjectNav/>
+                    <ProjectNav projectAll={projectAll} projectByHotel={projectByHotel} projectByOffice={projectByOffice} projectByResident={projectByResident} projectByRestaurant={projectByRestaurant}/>
                 </section>
             </main>
             <Footer />
@@ -30,3 +32,38 @@ const Project = () => {
 }
 
 export default Project;
+
+export async function getServerSideProps() {
+    const projectAll = await prisma.project.findMany();
+    const projectByOffice = await prisma.project.findMany({
+        where:{
+            place: "OFFICES"
+        }
+    });
+    const projectByHotel = await prisma.project.findMany({
+        where:{
+            place: "HOTELS"
+        }
+    });
+    const projectByResident = await prisma.project.findMany({
+        where:{
+            place: "RESIDENTS"
+        }
+    });
+    const projectByRestaurant = await prisma.project.findMany({
+        where:{
+            place: "RESTAURANTS"
+        }
+    });
+    
+   
+    return {
+      props: {
+        projectAll: JSON.parse(JSON.stringify(projectAll)),
+        projectByOffice: JSON.parse(JSON.stringify(projectByOffice)),
+        projectByHotel: JSON.parse(JSON.stringify(projectByHotel)),
+        projectByResident: JSON.parse(JSON.stringify(projectByResident)),
+        projectByRestaurant: JSON.parse(JSON.stringify(projectByRestaurant)),
+      }
+    };
+  } 

@@ -12,20 +12,20 @@ import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import axios from '../../utils/axios';
 
-const subCategoryPage = () => {
+const storePage = () => {
     const { data: session } = useSession();
-    const [categories, setCategories] = useState([]);
+    const [stores, setStores] = useState([]);
     const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
     const [filterText, setFilterText] = useState('');
     const [pending, setPending] = useState(true);
 
-    const filteredItems = categories.filter(
+    const filteredItems = stores.filter(
         item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
     );
 
-    const fetchCategory = () => {
-        fetch('/api/subCategory/getdata').then(res => res.json().then((data) => {
-            setCategories(data)
+    const fetchStore = () => {
+        fetch('/api/store/getdata').then(res => res.json().then((data) => {
+            setStores(data)
         }))
     }
 
@@ -33,7 +33,7 @@ const subCategoryPage = () => {
         e.preventDefault();
         if(confirm('Are you sure want to delete this ?')){
             try {
-                await fetch("/api/subCategory/deletedata?id=" + id, {
+                await fetch("/api/store/deletedata?id=" + id, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                 })
@@ -66,8 +66,13 @@ const subCategoryPage = () => {
             selector: row => row.name,
         },
         {
-            name: 'Parent Category',
-            selector: row => row.category.name,
+            name: 'Desc',
+            selector: row => row.description,
+        },
+        {
+            name: 'Images',
+            grow: 0,
+            cell: row => <img height="84px" width="56px" alt={row.name} src={row.img} />
         },
         {
             name: "Action",
@@ -76,7 +81,7 @@ const subCategoryPage = () => {
             (
                 <>
                     <button>
-                        <Link href={`/admin/subCategory/edit/${row.id}`}>
+                        <Link href={`/admin/store/edit/${row.id}`}>
                             <BiEdit className='h-5 w-5' />
                         </Link>
                     </button>
@@ -90,7 +95,7 @@ const subCategoryPage = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            fetchCategory();
+            fetchStore();
             setPending(false);
         }, 2000);
         return () => clearTimeout(timeout);
@@ -109,16 +114,16 @@ const subCategoryPage = () => {
                 </Head>
                 <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">SubCategory</h1>
+                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Stores</h1>
                         <p class="text-sm font-medium text-gray-500">
-                            Let's grow to your business! Create your category and upload here
+                            Let's grow to your business! Create your Store and upload here
                         </p>
                     </div>
-                    <Link href="/admin/subCategory/create"
+                    <Link href="/admin/store/create"
                         className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
                     >
                         <HiPlusSm className="w-6 h-6 fill-white" />
-                        <span className="text-sm font-semibold tracking-wide">Create Sub Category</span>
+                        <span className="text-sm font-semibold tracking-wide">Create Store</span>
                     </Link>
                 </div>
                 <DataTable
@@ -137,7 +142,7 @@ const subCategoryPage = () => {
     );
 }
 
-export default subCategoryPage;
+export default storePage;
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })

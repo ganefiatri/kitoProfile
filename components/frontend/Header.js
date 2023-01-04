@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import { signOut, useSession } from 'next-auth/react'
 
 const Header = () => {
+    const { data: session } = useSession();
     const [nav, setNav] = useState(false);
     const [color, setColor] = useState("transparent");
     const [textColor, setTextColor] = useState("white");
@@ -14,7 +16,7 @@ const Header = () => {
 
     useEffect(() => {
         const changeColor = () => {
-            if (window.scrollY >= 90 ) {
+            if (window.scrollY >= 90) {
                 setColor("#ffffff");
                 setTextColor("#000000");
             } else {
@@ -37,7 +39,7 @@ const Header = () => {
                         </li>
                         <li className="p-4 text-sm uppercase">
                             {/*  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" */}
-                            <Link href="/" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">Product</Link>
+                            <Link href="/product">Product</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/about">About</Link>
@@ -66,6 +68,20 @@ const Header = () => {
                         <li className="p-4 text-sm uppercase">
                             <Link href="/shop">Shop</Link>
                         </li>
+                        {session?.user.role == "ADMIN" ? (
+                            <li className="p-4 text-sm uppercase">
+                                <Link className="border p-2" href="/admin/homePage">Admin</Link>
+                            </li>) : (
+                            ''
+                        )
+                        }
+                        {session?.user.role == "USER" ? (
+                            <li className="p-4 text-sm uppercase">
+                                <Link className="border p-2" href="/user/dashboard">Dashboard</Link>
+                            </li>) : (
+                            ''
+                        )
+                        }
                     </ul>
                 </div>
                 {/* Mobile Button */}
@@ -133,10 +149,31 @@ const Header = () => {
                         >
                             <Link href="/">Shop</Link>
                         </li>
+                        {session?.user.role == "ADMIN" ? (
+                            <li
+                                onClick={handleNav}
+                                className="p-4 text-4xl hover:text-gray-500"
+                            >
+                                <Link href="/admin/homePage">Admin</Link>
+                            </li>) : (
+                            ''
+                        )
+                        }
+                        {session?.user.role == "USER" ? (
+                            <li
+                                onClick={handleNav}
+                                className="p-4 text-4xl hover:text-gray-500"
+                            >
+                                <Link href="/user/dashboard">Dashboard</Link>
+                            </li>) : (
+                            ''
+                        )
+                        }
+
                     </ul>
                 </div>
             </div>
-            <div className="absolute">
+            {/* <div className="absolute">
                 <div className="collapse collapse-horizontal" id="collapseWidthExample">
                     <div className="block p-2 shadow-lg bg-white w-full">
                         <div className="flex justify-center">
@@ -187,7 +224,7 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

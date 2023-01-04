@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["referentialIntegrity","fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -66,9 +66,17 @@ model history {
 }
 
 model stores {
-  id          Int     @id @default(autoincrement())
-  title       String  @db.VarChar(250)
+  id          String        @id @default(cuid())
+  name        String        @unique
   description String?
+  img         String?
+  filename    String?
+}
+
+model project {
+  id          String        @id @default(cuid())
+  name        String        @unique
+  place       String?
   img         String?
   filename    String?
 }
@@ -84,6 +92,8 @@ model product {
   createdAt     DateTime     @default(now())
   subCategoryId String?
   subCategory   subCategory? @relation(fields: [subCategoryId], references: [id])
+
+  @@fulltext([title])
 }
 
 model category {
@@ -100,6 +110,7 @@ model subCategory {
   categoryId String?
   category   category? @relation(fields: [categoryId], references: [id])
   products   product[]
+  @@fulltext([name])
 }
 
 enum role {

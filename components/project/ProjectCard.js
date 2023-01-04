@@ -1,21 +1,21 @@
 import Image from 'next/image'
 import React from 'react'
 
-function ProductCard({img, title,}) {
+function ProjectCard({img, name,}) {
     return (
         <div className="cursor-pointer hover:scale-105 transform transition duration-300 ease-out">
-            <div className="relative h-80 w-80">
+            <div className="relative h-60 w-60">
                 <Image
                     className="rounded-xl"
                     src={img}
-                    alt={title}
+                    alt={name}
                     width={500}
                     height={500}
                 />
+                <h3 className="text-2xl p-2">{name}</h3>
             </div>
-            {/* <h3 className="text-2xl mt-3">{title}</h3> */}
         </div>
     )
 }
 
-export default ProductCard
+export default ProjectCard

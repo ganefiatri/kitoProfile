@@ -12,8 +12,8 @@ import {
     MdOutlineProductionQuantityLimits,
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { FaRegComments } from "react-icons/fa";
-import { BiMessageSquareDots, BiUser } from "react-icons/bi";
+import { FaProjectDiagram, FaRegComments } from "react-icons/fa";
+import { BiMessageSquareDots, BiStore, BiUser } from "react-icons/bi";
 import Link from "next/link";
 import { getSession, signOut, useSession } from 'next-auth/react';
 import Header from "../components/admin/Header";
@@ -41,13 +41,21 @@ function SideNavbar({ children }) {
                         <MdCategory className="w-5 h-5 mx-4"/>
                         <span>SubCategory</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/dashboard">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/productPage">
                         <MdOutlineProductionQuantityLimits className="w-5 h-5 mx-4"/>
                         <span>Product</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/dashboard">
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/userPage">
                         <BiUser className="w-5 h-5 mx-4"/>
                         <span>Users</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/projectPage">
+                        <FaProjectDiagram className="w-5 h-5 mx-4"/>
+                        <span>Project</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/storePage">
+                        <BiStore className="w-5 h-5 mx-4"/>
+                        <span>Store</span>
                     </a>
                 </div>
             </aside>
