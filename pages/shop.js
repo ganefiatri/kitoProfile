@@ -23,7 +23,7 @@ const Shop = ({products}) => {
                 <section className='pt-10'>
                     <h2 className='text-4xl font-thin pb-3 text-left'>Product</h2>
                     <p className='text-gray-400 font-extralight text-left pb-5 cursor-pointer underline'>View all </p>
-                    <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3'>
+                    <div className='space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3'>
                         {products.map(item => (
                             <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} />
                         ))}
