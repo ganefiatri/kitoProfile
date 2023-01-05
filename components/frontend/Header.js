@@ -77,7 +77,7 @@ const Header = () => {
                         }
                         {session?.user.role == "USER" ? (
                             <li className="p-4 text-sm uppercase">
-                                <Link className="border p-2" href="/user/dashboard">Dashboard</Link>
+                                <Link className="border p-2" href="/customer/dashboard">Dashboard</Link>
                             </li>) : (
                             ''
                         )
@@ -164,7 +164,7 @@ const Header = () => {
                                 onClick={handleNav}
                                 className="p-4 text-4xl hover:text-gray-500"
                             >
-                                <Link href="/user/dashboard">Dashboard</Link>
+                                <Link href="/customer/dashboard">Dashboard</Link>
                             </li>) : (
                             ''
                         )

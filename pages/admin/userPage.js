@@ -141,7 +141,7 @@ export default UserPage;
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })
 
-    if (!session) {
+    if (session?.user.role != "ADMIN") {
         return {
             redirect: {
                 destination: "/auth/login",

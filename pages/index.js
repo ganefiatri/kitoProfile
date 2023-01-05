@@ -64,8 +64,8 @@ export default function Home({ products, categories }) {
         />
 
         <section className='pt-10'>
-          <h2 className='text-4xl text-center font-thin pb-3'>Products</h2>
-          <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'>View all </p>
+          <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
+          <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/category">View all</a></p>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-3 ml-3'>
             {categories.map(item => (
@@ -76,11 +76,11 @@ export default function Home({ products, categories }) {
         </section>
 
         <section className='pt-10'>
-          <h2 className='text-4xl font-thin pb-3 text-center'>Gallery</h2>
-          <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'>View all </p>
-          <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+          <h2 className='text-4xl font-thin pb-3 text-center'>Products</h2>
+          <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
+          <div className='space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
             {products.map(item => (
-              <ProductCard key={item.id} title={item.title} img={item.image} />
+              <ProductCard key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name}/>
             ))}
           </div>
         </section>
@@ -126,7 +126,11 @@ function User({ session, handleSignOut }) {
 }
 
 export async function getServerSideProps() {
-  const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany({
+    include:{
+      subCategory: true,
+    }
+  });
   const categories = await prisma.category.findMany();
   return {
     props: {

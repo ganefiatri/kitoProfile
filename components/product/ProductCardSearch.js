@@ -1,21 +1,27 @@
 import Image from 'next/image'
 import React from 'react'
 
-function ProductCardSearch({ img, title, price }) {
+function ProductCardSearch({ img, title, price, description }) {
     return (
-        <div className="w-[200px] min-h-max bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-            <a href="#">
-                <img className="rounded-t-lg" src={img} alt="product image" />
-            </a>
-            <div className="px-2 pb-5 pt-2">
-                <a href="#">
-                    <h5 className="text-lg font-normal tracking-tight text-gray-900 dark:text-white">{title}</h5>
+        <>
+        <div className='flex flex-wrap -mx-4'>
+            <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+                <a href="" class="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
+                    <div class="relative pb-48 overflow-hidden">
+                        <img class="absolute inset-0 h-full w-full object-cover" src={img} alt={title}/>
+                    </div>
                 </a>
-                <div class="flex items-center justify-between pt-2">
-                    <span class="text-sm font-thin text-gray-600 dark:text-white">IDR {price}</span>
+                <div class="p-4 bg-slate-100">
+                    <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">Highlight</span>
+                    <h2 class="mt-2 mb-2  font-bold">{title}</h2>
+                    <p className='text-sm truncate'>{description}</p>
+                    <div class="mt-3 flex items-center">
+                        <span class="font-bold text-xl">{price}</span>&nbsp;<span class="text-sm font-semibold">IDR</span>
+                    </div>
                 </div>
             </div>
         </div>
+    </>
     )
 }
 

@@ -12,7 +12,7 @@ function ProjectCard({img, name,}) {
                     width={500}
                     height={500}
                 />
-                <h3 className="text-2xl p-2">{name}</h3>
+                <h3 className="text-xl p-2 text-center uppercase">{name}</h3>
             </div>
         </div>
     )

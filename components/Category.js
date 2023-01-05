@@ -4,8 +4,8 @@ import Image from 'next/image'
 
 function Category({ img, title }) {
     return (
-        <div className="flex items-center m-2 mt-5 space-x-4 rounded-xl cursor-pointer hover:bg-gray-300 hover:scale-105 transition transform duration-200 ease-out">
-            <div className="p-2 h-16 w-16 relative justify-center items-center">
+        <div className="flex items-center m-2 mt-5 space-x-4 rounded-xl cursor-pointer hover:scale-105 transition transform duration-200 ease-out">
+            <div className="p-2  relative justify-center items-center">
                 <Image
                     className="rounded-xl"
                     src={img}
@@ -13,9 +13,7 @@ function Category({ img, title }) {
                     width={500}
                     height={500}
                 />
-            </div>
-            <div>
-                <h2>{title}</h2>
+                <h2 className='p-2 uppercase text-center'>{title}</h2>
             </div>
         </div>
     )

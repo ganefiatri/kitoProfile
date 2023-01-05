@@ -36,16 +36,16 @@ const Product = props => {
                 </section>
                 <section className='pt-10'>
                     {!productsQuery ? (
-                        <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+                        <div className='space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
                             {productsLimit.map(item => (
-                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} />
+                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} />
                             ))}
 
                         </div>
                     ) : (
-                        <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+                        <div className='space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
                             {productsQuery.map(item => (
-                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} />
+                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} />
                             ))}
 
                         </div>
