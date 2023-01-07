@@ -25,7 +25,7 @@ const Shop = ({products}) => {
                     <p className='text-gray-400 font-extralight text-left pb-5 cursor-pointer underline'>View all </p>
                     <div className='space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3'>
                         {products.map(item => (
-                            <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} />
+                            <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
                         ))}
                     </div>
                 </section>
@@ -38,7 +38,11 @@ const Shop = ({products}) => {
 export default Shop;
 
 export async function getServerSideProps() {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+        include: {
+            subCategory: true
+        }
+    });
     return {
       props: {
         products: JSON.parse(JSON.stringify(products)),

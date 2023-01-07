@@ -4,45 +4,79 @@ import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+import { isImage, validateSize } from '../../../utils/fileValidation';
+import CustomLoader from '../../../components/CustomLoader';
 
 export default function Create() {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState();
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [name, setName] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [imageError, setImageError] = useState('');
     const router = useRouter();
 
 
     const handleImage = (e) => {
+        setImageError('');
         const file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+
+        const checkResult = isImage(file.name);
+        if (!checkResult) {
+            const error = "File Type should be a image";
+            toast(error, { type: 'error' });
+            setImageError(error);
+            return;
+        }
+
+        const isImageLarge = validateSize(file);
+        if (isImageLarge) {
+            const error = 'File must be less or equal to 5MB';
+            toast(error, { type: 'error' });
+            setImageError(error);
+            return;
+        }
         // console.log(file)
         setImageUploaded(file);
         const fileReader = new FileReader();
         fileReader.onload = function (e) {
-            // console.log(e.target.result);
             setCreateObjectURL(e.target.result);
         };
         fileReader.readAsDataURL(file);
-        // setImageUploaded(e.target.files[0]);
-        // setCreateObjectURL(URL.createObjectURL(e.target.files[0]));
     }
 
     const handleFormData = async (e) => {
         e.preventDefault();
-            const place = e.target.place.value;
-            const forms = new FormData();
-            forms.append('name', name);
-            forms.append('place', place);
-            forms.append('image', imageUploaded);
-            // await axios.post("/api/category/createdata",forms);
-            const result = await fetch("/api/project/upload", {
-                method: "POST",
-                body: forms
-            });
-            
-            router.push("/admin/projectPage");
-            // console.log({result});
+        const place = e.target.place.value;
+        if (!name || !place || !imageUploaded) {
+            toast('Please enter required fields', { type: 'error' });
+            return;
+        }
+        setLoading(true);
+        const forms = new FormData();
+        forms.append('name', name);
+        forms.append('place', place);
+        forms.append('image', imageUploaded);
+        // await axios.post("/api/category/createdata",forms);
+        const res = await fetch("/api/project/upload", {
+            method: "POST",
+            body: forms
+        });
+        const { error } = await res.json();
+        if (error) {
+            toast('There was error', { type: 'error' });
+            setLoading(false);
+            return;
+        }
+        toast('Card created successfully!!!', { type: 'success' });
+        setLoading(false);
+        router.push("/admin/projectPage");
+        // console.log({result});
 
 
     }
@@ -64,55 +98,59 @@ export default function Create() {
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
                         <h1 className='text-lg font-semibold text-heading'>Create New Project</h1>
                     </div>
-                    <form onSubmit={handleFormData}>
-                        <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
-                            <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
-                                <h4 className='text-base font-semibold mb-2'>Image</h4>
-                                <p className='text-sm'>Upload Your Project Image here</p>
-                            </div>
-                            <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
-                                <section className='upload'>
-                                    <label for="dropzone-file" className='border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none'>
-                                        <FaUpload />
-                                        <p className='mt-4 text-center text-xs'>
-                                            <span className='font-normal text-gray-600'>Upload an image </span>
-                                            or drag and drop
-                                            <br />
-                                            <span className='text-xs'>PNG, JPG</span>
-                                        </p>
-                                        <input id="dropzone-file" onChange={handleImage} type="file" className='hidden' />
-                                        <div className='flex mb-5'>
-                                            {createObjectURL && <img src={createObjectURL} alt="image" width={100} className='h-[100px] object-contain' />}
+                    {loading ? <CustomLoader className="justify-items-center items-center" />
+                        : (
+                            <form onSubmit={handleFormData}>
+                                <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
+                                    <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
+                                        <h4 className='text-base font-semibold mb-2'>Image</h4>
+                                        <p className='text-sm'>Upload Your Project Image here</p>
+                                    </div>
+                                    <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
+                                        <section className='upload'>
+                                            <label for="dropzone-file" className='border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none'>
+                                                <FaUpload />
+                                                <p className='mt-4 text-center text-xs'>
+                                                    <span className='font-normal text-gray-600'>Upload an image </span>
+                                                    or drag and drop
+                                                    <br />
+                                                    <span className='text-xs'>PNG, JPG</span>
+                                                </p>
+                                                <input id="dropzone-file" onChange={handleImage} type="file" className='hidden' />
+                                                <div className='flex mb-5'>
+                                                    {createObjectURL && <img src={createObjectURL} alt="image" width={100} className='h-[100px] object-contain' />}
+                                                </div>
+                                            </label>
+                                        </section>
+                                    </div>
+                                </div>
+                                <p className="my-5 text-red-400">{imageError}</p>
+                                <div className='my-5 flex flex-wrap sm:my-8'>
+                                    <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
+                                        <h4 className='text-base font-semibold mb-2'>Details</h4>
+                                        <p className='text-sm'>Add Project from here</p>
+                                    </div>
+                                    <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
+                                        <div className='mb-5'>
+                                            <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
+                                            <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                         </div>
-                                    </label>
-                                </section>
-                            </div>
-                        </div>
-                        <div className='my-5 flex flex-wrap sm:my-8'>
-                            <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
-                                <h4 className='text-base font-semibold mb-2'>Details</h4>
-                                <p className='text-sm'>Add Project from here</p>
-                            </div>
-                            <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
-                                <div className='mb-5'>
-                                    <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
-                                    <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                        <div className='mb-5'>
+                                            <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Sub Category</label>
+                                            <select name='place' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                                <option value="OFFICES">Offices</option>
+                                                <option value="HOTELS">Hotels</option>
+                                                <option value="RESIDENTIALS">Residentials</option>
+                                                <option value="RESTAURANTS">Restaurants</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className='mb-5'>
-                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Sub Category</label>
-                                    <select name='place' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                        <option value="OFFICES">Offices</option>
-                                        <option value="HOTELS">Hotels</option>
-                                        <option value="RESIDENTIALS">Residentials</option>
-                                        <option value="RESTAURANTS">Restaurants</option>
-                                    </select>
+                                <div className='mb-4 text-end'>
+                                    <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div className='mb-4 text-end'>
-                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
-                        </div>
-                    </form>
+                            </form>
+                        )}
                 </section>
             </SideNavbar>
         </>

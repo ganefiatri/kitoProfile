@@ -36,16 +36,16 @@ const Product = props => {
                 </section>
                 <section className='pt-10'>
                     {!productsQuery ? (
-                        <div className='space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
                             {productsLimit.map(item => (
-                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} />
+                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name}/>
                             ))}
 
                         </div>
                     ) : (
-                        <div className='space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
                             {productsQuery.map(item => (
-                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} />
+                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
                             ))}
 
                         </div>
@@ -64,6 +64,9 @@ export default Product;
 export async function getServerSideProps(context) {
     const q = context.query.q
     const productQuery = await prisma.product.findMany({
+        include:{
+            subCategory: true,
+          },
         where: {
             title: {
                 search: q
@@ -71,6 +74,9 @@ export async function getServerSideProps(context) {
         }
     });
     const productLimit = await prisma.product.findMany({
+        include:{
+            subCategory: true,
+          },
         take: 5,
         orderBy: {
             id: 'asc'

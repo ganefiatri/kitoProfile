@@ -17,7 +17,7 @@ function LargeCard({ img, company ,title, description, buttonText }) {
               <h3 className="text-4xl mb-3 w-64 font-bold">{title}</h3>
               <p>{description}</p>
   
-              <button className="text-sm text-white bg-gray-900 px-4 py-2 rounded-lg mt-5 hover:scale-105 transform transition duration-300 ease-out">{buttonText}</button>
+              {/* <button className="text-sm text-white bg-gray-900 px-4 py-2 rounded-lg mt-5 hover:scale-105 transform transition duration-300 ease-out">{buttonText}</button> */}
           </div>
       </div>
     )

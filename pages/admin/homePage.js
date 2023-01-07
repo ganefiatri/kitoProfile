@@ -7,10 +7,17 @@ import { FiUsers } from "react-icons/fi";
 import { MdProductionQuantityLimits, MdCategory } from "react-icons/md"
 import Head from 'next/head';
 import Header from '../../components/admin/Header';
+import prisma from "../../utils/prisma";
+import { BiStore } from 'react-icons/bi';
 // import prisma from '../../utils/prisma';
 
-const HomePage = () => {
+const HomePage = props => {
     const { data: session } = useSession()
+    const {category, product, users, store} = props;
+    const cat = category.length;
+    const pro = product.length;
+    const usr = users.length;
+    const str = store?.length;
     return (
         <>
             <Header />
@@ -24,44 +31,49 @@ const HomePage = () => {
                     <link rel="icon" href="/assets/favicon/favicon.ico" />
                 </Head>
                 <div class="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
-                    <div className='relative flex rounded-lg p-4 bg-white justify-between pb-8'>
-                        <div className='flex flex-col'>
-                            <span className='mb-1 text-base font-semibold text-heading'>Total Users</span>
-                            <span className='text-xs font-semibold text-body'>(30 Days)</span>
+                    <div className='rounded-lg p-4 bg-white'>
+                        <div className='flex pb-8 justify-between'>
+                            <div className='flex flex-col'>
+                                <span className='mb-1 text-base font-semibold text-heading'>Total Users</span>
+                            </div>
+                            <div className='flex flex-shrink-0 mx-3 h-12 w-12 justify-center items-center rounded-full bg-green-200'>
+                                <FiUsers />
+                            </div>
                         </div>
-                        <div className='flex flex-shrink-0 mx-3 h-12 w-12 justify-center items-center rounded-full bg-green-200'>
-                            <FiUsers />
-                        </div>
-                    </div>
-                    <div className='relative flex rounded-lg p-4 bg-white justify-between pb-8'>
-                        <div className='flex flex-col'>
-                            <span className='mb-1 text-base font-semibold text-heading'>Total Product</span>
-                            <span className='text-xs font-semibold text-body'>(30 Days)</span>
-                        </div>
-                        <div className='flex flex-shrink-0 mx-3 h-12 w-12 justify-center items-center rounded-full bg-green-200'>
-                            <MdProductionQuantityLimits />
-                        </div>
-                    </div>
-                    <div className='relative flex rounded-lg p-4 bg-white justify-between pb-8'>
-                        <div className='flex flex-col'>
-                            <span className='mb-1 text-base font-semibold text-heading'>Total Category</span>
-                            <span className='text-xs font-semibold text-body'>(30 Days)</span>
-                        </div>
-                        <div className='flex flex-shrink-0 mx-3 h-12 w-12 justify-center items-center rounded-full bg-green-200'>
-                            <MdCategory />
-                        </div>
+                        <span className='mb-2 text-xl font-semibold text-heading'>{usr}</span>
                     </div>
                     <div className='rounded-lg p-4 bg-white'>
                         <div className='flex pb-8 justify-between'>
                             <div className='flex flex-col'>
-                                <span className='mb-1 text-base font-semibold text-heading'>Total Revenue</span>
-                                <span className='text-xs font-semibold text-body'>(30 Days)</span>
+                                <span className='mb-1 text-base font-semibold text-heading'>Total Product</span>
                             </div>
                             <div className='flex flex-shrink-0 mx-3 h-12 w-12 justify-center items-center rounded-full bg-green-200'>
-                                <TfiMoney />
+                                <MdProductionQuantityLimits />
                             </div>
                         </div>
-                        <span className='mb-2 text-xl font-semibold text-heading'>500</span>
+                        <span className='mb-2 text-xl font-semibold text-heading'>{pro}</span>
+                    </div>
+                    <div className='rounded-lg p-4 bg-white'>
+                        <div className='flex pb-8 justify-between'>
+                            <div className='flex flex-col'>
+                                <span className='mb-1 text-base font-semibold text-heading'>Total Category</span>
+                            </div>
+                            <div className='flex flex-shrink-0 mx-3 h-12 w-12 justify-center items-center rounded-full bg-green-200'>
+                                <MdCategory />
+                            </div>
+                        </div>
+                        <span className='mb-2 text-xl font-semibold text-heading'>{cat}</span>
+                    </div>
+                    <div className='rounded-lg p-4 bg-white'>
+                        <div className='flex pb-8 justify-between'>
+                            <div className='flex flex-col'>
+                                <span className='mb-1 text-base font-semibold text-heading'>Total Store </span>
+                            </div>
+                            <div className='flex flex-shrink-0 mx-3 h-12 w-12 justify-center items-center rounded-full bg-green-200'>
+                                <BiStore />
+                            </div>
+                        </div>
+                        <span className='mb-2 text-xl font-semibold text-heading'>{str}</span>
                     </div>
                 </div>
             </SideNavbar >
@@ -74,6 +86,10 @@ export default HomePage;
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
+    const category = await prisma.category.findMany();
+    const product = await prisma.product.findMany();
+    const users = await prisma.user.findMany();
+    const store = await prisma.stores.findMany();
     // console.log(session.user.role)
     if (session?.user.role != "ADMIN") {
         return {
@@ -83,9 +99,14 @@ export async function getServerSideProps({ req }) {
             }
         }
     }
-    
+
     // autorize user
     return {
-        props: { session }
+        props: { session, 
+            category: JSON.parse(JSON.stringify(category)), 
+            product: JSON.parse(JSON.stringify(product)), 
+            users: JSON.parse(JSON.stringify(users)), 
+            store, 
+        }
     }
 }

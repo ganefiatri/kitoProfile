@@ -18,7 +18,7 @@ const Header = () => {
                 <div className='mx-5 m-auto hidden md:flex'>
                     <a href="/" className='inline-flex'>
                         <span className='relative overflow-hidden w-[128px] h-[40px]'>
-                            <span className='block overflow-hidden bg-none border absolute inset-0'>
+                            <span className='block overflow-hidden bg-none absolute inset-0'>
                                 <img src='/assets/logo-hosana.png' className='object-contain w-full h-full absolute' />
                             </span>
                         </span>
@@ -30,7 +30,7 @@ const Header = () => {
                         <button className='flex items-center focus:outline-none' type="button" id='headlessui-menu-button-1' aria-haspopup="true" aria-expanded="false">
                             <div className='relative cursor-pointer w-10 h-10 overflow-hidden rounded-full border border-border-100'>
                                 <span className='block overflow-hidden bg-none border absolute inset-0'>
-                                    <img src="/assets/google.svg" alt="user"/>
+                                   {session && <img src={session.user.image = "null" ? "../images/default-img.jpg" : session.user.image} alt="user"/>} 
                                 </span>
                             </div>
                         </button>

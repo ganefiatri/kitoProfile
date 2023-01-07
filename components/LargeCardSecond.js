@@ -18,7 +18,7 @@ const LargeCardSecond = ({ img, company ,title, description,seconddesc, buttonTe
               <p className=''>{description}</p>
               <p className=''>{seconddesc}</p>
   
-              <button className="text-sm text-white bg-gray-900 px-4 py-2 rounded-lg mt-5 hover:scale-105 transform transition duration-300 ease-out">{buttonText}</button>
+              {/* <button className="text-sm text-white bg-gray-900 px-4 py-2 rounded-lg mt-5 hover:scale-105 transform transition duration-300 ease-out">{buttonText}</button> */}
           </div>
       </div>
     );

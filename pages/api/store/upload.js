@@ -1,14 +1,8 @@
-import nc from "next-connect";
-import multer from "multer";
-import path from "path";
-import { getSession } from "next-auth/react";
-import { staticResourceUrl } from "../../../utils/config";
-import { error } from "console";
 import prisma from "../../../utils/prisma";
-import cloudinary from "../../../utils/cloudinary";
+import { getSession } from "next-auth/react";
+import { s3Client } from "../../../utils/s3Client";
+import formidable from 'formidable-serverless';
 const fs = require("fs");
-
-const DatauriParser = require('datauri/parser');
 
 export const config = {
     api: {
@@ -16,71 +10,58 @@ export const config = {
     }
 }
 
-const parser = new DatauriParser();
-
-const ALLOWED_FORMATS = ['image/jpeg', 'image/png', 'image/jpg'];
-
-const storage = multer.memoryStorage();
-
-const upload = multer({
-    storage,
-    fileFilter: function (req, file, cb) {
-        if (ALLOWED_FORMATS.includes(file.mimetype)) {
-            cb(null, true);
+export default async (req, res) => {
+    // parse request to readable form
+    const form = new formidable.IncomingForm();
+    form.parse(req, async (err, fields, files) => {
+        const session = await getSession({ req });
+        if (!session) {
+            return res.status(405).json({ error: "Access Denied !" })
         } else {
-            cb(new Error('Not supported file type!'), false);
-        }
-    }
-});
+            // Account for parsing errors
+            if (err) return res.status(500);
+            try {
+                // Read file
+                const file = fs.readFileSync(files.image.path);
+                const imageName = new Date().getTime()+ "-" + files.image.name;
+                // Upload the file
+                s3Client.putObject({
+                    // params
+                    Bucket: process.env.SPACES_BUCKET,
+                    ACL: "public-read",
+                    Key: imageName,
+                    Body: file,
+                    ContentType: "image/jpeg",
+                }, async () => res.status(201).send("Image uploaded"));
 
-const handler = nc({
-    onError: (err, req, res, next) => {
-        console.error(err.stack);
-        res.status(500).end("Something broke!");
-    },
-    onNoMatch: (req, res) => {
-        res.status(404).end("Page is not found");
-    },
-}).use(upload.single("image"))
-    .post(async (req, res) => {
-        try {
-            const file64 = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer);
-            const session = await getSession({ req });
-            if (!session) {
-                error("Access denied", res);
-            } else {
-                const result = await cloudinary.uploader.upload(file64.content, {
-                    folder: 'posts',
-                    use_filename: true
-                });
-                const post = await prisma.stores.create({
-                    data: {
-                        name: req.body.name,
-                        description: req.body.description,
-                        img: result.secure_url,
-                        filename: result.public_id
-                    }
-                });
-                // const post = await prisma.category.create({
-                //     data: {
-                //         name: req.body.name,
-                //         img: url,
-                //         filename: file,
-                //     }
-                // });
-                if (post) {
-                    return res.status(200).json({ message: "Success fully create category!" });
+                if (!fields) {
+                    res.status(500).send("You Dont Have Field");
                 } else {
-                    return res.status(405).json({ error: "failed to insert data" })
+                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
+                    const post = await prisma.stores.create({
+                        data: {
+                            name: fields.name,
+                            description: fields.description,
+                            img: url,
+                            filename: imageName,
+                        }
+                    });
+                    if (post) {
+                        return res.status(200).json({ message: "Success fully create category!" });
+                    } else {
+                        return res.status(405).json({ error: "failed to insert data" })
+                    }
                 }
-                // res.json({body: req.body, file: req.file})
-            }
-        } catch (error) {
-            return res.status(405).json({ error })
-        }
-    })
 
-export default handler;
+            } catch (error) {
+                console.log(error);
+                res.status(500).send("Error Uploading Image!")
+            }
+        }
+    });
+};
+
+// export default handler;
 
 
 

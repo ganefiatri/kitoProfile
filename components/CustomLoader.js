@@ -29,7 +29,6 @@ const CustomLoader = () => (
   <>
     <div style={{ padding: '24px' }}>
       <Spinner />
-      <div>Loading...</div>
     </div>
   </>
 );

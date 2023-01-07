@@ -34,7 +34,7 @@ const Showroom = ({ stores }) => {
                      {stores.map(store => (
                         <LargeCard
                             img={store.img}
-                            title={store.title}
+                            title={store.name}
                             description={store.description}
                             buttonText="Get Inspired"
                         />

@@ -78,7 +78,7 @@ export default function Home({ products, categories }) {
         <section className='pt-10'>
           <h2 className='text-4xl font-thin pb-3 text-center'>Products</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
-          <div className='space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
             {products.map(item => (
               <ProductCard key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name}/>
             ))}

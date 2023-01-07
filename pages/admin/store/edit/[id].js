@@ -23,10 +23,10 @@ const ProductbyId = props => {
     const { store } = props;
     const router = useRouter()
     //state
-    const [imageUploaded, setImageUploaded] = useState(store[0].image);
-    const [createObjectURL, setCreateObjectURL] = useState(store[0].image);
+    const [imageUploaded, setImageUploaded] = useState(store[0].img);
+    const [createObjectURL, setCreateObjectURL] = useState(store[0].img);
     const [name, setName] = useState(store[0].name);
-    const [description, setDesc] = useState(store[0].place);
+    const [description, setDesc] = useState(store[0].description);
     const setFilename = store[0].filename;
     const id = store[0].id;
 
@@ -113,8 +113,8 @@ const ProductbyId = props => {
                                     <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                                 <div className='mb-5'>
-                                    <label for="description" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Description</label>
-                                    <input type="text" value={description} onChange={e => setDesc(e.target.value)} name="description" id="description" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    <label for="desc" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Description</label>
+                                    <input type="text" value={description} onChange={e => setDesc(e.target.value)} name="description" id="desc" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                             </div>
                         </div>
