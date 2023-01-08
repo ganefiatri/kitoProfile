@@ -47,7 +47,7 @@ export async function getServerSideProps() {
     });
     const projectByResident = await prisma.project.findMany({
         where:{
-            place: "RESIDENTS"
+            place: "RESIDENTIALS"
         }
     });
     const projectByRestaurant = await prisma.project.findMany({
