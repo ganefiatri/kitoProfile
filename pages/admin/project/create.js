@@ -98,8 +98,8 @@ export default function Create() {
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
                         <h1 className='text-lg font-semibold text-heading'>Create New Project</h1>
                     </div>
-                    {loading ? <CustomLoader className="justify-items-center items-center" />
-                        : (
+                    {/* {loading ? <CustomLoader className="justify-items-center items-center" />
+                        : ( */}
                             <form onSubmit={handleFormData}>
                                 <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
                                     <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
@@ -150,7 +150,7 @@ export default function Create() {
                                     <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
                                 </div>
                             </form>
-                        )}
+                        {/* )} */}
                 </section>
             </SideNavbar>
         </>

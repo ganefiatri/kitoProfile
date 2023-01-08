@@ -1,6 +1,6 @@
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { Router } from 'next/router';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
@@ -12,6 +12,7 @@ const Create = ({categories}) => {
     const { data: session } = useSession();
     // const [name, setName] = useState('');
     // const [category, setCategory] = useState('');
+    const router = useRouter();
 
     const handleFormData = async (e) => {
         e.preventDefault();
@@ -29,7 +30,7 @@ const Create = ({categories}) => {
                 }
             });
             const result = await res.json();
-            Router.push("/admin/subCategoryPage");
+            router.push("/admin/subCategoryPage");
 
     }
 

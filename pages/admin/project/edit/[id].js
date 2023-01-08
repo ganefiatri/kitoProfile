@@ -23,8 +23,8 @@ const ProductbyId = props => {
     const { project } = props;
     const router = useRouter()
     //state
-    const [imageUploaded, setImageUploaded] = useState(project[0].image);
-    const [createObjectURL, setCreateObjectURL] = useState(project[0].image);
+    const [imageUploaded, setImageUploaded] = useState(project[0].img);
+    const [createObjectURL, setCreateObjectURL] = useState(project[0].img);
     const [name, setName] = useState(project[0].name);
     const [place, setPlace] = useState(project[0].place);
     const setFilename = project[0].filename;

@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React from 'react'
 
 function ProductCardSearch({ img, title, price, description, quantity, subCategory }) {

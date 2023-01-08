@@ -11,11 +11,11 @@ import Search from '../components/product/Search';
 import prisma from '../utils/prisma';
 
 
-const Product = props => {
-    const { productsQuery, productsLimit } = props;
-    // console.log(products)
-
-
+const Product = ({productsQuery, productsLimit}) => {
+    console.log(productsQuery)
+    const router = useRouter()
+    const queries = router.query.q;
+    
     return (
         <div>
             <Head>
@@ -35,22 +35,21 @@ const Product = props => {
                     <Search />
                 </section>
                 <section className='pt-10'>
-                    {!productsQuery ? (
+                    
                         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
                             {productsLimit.map(item => (
                                 <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name}/>
                             ))}
 
                         </div>
-                    ) : (
-                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
+                   
+                        {/* <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
                             {productsQuery.map(item => (
                                 <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
                             ))}
 
-                        </div>
-                    )
-                    }
+                        </div> */}
+                    
 
                 </section>
             </main>
@@ -63,15 +62,16 @@ export default Product;
 
 export async function getServerSideProps(context) {
     const q = context.query.q
+    console.log(q)
     const productQuery = await prisma.product.findMany({
-        include:{
-            subCategory: true,
-          },
         where: {
             title: {
                 search: q
             }
-        }
+        },
+        include:{
+            subCategory: true,
+          },
     });
     const productLimit = await prisma.product.findMany({
         include:{

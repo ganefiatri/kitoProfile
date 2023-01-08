@@ -5,43 +5,17 @@ import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
-import { isImage, validateSize } from '../../../utils/fileValidation';
-import CustomLoader from '../../../components/CustomLoader';
 
 export default function Create() {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState();
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [name, setName] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [imageError, setImageError] = useState('');
 
     const router = useRouter();
 
     const handleImage = (e) => {
-        setImageError('');
         const file = e.target.files[0];
-        if (!file) {
-            return;
-        }
-
-        const checkResult = isImage(file.name);
-        if (!checkResult) {
-            const error = "File Type should be a image";
-            toast(error, { type: 'error' });
-            setImageError(error);
-            return;
-        }
-
-        const isImageLarge = validateSize(file);
-        if (isImageLarge) {
-            const error = 'File must be less or equal to 5MB';
-            toast(error, { type: 'error' });
-            setImageError(error);
-            return;
-        }
-
         setImageUploaded(file);
         const fileReader = new FileReader();
         fileReader.onload = function (e) {
@@ -52,12 +26,7 @@ export default function Create() {
 
     const handleFormData = async (e) => {
         e.preventDefault();
-        if (!title || !imageUploaded || !name) {
-            toast('Please enter required fields', { type: 'error' });
-            return;
-        }
-        setLoading(true);
-
+       
         const forms = new FormData();
         forms.append('name', name);
         forms.append('image', imageUploaded);
@@ -66,14 +35,7 @@ export default function Create() {
             method: "POST",
             body: forms
         });
-        const { error } = await res.json();
-        if (error) {
-            toast('There was error', { type: 'error' });
-            setLoading(false);
-            return;
-        }
-        toast('Card created successfully!!!', { type: 'success' });
-        setLoading(false);
+        
         router.push("/admin/categoryPage");
     }
 
@@ -94,8 +56,8 @@ export default function Create() {
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
                         <h1 className='text-lg font-semibold text-heading'>Create New Category</h1>
                     </div>
-                    {loading ? <CustomLoader className="justify-items-center items-center" />
-                        : (
+                    {/* {loading ? <CustomLoader className="justify-items-center items-center" />
+                        : ( */}
                             <form onSubmit={handleFormData}>
                                 <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
                                     <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
@@ -136,7 +98,7 @@ export default function Create() {
                                     <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
                                 </div>
                             </form>
-                        )}
+                        {/* )} */}
                 </section>
             </SideNavbar>
         </>
