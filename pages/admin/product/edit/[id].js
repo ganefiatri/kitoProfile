@@ -123,11 +123,11 @@ const ProductbyId = props => {
                                 </div>
                                 <div className='mb-5'>
                                     <label for="price" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Price (Rp)</label>
-                                    <input type="number" value={price} onChange={e => setPrice(e.target.value)} name="price" id="price" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={price} onChange={e => setPrice(e.target.value)} name="price" id="price" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
                                 </div>
                                 <div className='mb-5'>
                                     <label for="quantity" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Quantity</label>
-                                    <input type="number" value={quantity} onChange={e => setQuantity(e.target.value)} name="quantity" id="quantity" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={quantity} onChange={e => setQuantity(e.target.value)} name="quantity" id="quantity" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                                 <div className='mb-5'>
                                     <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Sub Category</label>
