@@ -29,7 +29,7 @@ const Banner = () => {
                 <div className="carousel-inner relative w-full overflow-hidden">
                     <div className="carousel-item active float-left w-full">
                         <img
-                            src="https://aer.co.id/wp-content/uploads/2019/11/HOME-BANNER-1.jpg"
+                            src="https://hokito.sgp1.digitaloceanspaces.com/Dekor.jpg"
                             className="block w-full h-auto"
                             alt="Wild Landscape"
                         />
@@ -41,7 +41,7 @@ const Banner = () => {
                     </div>
                     <div className="carousel-item float-left w-full">
                         <img
-                            src="https://aer.co.id/wp-content/uploads/2019/11/HOME-BANNER-3.jpg"
+                            src="https://hokito.sgp1.digitaloceanspaces.com/tile.jpg"
                             className="block w-full h-auto"
                             alt="Camera"
                         />
@@ -53,7 +53,7 @@ const Banner = () => {
                     </div>
                     <div className="carousel-item float-left w-full">
                         <img
-                            src="https://aer.co.id/wp-content/uploads/2019/11/HOME-BANNER-4.jpg"
+                            src="https://hokito.sgp1.digitaloceanspaces.com/living.jpg"
                             className="block w-full h-auto"
                             alt="Exotic Fruits"
                         />

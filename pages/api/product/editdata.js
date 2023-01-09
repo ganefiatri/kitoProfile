@@ -14,7 +14,7 @@ export default async (req, res) => {
     // parse request to readable form
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
-        if(files => 0){
+        if(files < 0){
             const post = await prisma.product.update({
                 where: {
                     id: fields.id
