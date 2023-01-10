@@ -47,21 +47,21 @@ export default function Home({ products, categories }) {
         </section>
 
         {/* Large Card Info */}
-        <LargeCard
+        {/* <LargeCard
           img='https://images.unsplash.com/photo-1604014237256-11d475e2a2d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'
           company="Hosana Kito Group"
           title="Luxury Series"
           description="With all of our experiance and combination, we create perfect Product series."
           buttonText="Learn More"
-        />
-        <LargeCardSecond
+        /> */}
+        {/* <LargeCardSecond
           img='https://images.unsplash.com/photo-1661107259637-4e1c55462428?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxzaG93ZXIlMjBpbnRlcmlvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60'
           company="Hosana Kito Group"
           title="Gold Series"
           description="With all of our experiance and combination, we create perfect Product series,"
           seconddesc="gold series for who appreciate uniqueness in simplicity."
           buttonText="Learn More"
-        />
+        /> */}
 
         <section className='pt-10'>
           <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
