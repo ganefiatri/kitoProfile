@@ -34,9 +34,12 @@ export default function Create() {
         const res = await fetch("/api/category/upload", {
             method: "POST",
             body: forms
-        });
+        }).then(() => {
+            router.push("/admin/categoryPage");
+        }).catch((error) => {
+            console.log(error)
+        })
         
-        router.push("/admin/categoryPage");
     }
 
     return (
