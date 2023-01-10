@@ -5,8 +5,8 @@ function ProductCard({ img, title, price, description, quantity, subCategory }) 
     const Format = price;
     const currencyFormat = Format.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     return (
-        <>
-            <div className='mx-1'>
+        <div className="cursor-pointer">
+            <div className="relative h-full w-64">
                 <div class="w-full p-4">
                     <a href="" class="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
                         <div class="relative pb-48 overflow-hidden">
@@ -31,7 +31,7 @@ function ProductCard({ img, title, price, description, quantity, subCategory }) 
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

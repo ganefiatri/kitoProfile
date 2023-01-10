@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react'
 
 function ProductCardSearch({ img, title, price, description, quantity, subCategory }) {
@@ -5,12 +6,17 @@ function ProductCardSearch({ img, title, price, description, quantity, subCatego
     const currencyFormat = Format.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
     return (
-        <>
-            <div className='mx-1'>
+        <div className="cursor-pointer">
+            <div className="relative h-full w-64">
                 <div class="w-full p-4">
-                    <a href="" class="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
-                        <div class="relative pb-48 overflow-hidden">
-                            <img class="absolute inset-0 h-full w-full object-cover" src={img} alt={title} />
+                    <a href="" className="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
+                        <div className="relative pb-48 overflow-hidden">
+                        <Image
+                            className="absolute inset-0 h-full w-full object-cover"
+                            src={img}
+                            alt={title}
+                            layout="fill"
+                        />
                         </div>
                     </a>
                     <div class="p-4 bg-slate-100">
@@ -31,7 +37,7 @@ function ProductCardSearch({ img, title, price, description, quantity, subCatego
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

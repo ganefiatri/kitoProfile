@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { func } from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Banner from '../components/contact/Banner';
 import Footer from '../components/Footer';
@@ -9,13 +9,31 @@ import Header from '../components/frontend/Header';
 import ProductCardSearch from '../components/product/ProductCardSearch';
 import Search from '../components/product/Search';
 import prisma from '../utils/prisma';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 
-const Product = ({productsQuery, productsLimit}) => {
+const Product = ({ productsQuery, productsLimit }) => {
     console.log(productsQuery)
+    const [slideData, setSlide] = useState([])
     const router = useRouter()
     const queries = router.query.q;
-    
+    const rowRef = useRef(null)
+    const [isMoved, setIsMoved] = useState(false)
+
+    const handleClick = (direction) => {
+        setIsMoved(true)
+
+        if (rowRef.current) {
+            const { scrollLeft, clientWidth } = rowRef.current
+
+            const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth
+
+            rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
+        }
+    }
+
     return (
         <div>
             <Head>
@@ -35,22 +53,16 @@ const Product = ({productsQuery, productsLimit}) => {
                     <Search />
                 </section>
                 <section className='pt-10'>
-                    
-                        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
-                            {productsLimit.map(item => (
-                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name}/>
-                            ))}
+                <div className="group relative md:-ml-2">
+                    <AiOutlineLeft className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`} onClick={() => handleClick("left")} />
+                    <div ref={rowRef} className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+                        {productsLimit.map(item => (
+                            <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
 
-                        </div>
-                   
-                        {/* <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
-                            {productsQuery.map(item => (
-                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
-                            ))}
-
-                        </div> */}
-                    
-
+                        ))}
+                    </div>
+                    <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
+                </div>
                 </section>
             </main>
             <Footer />
@@ -69,15 +81,15 @@ export async function getServerSideProps(context) {
                 search: q
             }
         },
-        include:{
+        include: {
             subCategory: true,
-          },
+        },
     });
     const productLimit = await prisma.product.findMany({
-        include:{
+        include: {
             subCategory: true,
-          },
-        take: 5,
+        },
+        take: 6,
         orderBy: {
             id: 'asc'
         }

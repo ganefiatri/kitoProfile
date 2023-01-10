@@ -33,7 +33,7 @@ export default async (req, res) => {
                     };
                     s3Client.deleteObject(params, function (error, data) {
                         if (error) {
-                            res.status({ error: "Something went wrong" });
+                            return res.status({ error: "Something went wrong" });
                         }
                         console.log("Successfully deleted file", data);
                     });
@@ -52,7 +52,7 @@ export default async (req, res) => {
                 }, async () => res.status(201).send("Image uploaded"));
 
                 if (!fields) {
-                    res.status(500).send("You Dont Have Field");
+                    return res.status(500).send("You Dont Have Field");
                 } else {
                     const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
                     const post = await prisma.project.update({
@@ -66,16 +66,10 @@ export default async (req, res) => {
                             filename: imageName,
                         }
                     });
-                    if (post) {
-                        return res.status(200).json({ message: "Success fully create category!" });
-                    } else {
-                        return res.status(405).json({ error: "failed to insert data" })
-                    }
                 }
 
             } catch (error) {
                 console.log(error);
-                res.status(500).send("Error Uploading Image!")
             }
         }
     });

@@ -1,5 +1,4 @@
 import prisma from "../../../utils/prisma";
-import cloudinary from "../../../utils/cloudinary";
 import { s3Client } from "../../../utils/s3Client";
 const fs = require("fs");
 
@@ -20,7 +19,7 @@ export default async function handler(req, res) {
                 };
                 s3Client.deleteObject(params, function (error, data) {
                         if (error) {
-                                res.status({ error: "Something went wrong" });
+                                return res.status({ error: "Something went wrong" });
                         }
                         console.log("Successfully deleted file", data);
                 });
@@ -31,5 +30,5 @@ export default async function handler(req, res) {
                         id: req.query.id,
                 }
         });
-        res.json(result);
+        return res.json(result);
 };

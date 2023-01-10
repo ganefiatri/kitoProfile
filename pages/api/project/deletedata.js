@@ -20,7 +20,7 @@ export default async function handler(req, res) {
                 };
                 s3Client.deleteObject(params, function (error, data) {
                         if (error) {
-                                res.status({ error: "Something went wrong" });
+                                return res.status({ error: "Something went wrong" });
                         }
                         console.log("Successfully deleted file", data);
                 });
@@ -31,5 +31,5 @@ export default async function handler(req, res) {
                         id: req.query.id,
                 }
         });
-        res.json(result);
+        return res.json(result);
 };

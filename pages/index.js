@@ -10,11 +10,27 @@ import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Cardinfo from '../components/frontend/Cardinfo'
 import LargeCardSecond from '../components/LargeCardSecond'
+import { useRef, useState } from 'react'
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
 const prisma = new PrismaClient();
 
 export default function Home({ products, categories }) {
   const { data: session } = useSession()
+  const rowRef = useRef(null)
+  const [isMoved, setIsMoved] = useState(false)
+
+  const handleClick = (direction) => {
+    setIsMoved(true)
+
+    if (rowRef.current) {
+      const { scrollLeft, clientWidth } = rowRef.current
+
+      const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth
+
+      rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
+    }
+  }
 
   function handleSignOut() {
     signOut()
@@ -67,7 +83,7 @@ export default function Home({ products, categories }) {
           <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/category">View all</a></p>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-3 ml-3'>
+          <div className='flex overflow-scroll scrollbar-hide p-3 ml-3'>
             {categories.map(item => (
               <Category key={item.id} img={item.img} title={item.name} />
             ))}
@@ -78,10 +94,14 @@ export default function Home({ products, categories }) {
         <section className='pt-10'>
           <h2 className='text-4xl font-thin pb-3 text-center'>Products</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
-          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-scroll scrollbar-hide p-3 ml-3'>
-            {products.map(item => (
-              <ProductCard key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name}/>
-            ))}
+          <div className="group relative md:-ml-2">
+            <AiOutlineLeft className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`} onClick={() => handleClick("left")} />
+            <div ref={rowRef} className='flex overflow-scroll scrollbar-hide p-3 ml-3'>
+              {products.map(item => (
+                <ProductCard key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
+              ))}
+            </div>
+            <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
           </div>
         </section>
 
@@ -127,11 +147,20 @@ function User({ session, handleSignOut }) {
 
 export async function getServerSideProps() {
   const products = await prisma.product.findMany({
-    include:{
+    include: {
       subCategory: true,
+    },
+    take: 10,
+    orderBy: {
+      id: 'asc'
     }
   });
-  const categories = await prisma.category.findMany();
+  const categories = await prisma.category.findMany({
+    take: 10,
+    orderBy: {
+      id: 'asc'
+    }
+  });
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),

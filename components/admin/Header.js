@@ -17,9 +17,9 @@ const Header = () => {
                 </button>
                 <div className='mx-5 m-auto hidden md:flex'>
                     <a href="/" className='inline-flex'>
-                        <span className='relative overflow-hidden w-[128px] h-[40px]'>
+                        <span className='relative overflow-hidden w-40 h-12'>
                             <span className='block overflow-hidden bg-none absolute inset-0'>
-                                <img src='/assets/logo-hosana.png' className='object-contain w-full h-full absolute' />
+                                <img src='https://hokito.sgp1.digitaloceanspaces.com/Logo.png' className='object-contain w-full h-full absolute' />
                             </span>
                         </span>
                     </a>
