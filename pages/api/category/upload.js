@@ -11,6 +11,14 @@ export const config = {
 }
 
 export default async (req, res) => {
+    if (req.method !== "POST") {
+        res.setHeader("Allow", "POST");
+        res.status(405).json({
+          data: null,
+          error: "Method Not Allowed",
+        });
+        return;
+      }
     // parse request to readable form
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
@@ -41,7 +49,7 @@ export default async (req, res) => {
                     const post = await prisma.category.create({
                         data: {
                             name: fields.name,
-                            img: url,
+                            img: url,   
                             filename: imageName,
                         }
                     });
