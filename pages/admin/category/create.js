@@ -34,11 +34,9 @@ export default function Create() {
         const res = await fetch("/api/category/upload", {
             method: "POST",
             body: forms
-        }).then(() => {
-            router.push("/admin/categoryPage");
-        }).catch((error) => {
-            console.log(error)
-        })
+        });
+        return res.status(201).json({message :"Form Send to Api"});
+        router.push("/admin/categoryPage");
         
     }
 

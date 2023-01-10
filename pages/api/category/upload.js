@@ -40,10 +40,10 @@ export default async (req, res) => {
                     Key: imageName,
                     Body: file,
                     ContentType: "image/jpeg",
-                }, async () => res.status(201).send("Image uploaded"));
+                }, async () => res.status(201).json({message :"Image uploaded"}));
 
                 if (!fields) {
-                    res.status(500).send("You Dont Have Field");
+                    res.status(500).json({error :"You Dont Have Field"});
                 } else {
                     const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
                     const post = await prisma.category.create({
@@ -62,7 +62,7 @@ export default async (req, res) => {
 
             } catch (error) {
                 console.log(error);
-                res.status(500).send("Error Uploading Image!")
+                return res.status(500).json({error :"Error Uploading Image!"})
             }
         }
     });
