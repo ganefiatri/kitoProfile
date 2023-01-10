@@ -31,13 +31,11 @@ export default function Create() {
         forms.append('name', name);
         forms.append('image', imageUploaded);
         // await axios.post("/api/category/createdata",forms);
-        const res = await fetch("/api/category/upload", {
+        await fetch("/api/category/upload", {
             method: "POST",
             body: forms
         });
-        return res.status(201).json({message :"Form Send to Api"});
-        router.push("/admin/categoryPage");
-        
+        router.push('admin/categoryPage');
     }
 
     return (

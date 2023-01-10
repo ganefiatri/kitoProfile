@@ -11,14 +11,6 @@ export const config = {
 }
 
 export default async (req, res) => {
-    if (req.method !== "POST") {
-        res.setHeader("Allow", "POST");
-        res.status(405).json({
-          data: null,
-          error: "Method Not Allowed",
-        });
-        return;
-      }
     // parse request to readable form
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
@@ -26,43 +18,31 @@ export default async (req, res) => {
         if (!session) {
             return res.status(405).json({ error: "Access Denied !" })
         } else {
-            // Account for parsing errors
-            if (err) return res.status(500);
-            try {
-                // Read file
-                const file = fs.readFileSync(files.image.path);
-                const imageName = new Date().getTime()+ "-" + files.image.name;
-                // Upload the file
-                s3Client.putObject({
-                    // params
-                    Bucket: process.env.SPACES_BUCKET,
-                    ACL: "public-read",
-                    Key: imageName,
-                    Body: file,
-                    ContentType: "image/jpeg",
-                }, async () => res.status(201).json({message :"Image uploaded"}));
+            // Read file
+            const file = fs.readFileSync(files.image.path);
+            const imageName = new Date().getTime() + "-" + files.image.name;
+            // Upload the file
+            s3Client.putObject({
+                // params
+                Bucket: process.env.SPACES_BUCKET,
+                ACL: "public-read",
+                Key: imageName,
+                Body: file,
+                ContentType: "image/jpeg",
+            }, async () => res.status(201).json({ message: "Image uploaded" }));
 
-                if (!fields) {
-                    res.status(500).json({error :"You Dont Have Field"});
-                } else {
-                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
-                    const post = await prisma.category.create({
-                        data: {
-                            name: fields.name,
-                            img: url,   
-                            filename: imageName,
-                        }
-                    });
-                    if (post) {
-                        return res.status(200).json({ message: "Success fully create category!" });
-                    } else {
-                        return res.status(405).json({ error: "failed to insert data" })
+            if (!fields) {
+                return res.status(500).json({ error: "You Dont Have Field" });
+            } else {
+                const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
+                await prisma.category.create({
+                    data: {
+                        name: fields.name,
+                        img: url,
+                        filename: imageName,
                     }
-                }
-
-            } catch (error) {
-                console.log(error);
-                return res.status(500).json({error :"Error Uploading Image!"})
+                });
+                return res.status(200).json({ message: "Success upload image and data to database" })
             }
         }
     });
