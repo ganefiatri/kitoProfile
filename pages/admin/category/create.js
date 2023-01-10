@@ -35,7 +35,7 @@ export default function Create() {
             method: "POST",
             body: forms
         });
-        router.push('admin/categoryPage');
+        router.push('/admin/categoryPage');
     }
 
     return (
