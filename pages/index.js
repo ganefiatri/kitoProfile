@@ -3,13 +3,11 @@ import Banner from '../components/frontend/Banner'
 import Category from '../components/Category'
 import Footer from '../components/Footer'
 import Header from '../components/frontend/Header'
-import LargeCard from '../components/LargeCard'
 import ProductCard from '../components/ProductCard'
 import { PrismaClient } from '@prisma/client';
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Cardinfo from '../components/frontend/Cardinfo'
-import LargeCardSecond from '../components/LargeCardSecond'
 import { useRef, useState } from 'react'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
@@ -30,11 +28,7 @@ export default function Home({ products, categories }) {
 
       rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
     }
-  }
-
-  function handleSignOut() {
-    signOut()
-  }
+  };
 
   return (
     <div className='w-[600px] md:w-full lg:w-full sm:w-full'>
@@ -61,23 +55,6 @@ export default function Home({ products, categories }) {
             <Cardinfo />
           </div>
         </section>
-
-        {/* Large Card Info */}
-        {/* <LargeCard
-          img='https://images.unsplash.com/photo-1604014237256-11d475e2a2d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'
-          company="Hosana Kito Group"
-          title="Luxury Series"
-          description="With all of our experiance and combination, we create perfect Product series."
-          buttonText="Learn More"
-        /> */}
-        {/* <LargeCardSecond
-          img='https://images.unsplash.com/photo-1661107259637-4e1c55462428?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxzaG93ZXIlMjBpbnRlcmlvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60'
-          company="Hosana Kito Group"
-          title="Gold Series"
-          description="With all of our experiance and combination, we create perfect Product series,"
-          seconddesc="gold series for who appreciate uniqueness in simplicity."
-          buttonText="Learn More"
-        /> */}
 
         <section className='pt-10'>
           <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
@@ -114,49 +91,18 @@ export default function Home({ products, categories }) {
   )
 }
 
-// For Guest
-function Guest() {
-  return (
-    <main className="container mx-auto text-center py-20">
-      <h3 className='text-4xl font-bold'>Guest Home Page</h3>
-      <div className='flex justify-center'>
-        <Link href={'/auth/login'}><span className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Sign In</span></Link>
-      </div>
-    </main>
-  )
-}
-
-// For Authorize User
-function User({ session, handleSignOut }) {
-  return (
-    <main className="container mx-auto text-center py-20">
-      <h3 className='text-4xl font-bold'>Authorize User Home Page</h3>
-      <div className='details'>
-        <h5>{session.user.name}</h5>
-        <h5>{session.user.email}</h5>
-      </div>
-      <div className="flex justify-center">
-        <button onClick={handleSignOut} className='mt-5 mb-5 p-10 py-1 bg-indigo-500 text-gray-50'>Sign Out</button>
-      </div>
-      <div className='flex justify-center'>
-        <Link href={'/profile'}><span className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Profile</span></Link>
-      </div>
-    </main>
-  )
-}
-
 export async function getServerSideProps() {
   const products = await prisma.product.findMany({
     include: {
       subCategory: true,
     },
-    take: 10,
+    take: 5,
     orderBy: {
       id: 'asc'
     }
   });
   const categories = await prisma.category.findMany({
-    take: 10,
+    take: 6,
     orderBy: {
       id: 'asc'
     }
