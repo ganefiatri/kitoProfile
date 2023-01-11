@@ -10,7 +10,7 @@ function ProductCard({ img, title, price, description, quantity, subCategory }) 
                 <div class="w-full p-4">
                     <a href="" class="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
                         <div class="relative pb-48 overflow-hidden">
-                            <img class="absolute inset-0 h-full w-full object-cover" src={img} alt={title} />
+                            <Image class="absolute inset-0 h-full w-full" layout="fill" src={img} alt={title} />
                         </div>
                     </a>
                     <div class="p-4 bg-slate-50">

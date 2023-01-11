@@ -5,15 +5,14 @@ function Footer() {
     <div className="grid grid-cols-1 md:grid-cols-4 gap-y-10 gap-x-10 px-16 py-14 bg-gray-100 text-gray-600">
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">About</h5>
-            <p className='text-left leading-loose'>We always prioritize innovation and technology for our products. To maximize customer satisfaction, we provide 5 years warranty for our products and outstanding after-sales services.</p>
-            <p className='text-gray-400 font-extralight pb-5 cursor-pointer underline'>View all </p>
+            <p className='leading-loose text-justify'>Our Vision As a building material center with imported and local products, the most complete and competitive prices & become a market leader in its field.</p>
+            <p className='text-justify leading-loose'>Our Mission Determined to be the most complete ceramic sales center and building materials that can provide quality goods, competitive prices, as trendsetters, always up to date, innovation and have resources that are knowledgeable, high performance and oriented to customer satisfaction.</p>
         </div>
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">Address</h5>
             <p>Head Office</p>
             <p>Jl. Gatot Subroto No. 317, Medan</p>
             <p>Sumatera Utara, 20158</p>
-            <p className='text-gray-400 font-extralight pb-5 cursor-pointer underline'>View all </p>
         </div>
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">Contact</h5>
@@ -21,11 +20,21 @@ function Footer() {
         </div>
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">Info</h5>
-            <p>Terms Of use</p>
-            <p>Become Our Partner</p>
-            <p>Catalogue</p>
-            <p>Gallery</p>
-            <p>Projects</p>
+            <p>
+                <a href="/">Home</a>
+            </p>
+            <p>
+                <a href="/product">Product</a>
+            </p>
+            <p>
+                <a href="/showroom">Showroom</a>
+            </p>
+            <p>
+                <a href="/store">Store</a>
+            </p>
+            <p>
+                <a href="/contact">Contact</a>
+            </p>
         </div>
     </div>
   )

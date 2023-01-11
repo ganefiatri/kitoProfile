@@ -11,10 +11,9 @@ const CardAbout = () => {
                         <h5 className="mb-2 text-sm font-bold tracking-tight text-gray-200 dark:text-white uppercase">01</h5>
                     </a>
                     <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Innovative Design</h5>
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Main Building Material</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-300">Hosana Kito Group was established in 1995 market Indonesia.</p>
-                   
+                    <p className="mb-3 font-normal text-gray-300">Floor, Wall, Door & Windows, Roofing & Building Material</p>
                 </div>
             </div >
 
@@ -26,9 +25,9 @@ const CardAbout = () => {
                         <h5 className="mb-2 text-sm font-bold tracking-tight text-gray-200 dark:text-white uppercase">02</h5>
                     </a>
                     <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">5 Years Warranty</h5>
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Secondary Building Material</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-300">Check Our Hosana Kito Group Complite Products Line here.</p>
+                    <p className="mb-3 font-normal text-gray-300">Bath & Kitchen, Paint & Coating</p>
                     
                 </div>
             </div >
@@ -41,9 +40,9 @@ const CardAbout = () => {
                         <h5 className="mb-2 text-sm font-bold tracking-tight text-gray-200 dark:text-white uppercase">03</h5>
                     </a>
                     <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Material</h5>
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Supplementary Building Material</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-300">Check Our Hosana Kito Group Local Dealers Nearby Your Location here.</p>
+                    <p className="mb-3 font-normal text-gray-300">Plumbing & Water Heater, Electrical & Lamps</p>
                     
                 </div>
             </div >
@@ -55,9 +54,9 @@ const CardAbout = () => {
                         <h5 className="mb-2 text-sm font-bold tracking-tight text-gray-200 dark:text-white uppercase">04</h5>
                     </a>
                     <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Flexible</h5>
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Complementary Building Material</h5>
                     </a>
-                    <p className="mb-3 font-normal text-gray-300">Check Our Hosana Kito Group Local Dealers Nearby Your Location here.</p>
+                    <p className="mb-3 font-normal text-gray-300">Hardware & Tools, House Ware, Living Room & Furniture, Home Textile, Home Decoration</p>
                     
                 </div>
             </div >

@@ -96,13 +96,13 @@ export async function getServerSideProps() {
     include: {
       subCategory: true,
     },
-    take: 5,
+    take: 10,
     orderBy: {
       id: 'asc'
     }
   });
   const categories = await prisma.category.findMany({
-    take: 6,
+    take: 10,
     orderBy: {
       id: 'asc'
     }

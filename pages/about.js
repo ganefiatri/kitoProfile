@@ -26,14 +26,27 @@ const About = () => {
                 </section>
                 <section className="pt-5">
                     <div className="relative text-center justify-center items-center">
-                        <h5 className='font-medium justify-center text-lg tracking-widest pb-2'>About Hosana Kito Group</h5>
-                        <h2 className='font-semibold text-3xl pt-2 tracking-wide'>Most Complete Range of Products</h2>
-                        <p className='pt-5 text-sm leading-7 px-10 lg:px-60 xl:px-60'>To achieve customer satisfaction, we have the most complete range of quality products with innovative design and technology at their comfort and ease:</p>
-                        <p className='pt-4 text-sm px-10 lg:px-60 xl:px-60 leading-7'>Our product are categorized into 2 segments: fitting products and sanitary products. For fitting products we have mixer faucet, cold faucet, shower, supplementary fitting, and accessories. For sanitary products we have washbasin, kitchen sink, urinal and toilet.</p>
-                        <p className='pt-4 text-sm px-10 lg:px-60 xl:px-60 leading-7'>We also prioritize our long term relationship with our customer based on safety, quality, timely service and highly anticipation of their needs and wants.</p>
+                        <h5 className='font-medium justify-center text-lg tracking-widest pb-2'>Vision of Hosana Kito Group</h5>
+                        <h2 className='font-semibold text-3xl pt-2 tracking-wide'>Most Complete and Competitive</h2>
+                        <p className='pt-5 text-sm leading-7 px-10 lg:px-60 xl:px-60'>As a building material center with imported and local products, the most complete and competitive prices & become a market leader in its field.</p>
                     </div>
-                    <div className="pt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-5 gap-2.5 justify-items-center">
-                         <CardAbout/>
+                    <div className="relative text-center justify-center items-center pt-5">
+                        <h5 className='font-medium justify-center text-lg tracking-widest pb-2'>Hosana Kito Group Mission</h5>
+                        <h2 className='font-semibold text-3xl pt-2 tracking-wide'>Complete Product and Best Quality</h2>
+                        <p className='pt-5 text-sm leading-7 px-10 lg:px-60 xl:px-60'>Determined to be the most complete ceramic sales center and building materials that can provide quality goods, competitive prices, as trendsetters, always up to date, innovation and have resources that are knowledgeable, high performance and oriented to customer satisfaction.</p>
+                    </div>
+
+                    <div className='justify-center items-center text-center pt-5'>
+                        <h5 className='font-medium justify-center text-lg tracking-widest pb-2'>Hosana Kito Group Product Classification is divided into 4 (four), namely:</h5>
+                    </div>
+                    <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-5 gap-2.5 justify-items-center">
+                        <CardAbout />
+                    </div>
+
+                    <div className="relative text-center justify-center items-center pt-5">
+                        <h5 className='font-medium justify-center text-lg tracking-widest pb-2'>Hosana Kito Group Value</h5>
+                        <p className='pt-5 text-sm leading-7 px-10 lg:px-60 xl:px-60'>CSR (Corporate Social Responsibility) is oriented towards environmental, social and cultural concerns.</p>
+                        <p className='pt-5 text-sm leading-7 px-10 lg:px-60 xl:px-60'>Profit & Welfare, namely achieving balanced welfare between companies and employees, faithful and modern.</p>
                     </div>
                 </section>
                 <section className="grid grid-cols-1 lg:grid-cols-2 sm:grid-cols-1 py-5 gap-2.5">

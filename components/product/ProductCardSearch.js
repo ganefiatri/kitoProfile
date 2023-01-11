@@ -12,7 +12,7 @@ function ProductCardSearch({ img, title, price, description, quantity, subCatego
                     <a href="" className="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
                         <div className="relative pb-48 overflow-hidden">
                         <Image
-                            className="absolute inset-0 h-full w-full object-cover"
+                            className="absolute inset-0 h-full w-full"
                             src={img}
                             alt={title}
                             layout="fill"

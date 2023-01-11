@@ -25,7 +25,7 @@ const CategorybyId = props => {
     const router = useRouter()
      //state
      const [name, setName] = useState(category[0].name);
-     const [imageUploaded, setImageUploaded] = useState();
+     const [imageUploaded, setImageUploaded] = useState(category[0].img);
      const [createObjectURL, setCreateObjectURL] = useState(category[0].img);
      const setFilename = category[0].filename;
      const id = category[0].id;
@@ -52,7 +52,7 @@ const CategorybyId = props => {
             forms.append('filename', setFilename);
             forms.append('id', id);
             // await axios.post("/api/category/createdata",forms);
-            const result = await fetch("/api/category/editdata", {
+            await fetch("/api/category/editdata", {
                 method: "PUT",
                 body: forms
             });

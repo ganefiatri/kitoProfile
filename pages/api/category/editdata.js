@@ -14,17 +14,18 @@ export default async (req, res) => {
     // parse request to readable form
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
-        if (files < 0) {
-            await prisma.category.update({
+        if (!files.image) {
+             await prisma.category.update({
                 where: {
                     id: fields.id
                 },
                 data: {
                     name: fields.name,
-                    img: fields.img,
+                    img: fields.image,
                     filename: fields.filename,
                 }
             });
+            return res.send({message: "successfully update data without image!"})
         } else {
             const session = await getSession({ req });
             if (!session) {
@@ -53,6 +54,7 @@ export default async (req, res) => {
                     // Read file
                     const file = fs.readFileSync(files.image.path);
                     const imageName = new Date().getTime() + "-" + files.image.name;
+                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
                     // Upload the file
                     s3Client.putObject({
                         // params
@@ -66,7 +68,6 @@ export default async (req, res) => {
                     if (!fields) {
                         return res.status(500).send("You Dont Have Field");
                     } else {
-                        const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
                         await prisma.category.update({
                             where: {
                                 id: fields.id
@@ -82,6 +83,7 @@ export default async (req, res) => {
                 } catch (error) {
                     console.log(error);
                 }
+                return res.send({message: "successfully update data with image"})
             }
         };
     })
