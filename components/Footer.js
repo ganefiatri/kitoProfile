@@ -10,14 +10,14 @@ function Footer() {
         </div>
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">Address</h5>
-            <p>Front Office</p>
-            <p>JL Jenderal Gatot Subroto No.162</p>
-            <p>Sumatera Utara, 20118</p>
+            <p>Head Office</p>
+            <p>Jl. Gatot Subroto No. 317, Medan</p>
+            <p>Sumatera Utara, 20158</p>
             <p className='text-gray-400 font-extralight pb-5 cursor-pointer underline'>View all </p>
         </div>
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">Contact</h5>
-            <p>(061) 4522845</p>
+            <p>0812 6003 8883</p>
         </div>
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">Info</h5>

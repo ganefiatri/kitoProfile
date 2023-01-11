@@ -14,62 +14,75 @@ export default async (req, res) => {
     // parse request to readable form
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
-        const session = await getSession({ req });
-        if (!session) {
-            return res.status(405).json({ error: "Access Denied !" })
+        if (files < 0) {
+            await prisma.category.update({
+                where: {
+                    id: fields.id
+                },
+                data: {
+                    name: fields.name,
+                    img: fields.img,
+                    filename: fields.filename,
+                }
+            });
         } else {
-            // Account for parsing errors
-            if (err) return res.status(500);
-            try {
-                // delete
-                const filePathDel = fields.filename;
+            const session = await getSession({ req });
+            if (!session) {
+                return res.status(405).json({ error: "Access Denied !" })
+            } else {
+                // Account for parsing errors
+                if (err) return res.status(500);
+                try {
+                    // delete
+                    const filePathDel = fields.filename;
 
-                if (!filePathDel) {
-                    return res.status(405).json({ error: "no Path to delete" });
-                } else {
-                    const params = {
+                    if (!filePathDel) {
+                        return res.status(405).json({ error: "no Path to delete" });
+                    } else {
+                        const params = {
+                            Bucket: process.env.SPACES_BUCKET,
+                            Key: filePathDel
+                        };
+                        s3Client.deleteObject(params, function (error, data) {
+                            if (error) {
+                                return res.status({ error: "Something went wrong" });
+                            }
+                            console.log("Successfully deleted file", data);
+                        });
+                    }
+                    // Read file
+                    const file = fs.readFileSync(files.image.path);
+                    const imageName = new Date().getTime() + "-" + files.image.name;
+                    // Upload the file
+                    s3Client.putObject({
+                        // params
                         Bucket: process.env.SPACES_BUCKET,
-                        Key: filePathDel
-                    };
-                    s3Client.deleteObject(params, function (error, data) {
-                        if (error) {
-                            return res.status({ error: "Something went wrong" });
-                        }
-                        console.log("Successfully deleted file", data);
-                    });
-                }
-                // Read file
-                const file = fs.readFileSync(files.image.path);
-                const imageName = new Date().getTime()+ "-" + files.image.name;
-                // Upload the file
-                s3Client.putObject({
-                    // params
-                    Bucket: process.env.SPACES_BUCKET,
-                    ACL: "public-read",
-                    Key: imageName,
-                    Body: file,
-                    ContentType: "image/jpeg",
-                }, async () => res.status(201).send("Image uploaded"));
+                        ACL: "public-read",
+                        Key: imageName,
+                        Body: file,
+                        ContentType: "image/jpeg",
+                    }, async () => res.status(201).send("Image uploaded"));
 
-                if (!fields) {
-                    return res.status(500).send("You Dont Have Field");
-                } else {
-                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
-                    const post = await prisma.category.update({
-                        where: {
-                            id: fields.id
-                        },
-                        data: {
-                            name: fields.name,
-                            img: url,
-                            filename: imageName,
-                        }
-                    });
-                }
+                    if (!fields) {
+                        return res.status(500).send("You Dont Have Field");
+                    } else {
+                        const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
+                        await prisma.category.update({
+                            where: {
+                                id: fields.id
+                            },
+                            data: {
+                                name: fields.name,
+                                img: url,
+                                filename: imageName,
+                            }
+                        });
+                    }
 
-            } catch (error) {
-                console.log(error);
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
-    });
+        };
+    })
 };

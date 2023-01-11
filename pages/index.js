@@ -60,7 +60,7 @@ export default function Home({ products, categories }) {
           <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/category">View all</a></p>
 
-          <div className='flex overflow-scroll scrollbar-hide p-3 ml-3'>
+          <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
             {categories.map(item => (
               <Category key={item.id} img={item.img} title={item.name} />
             ))}
