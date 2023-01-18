@@ -12,30 +12,28 @@ import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import axios from '../../utils/axios';
 
-const ProductPage = () => {
+const UnitPage = () => {
     const { data: session } = useSession();
-    const [productDetail, setProduct] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
     const [filterText, setFilterText] = useState('');
     const [pending, setPending] = useState(true);
 
-    const filteredItems = productDetail.filter(
-        item => item.title && item.title.toLowerCase().includes(filterText.toLowerCase()),
+    const filteredItems = categories.filter(
+        item => item.name && item.name.toLowerCase().includes(filterText.toLowerCase()),
     );
 
-    const fetchProduct = async () => {
-       await fetch('/api/product/getProduct').then(res => res.json().then((data) => {
-            setProduct(data)
+    const fetchCategory = () => {
+        fetch('/api/unit/getdata').then(res => res.json().then((data) => {
+            setCategories(data)
         }))
     }
-    console.log(productDetail)
-
 
     const handleButtonDelete = async (e, id) => {
         e.preventDefault();
         if(confirm('Are you sure want to delete this ?')){
             try {
-                await fetch("/api/product/deletedata?id=" + id, {
+                await fetch("/api/subCategory/deletedata?id=" + id, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                 })
@@ -61,52 +59,11 @@ const ProductPage = () => {
         );
     }, [filterText, resetPaginationToggle]);
 
-    function toCurrency(numberString) {
-        let number = parseFloat(numberString);
-        return number.toLocaleString('IDR');
-    }
 
     const column = [
         {
-            name: 'Code',
-            selector: row => row.code,
-        },
-        {
             name: 'Name',
-            selector: row => row.title,
-        },
-        {
-            name: 'Quantity',
-            selector: row => row.quantity,
-        },
-        {
-            name: 'Price',
-            selector: row => toCurrency(row.product_detail.map(rows => rows.price)),
-        },
-        {
-            name: 'Discount',
-            selector: row => row.product_detail.map(rows => `${rows.discount}%`),
-        },
-        {
-            name: 'SubCat',
-            selector: row => row.product_detail.map(rows => rows.subCategory.name),
-        },
-        {
-            name: 'Unit',
-            selector: row => row.product_detail.map(rows => rows.units.name),
-        },
-        {
-            name: 'Store',
-            selector: row => row.product_detail.map(rows => rows.stores.name),
-        },
-        {
-            name: 'Group',
-            selector: row => row.group,
-        },
-        {
-            name: 'Images',
-            grow: 0,
-            cell: row => <img height="84px" width="56px" alt={row.title} src={row.image} />
+            selector: row => row.name,
         },
         {
             name: "Action",
@@ -115,7 +72,7 @@ const ProductPage = () => {
             (
                 <>
                     <button>
-                        <Link href={`/admin/product/edit/${row.id}`}>
+                        <Link href={`/admin/subCategory/edit/${row.id}`}>
                             <BiEdit className='h-5 w-5' />
                         </Link>
                     </button>
@@ -129,7 +86,7 @@ const ProductPage = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            fetchProduct();
+            fetchCategory();
             setPending(false);
         }, 2000);
         return () => clearTimeout(timeout);
@@ -148,22 +105,22 @@ const ProductPage = () => {
                 </Head>
                 <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Product</h1>
+                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Units</h1>
                         <p class="text-sm font-medium text-gray-500">
-                            Let's grow to your business! Create your category and upload here
+                            Let's grow to your business! Create your units and upload here
                         </p>
                     </div>
-                    <Link href="/admin/product/create"
+                    <Link href="/admin/unit/create"
                         className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
                     >
                         <HiPlusSm className="w-6 h-6 fill-white" />
-                        <span className="text-sm font-semibold tracking-wide">Create Item</span>
+                        <span className="text-sm font-semibold tracking-wide">Create Unit</span>
                     </Link>
                 </div>
                 <DataTable
                     columns={column}
                     data={filteredItems}
-                    defaultSortField="title"
+                    defaultSortField="name"
                     striped
                     pagination
                     progressPending={pending}
@@ -176,7 +133,7 @@ const ProductPage = () => {
     );
 }
 
-export default ProductPage;
+export default UnitPage;
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })

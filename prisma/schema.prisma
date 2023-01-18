@@ -71,6 +71,7 @@ model stores {
   description String?
   img         String?
   filename    String?
+  products    product_detail[]
 }
 
 model project {
@@ -84,16 +85,36 @@ model project {
 model product {
   id            String       @id @default(cuid())
   title         String       @unique
+  code          String
   description   String
-  price         String
+  group         group         @default(HOSANA)
   quantity      String
   image         String
   filename      String?
   createdAt     DateTime     @default(now())
-  subCategoryId String?
-  subCategory   subCategory? @relation(fields: [subCategoryId], references: [id])
+  product_detail product_detail[]
 
   @@fulltext([title])
+}
+
+model units {
+  id              String        @id @default(cuid())
+  name            String        @unique
+  product_detail  product_detail[]
+}
+
+model product_detail {
+  id            String        @id @default(cuid())
+  product_id    String?
+  product       product? @relation(fields: [product_id], references: [id])
+  unit_id       String?
+  units         units? @relation(fields: [unit_id], references: [id])
+  store_id      String?
+  stores        stores? @relation(fields: [store_id], references: [id])
+  subCategoryId String?
+  subCategory   subCategory? @relation(fields: [subCategoryId], references: [id])
+  discount      String?
+  price         String?
 }
 
 model category {
@@ -102,6 +123,8 @@ model category {
   img         String?
   filename    String?
   subCategory subCategory[]
+
+  @@fulltext([name])
 }
 
 model subCategory {
@@ -109,7 +132,7 @@ model subCategory {
   name       String    @unique
   categoryId String?
   category   category? @relation(fields: [categoryId], references: [id])
-  products   product[]
+  products   product_detail[]
 
   @@fulltext([name])
 }
@@ -117,4 +140,9 @@ model subCategory {
 enum role {
   USER
   ADMIN
+}
+
+enum group{
+  HOSANA
+  KITO
 }

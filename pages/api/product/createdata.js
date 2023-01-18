@@ -38,17 +38,31 @@ export default async (req, res) => {
                     return res.status(500).send("You Dont Have Field");
                 } else {
                     const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
-                    const post = await prisma.product.create({
+                    const product = await prisma.product.create({
                         data: {
                             title: fields.title,
-                            price: fields.price,
+                            code: fields.code,
+                            group: fields.group,
                             quantity: fields.quantity,
                             description: fields.description,
-                            subCategoryId: fields.subCategory,
                             image: url,
                             filename: imageName,
                         }
                     });
+                    const result = await prisma.product_detail.create({
+                        data: {
+                            product_id: product.id,
+                            unit_id: fields.unit,
+                            store_id: fields.store,
+                            subCategoryId: fields.subCategory,
+                            discount: fields.discount,
+                            price: fields.price,
+                        },
+                        include: {
+                            product: true
+                        },
+                    });
+                    // console.log(result)
                 }
 
             } catch (error) {

@@ -7,15 +7,16 @@ import { FaUpload } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import prisma from '../../../utils/prisma';
 
-export default function Create({ subCategory }) {
+export default function Create({ subCategory, units, stores }) {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState();
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [title, setTitle] = useState('');
-    const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
-    // const [subCategoryId, setSubcategory] = useState('');
+    const [code, setCode] = useState('');
+    const [price, setPrice] = useState('');
+    const [discount, setDiscount] = useState('');
 
     const router = useRouter();
 
@@ -33,6 +34,9 @@ export default function Create({ subCategory }) {
     const handleFormData = async (e) => {
         e.preventDefault();
         const subCategory = e.target.subCategory.value;
+        const unit = e.target.unit.value;
+        const group = e.target.group.value;
+        const store = e.target.store.value;
 
         const forms = new FormData();
         forms.append('title', title);
@@ -41,12 +45,17 @@ export default function Create({ subCategory }) {
         forms.append('quantity', quantity);
         forms.append('description', description);
         forms.append('subCategory', subCategory);
+        forms.append('unit', unit);
+        forms.append('code', code);
+        forms.append('discount', discount);
+        forms.append('group', group);
+        forms.append('store', store);
 
         await fetch("/api/product/createdata", {
             method: "POST",
             body: forms,
         });
-       
+
         router.push("/admin/productPage");
     }
 
@@ -67,67 +76,99 @@ export default function Create({ subCategory }) {
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
                         <h1 className='text-lg font-semibold text-heading'>Create New Product</h1>
                     </div>
-                   
-                            <form onSubmit={handleFormData}>
-                                <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
-                                    <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
-                                        <h4 className='text-base font-semibold mb-2'>Image</h4>
-                                        <p className='text-sm'>Upload Your Product Image here</p>
-                                    </div>
-                                    <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
-                                        <section className='upload'>
-                                            <label for="dropzone-file" className='border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none'>
-                                                <FaUpload />
-                                                <p className='mt-4 text-center text-xs'>
-                                                    <span className='font-normal text-gray-600'>Upload an image </span>
-                                                    or drag and drop
-                                                    <br />
-                                                    <span className='text-xs'>PNG, JPG</span>
-                                                </p>
-                                                <input id="dropzone-file" onChange={handleImage} type="file" className='hidden' />
-                                                <div className='flex mb-5'>
-                                                    {createObjectURL && <img src={createObjectURL} alt="image" width={100} className='h-[100px] object-contain' />}
-                                                </div>
-                                            </label>
-                                        </section>
-                                    </div>
+
+                    <form onSubmit={handleFormData}>
+                        <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
+                            <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
+                                <h4 className='text-base font-semibold mb-2'>Image</h4>
+                                <p className='text-sm'>Upload Your Product Image here</p>
+                            </div>
+                            <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
+                                <section className='upload'>
+                                    <label for="dropzone-file" className='border-dashed border-2 border-border-base h-36 rounded flex flex-col justify-center items-center cursor-pointer focus:border-accent-400 focus:outline-none'>
+                                        <FaUpload />
+                                        <p className='mt-4 text-center text-xs'>
+                                            <span className='font-normal text-gray-600'>Upload an image </span>
+                                            or drag and drop
+                                            <br />
+                                            <span className='text-xs'>PNG, JPG</span>
+                                        </p>
+                                        <input id="dropzone-file" onChange={handleImage} type="file" className='hidden' />
+                                        <div className='flex mb-5'>
+                                            {createObjectURL && <img src={createObjectURL} alt="image" width={100} className='h-[100px] object-contain' />}
+                                        </div>
+                                    </label>
+                                </section>
+                            </div>
+                        </div>
+                        <div className='my-5 flex flex-wrap sm:my-8'>
+                            <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
+                                <h4 className='text-base font-semibold mb-2'>Details</h4>
+                                <p className='text-sm'>Add Product and Subcategory from here</p>
+                            </div>
+                            <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
+                                <div className='mb-5'>
+                                    <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
+                                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} name="title" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
-                                <div className='my-5 flex flex-wrap sm:my-8'>
-                                    <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
-                                        <h4 className='text-base font-semibold mb-2'>Details</h4>
-                                        <p className='text-sm'>Add Product and Subcategory from here</p>
-                                    </div>
-                                    <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
-                                        <div className='mb-5'>
-                                            <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
-                                            <input type="text" value={title} onChange={e => setTitle(e.target.value)} name="title" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
-                                        </div>
-                                        <div className='mb-5'>
-                                            <label for="price" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Price (Rp)</label>
-                                            <input type="text" inputmode="numeric" pattern="[0-9]*" value={price} onChange={e => setPrice(e.target.value)} name="price" id="price" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
-                                        </div>
-                                        <div className='mb-5'>
-                                            <label for="quantity" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Quantity</label>
-                                            <input type="text" inputmode="numeric" pattern="[0-9]*" value={quantity} min={0} onChange={e => setQuantity(e.target.value)} name="quantity" id="quantity" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent'/>
-                                        </div>
-                                        <div className='mb-5'>
-                                            <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Sub Category</label>
-                                            <select name='subCategory' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                                {subCategory.map(item => (
-                                                    <option value={item.id}>{item.name}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                        <div className='mb-5'>
-                                            <label for="description" className='block text-gray-400 font-normal text-sm leading-none mb-3'>Description</label>
-                                            <textarea id="description" name='description' value={description} onChange={e => setDescription(e.target.value)} className='py-3 px-4 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="4" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
-                                        </div>
-                                    </div>
+                                <div className='mb-5'>
+                                    <label for="code" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Product Code</label>
+                                    <input type="text" value={code} onChange={e => setCode(e.target.value)} name="code" id="code" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
-                                <div className='mb-4 text-end'>
-                                    <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
+                                <div className='mb-5'>
+                                    <label for="price" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Price (Rp)</label>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={price} onChange={e => setPrice(e.target.value)} name="price" id="price" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
                                 </div>
-                            </form>
+                                <div className='mb-5'>
+                                    <label for="discount" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Discount (%)</label>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={discount} onChange={e => setDiscount(e.target.value)} name="discount" id="discount" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Units</label>
+                                    <select name='unit' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        {units.map(item => (
+                                            <option value={item.id}>{item.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className='mb-5'>
+                                    <label for="quantity" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Quantity</label>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={quantity} min={0} onChange={e => setQuantity(e.target.value)} name="quantity" id="quantity" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Sub Category</label>
+                                    <select name='subCategory' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        {subCategory.map(item => (
+                                            <option value={item.id}>{item.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Stores</label>
+                                    <select name='store' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        {stores.map(item => (
+                                            <option value={item.id}>{item.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Company Group</label>
+                                    <select name='group' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        <option value="HOSANA">HOSANA</option>
+                                        <option value="KITO">KITO</option>
+                                    </select>
+                                </div>
+                                <div className='mb-5'>
+                                    <label for="description" className='block text-gray-400 font-normal text-sm leading-none mb-3'>Description</label>
+                                    <textarea id="description" name='description' value={description} onChange={e => setDescription(e.target.value)} className='py-3 px-4 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="4" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='mb-4 text-end'>
+                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
+                        </div>
+                    </form>
                 </section>
             </SideNavbar>
         </>
@@ -137,6 +178,8 @@ export default function Create({ subCategory }) {
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
     const subCategory = await prisma.subCategory.findMany();
+    const units = await prisma.units.findMany();
+    const stores = await prisma.stores.findMany();
 
     if (!session) {
         return {
@@ -148,6 +191,6 @@ export async function getServerSideProps({ req }) {
     }
     // autorize user
     return {
-        props: { session, subCategory }
+        props: { session, subCategory, units, stores }
     }
 }

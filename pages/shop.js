@@ -42,7 +42,7 @@ const Shop = ({ products }) => {
                         <AiOutlineLeft className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`} onClick={() => handleClick("left")} />
                         <div ref={rowRef} className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
                             {products.map(item => (
-                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
+                                <ProductCardSearch key={item.id} title={item.title} img={item.image} price={item.product_detail.map(rows => rows.price)} description={item.description} quantity={item.quantity} subCategory={item.product_detail.map(rows => rows.subCategory.name)} />
                             ))}
                         </div>
                         <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
@@ -59,7 +59,13 @@ export default Shop;
 export async function getServerSideProps() {
     const products = await prisma.product.findMany({
         include: {
-            subCategory: true
+            product_detail: {
+                include: {
+                    subCategory: true,
+                    units: true,
+                    stores: true
+                }
+            }
         }
     });
     return {

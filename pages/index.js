@@ -75,7 +75,7 @@ export default function Home({ products, categories }) {
             <AiOutlineLeft className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`} onClick={() => handleClick("left")} />
             <div ref={rowRef} className='flex overflow-scroll scrollbar-hide p-3 ml-3'>
               {products.map(item => (
-                <ProductCard key={item.id} title={item.title} img={item.image} price={item.price} description={item.description} quantity={item.quantity} subCategory={item.subCategory.name} />
+                <ProductCard key={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name}/>
               ))}
             </div>
             <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
@@ -92,9 +92,12 @@ export default function Home({ products, categories }) {
 }
 
 export async function getServerSideProps() {
-  const products = await prisma.product.findMany({
+  const products = await prisma.product_detail.findMany({
     include: {
+      product:true,
       subCategory: true,
+      stores: true,
+      units: true,
     },
     take: 10,
     orderBy: {

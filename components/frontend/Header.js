@@ -7,7 +7,7 @@ import { signOut, useSession } from 'next-auth/react'
 const Header = () => {
     const { data: session } = useSession();
     const [nav, setNav] = useState(false);
-    const [color, setColor] = useState("transparent");
+    const [color, setColor] = useState();
     const [textColor, setTextColor] = useState("white");
 
     const handleNav = () => {
@@ -16,7 +16,7 @@ const Header = () => {
 
     useEffect(() => {
         const changeColor = () => {
-            if (window.scrollY >= 90) {
+            if (window.scrollY >= 100) {
                 setColor("#ffffff");
                 setTextColor("#000000");
             } else {

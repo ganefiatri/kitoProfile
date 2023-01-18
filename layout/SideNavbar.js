@@ -10,6 +10,7 @@ import {
     MdOutlineLogout,
     MdCategory,
     MdOutlineProductionQuantityLimits,
+    MdAdUnits,
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaProjectDiagram, FaRegComments } from "react-icons/fa";
@@ -56,6 +57,10 @@ function SideNavbar({ children }) {
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/storePage">
                         <BiStore className="w-5 h-5 mx-4"/>
                         <span>Store</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/unitPage">
+                        <MdAdUnits className="w-5 h-5 mx-4"/>
+                        <span>Units</span>
                     </a>
                 </div>
             </aside>

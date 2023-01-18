@@ -4,39 +4,59 @@ import { FaUpload } from 'react-icons/fa';
 import Header from '../../../../components/admin/Header';
 import SideNavbar from '../../../../layout/SideNavbar';
 import prisma from '../../../../utils/prisma';
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps({ params }) {
     const productId = await prisma.product.findMany({
         where: {
             id: params.id
+        },
+        include: {
+            product_detail: {
+                include: {
+                    units: true,
+                    subCategory: true,
+                    stores: true
+                }
+            },
         }
     });
     const subCategory = await prisma.subCategory.findMany();
-  
+    const units = await prisma.units.findMany();
+    const stores = await prisma.stores.findMany();
+
     return {
         props: {
             product: JSON.parse(JSON.stringify(productId)),
-            subCategory
+            subCategory,
+            units,
+            stores
         },
     }
-  }
+}
 
 const ProductbyId = props => {
-    const { product, subCategory } = props;
+    const { product, subCategory, units, stores } = props;
+    // console.log(product[0].product_detail[0].price)
     const router = useRouter()
-     //state
+    //state
     const [imageUploaded, setImageUploaded] = useState(product[0].image);
     const [createObjectURL, setCreateObjectURL] = useState(product[0].image);
     const [title, setTitle] = useState(product[0].title);
-    const [price, setPrice] = useState(product[0].price);
+    const [code, setCode] = useState(product[0].code);
+    const [group, setGroup] = useState(product[0].group);
+    const [discount, setDiscount] = useState(product[0].product_detail[0].discount);
+    const [store, setStore] = useState(product[0].product_detail[0].store_id);
+    const [unit, setUnit] = useState(product[0].product_detail[0].unit_id);
+    const [subCategoryId, setSubcategory] = useState(product[0].product_detail[0].subCategoryId);
+    const [price, setPrice] = useState(product[0].product_detail[0].price);
     const [quantity, setQuantity] = useState(product[0].quantity);
     const [description, setDescription] = useState(product[0].description);
-    const [subCategoryId, setSubcategory] = useState(product[0].subCategoryId);
-     const setFilename = product[0].filename;
-     const id = product[0].id;
+    const setFilename = product[0].filename;
+    const id = product[0].id;
+    const id_product_detail = product[0].product_detail[0].id;
 
-     const handleImage = (e) => {
+    const handleImage = (e) => {
         const file = e.target.files[0];
         // console.log(file)
         setImageUploaded(file);
@@ -52,22 +72,28 @@ const ProductbyId = props => {
 
     const handleFormData = async (e) => {
         e.preventDefault();
-            const forms = new FormData();
-            forms.append('title', title);
-            forms.append('image', imageUploaded);
-            forms.append('price', price);
-            forms.append('quantity', quantity);
-            forms.append('description', description);
-            forms.append('subCategoryId', subCategoryId);
-            forms.append('filename', setFilename);
-            forms.append('id', id);
-            // await axios.post("/api/category/createdata",forms);
-            const result = await fetch("/api/product/editdata", {
-                method: "PUT",
-                body: forms,
-            });
-            router.push("/admin/productPage")
-            // console.log(result)
+        const forms = new FormData();
+        forms.append('title', title);
+        forms.append('image', imageUploaded);
+        forms.append('price', price);
+        forms.append('quantity', quantity);
+        forms.append('description', description);
+        forms.append('subCategoryId', subCategoryId);
+        forms.append('filename', setFilename);
+        forms.append('unit', unit);
+        forms.append('code', code);
+        forms.append('discount', discount);
+        forms.append('group', group);
+        forms.append('store', store);
+        forms.append('id', id);
+        forms.append('id_product_detail', id_product_detail);
+        // await axios.post("/api/category/createdata",forms);
+        await fetch("/api/product/editdata", {
+            method: "PUT",
+            body: forms,
+        });
+        router.push("/admin/productPage");
+        // console.log(result)
     }
 
     return (
@@ -122,8 +148,24 @@ const ProductbyId = props => {
                                     <input type="text" value={title} onChange={e => setTitle(e.target.value)} name="title" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                                 <div className='mb-5'>
+                                    <label for="code" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Product Code</label>
+                                    <input type="text" value={code} onChange={e => setCode(e.target.value)} name="code" id="code" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                </div>
+                                <div className='mb-5'>
                                     <label for="price" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Price (Rp)</label>
                                     <input type="text" inputmode="numeric" pattern="[0-9]*" value={price} onChange={e => setPrice(e.target.value)} name="price" id="price" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label for="discount" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Discount (%)</label>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={discount} onChange={e => setDiscount(e.target.value)} name="discount" id="discount" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Units</label>
+                                    <select name='unit' value={unit} onChange={e => setUnit(e.target.value)} className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        {units.map(item => (
+                                            <option value={item.id}>{item.name}</option>
+                                        ))}
+                                    </select>
                                 </div>
                                 <div className='mb-5'>
                                     <label for="quantity" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Quantity</label>
@@ -138,8 +180,23 @@ const ProductbyId = props => {
                                     </select>
                                 </div>
                                 <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Stores</label>
+                                    <select name='store' value={store} onChange={e => setStore(e.target.value)} className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        {stores.map(item => (
+                                            <option value={item.id}>{item.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Company Group</label>
+                                    <select name='group' value={group} onChange={e => setGroup(e.target.value)} className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        <option value="HOSANA">HOSANA</option>
+                                        <option value="KITO">KITO</option>
+                                    </select>
+                                </div>
+                                <div className='mb-5'>
                                     <label for="description" className='block text-gray-400 font-normal text-sm leading-none mb-3'>Description</label>
-                                    <textarea id="description" name='description' value={description} onChange={e => setDescription(e.target.value)}  className='py-3 px-4 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="4" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
+                                    <textarea id="description" name='description' value={description} onChange={e => setDescription(e.target.value)} className='py-3 px-4 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="4" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
                                 </div>
                             </div>
                         </div>
