@@ -66,8 +66,8 @@ model history {
 }
 
 model stores {
-  id          String  @id @default(cuid())
-  name        String  @unique
+  id          String           @id @default(cuid())
+  name        String           @unique
   description String?
   img         String?
   filename    String?
@@ -83,38 +83,38 @@ model project {
 }
 
 model product {
-  id            String       @id @default(cuid())
-  title         String       @unique
-  code          String
-  description   String
-  group         group         @default(HOSANA)
-  quantity      String
-  image         String
-  filename      String?
-  createdAt     DateTime     @default(now())
+  id             String           @id @default(cuid())
+  title          String           @unique
+  description    String
+  quantity       String
+  image          String
+  filename       String?
+  createdAt      DateTime         @default(now())
+  code           String
+  group          group            @default(HOSANA)
   product_detail product_detail[]
 
   @@fulltext([title])
 }
 
 model units {
-  id              String        @id @default(cuid())
-  name            String        @unique
-  product_detail  product_detail[]
+  id             String           @id @default(cuid())
+  name           String           @unique
+  product_detail product_detail[]
 }
 
 model product_detail {
-  id            String        @id @default(cuid())
+  id            String       @id @default(cuid())
   product_id    String?
-  product       product? @relation(fields: [product_id], references: [id])
   unit_id       String?
-  units         units? @relation(fields: [unit_id], references: [id])
   store_id      String?
-  stores        stores? @relation(fields: [store_id], references: [id])
   subCategoryId String?
-  subCategory   subCategory? @relation(fields: [subCategoryId], references: [id])
   discount      String?
   price         String?
+  product       product?     @relation(fields: [product_id], references: [id])
+  units         units?       @relation(fields: [unit_id], references: [id])
+  stores        stores?      @relation(fields: [store_id], references: [id])
+  subCategory   subCategory? @relation(fields: [subCategoryId], references: [id])
 }
 
 model category {
@@ -128,10 +128,10 @@ model category {
 }
 
 model subCategory {
-  id         String    @id @default(cuid())
-  name       String    @unique
+  id         String           @id @default(cuid())
+  name       String           @unique
   categoryId String?
-  category   category? @relation(fields: [categoryId], references: [id])
+  category   category?        @relation(fields: [categoryId], references: [id])
   products   product_detail[]
 
   @@fulltext([name])
@@ -142,7 +142,7 @@ enum role {
   ADMIN
 }
 
-enum group{
+enum group {
   HOSANA
   KITO
 }

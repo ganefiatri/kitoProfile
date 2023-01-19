@@ -45,16 +45,16 @@ const ProductbyId = props => {
     const [title, setTitle] = useState(product[0].title);
     const [code, setCode] = useState(product[0].code);
     const [group, setGroup] = useState(product[0].group);
-    const [discount, setDiscount] = useState(product[0].product_detail[0].discount);
-    const [store, setStore] = useState(product[0].product_detail[0].store_id);
-    const [unit, setUnit] = useState(product[0].product_detail[0].unit_id);
-    const [subCategoryId, setSubcategory] = useState(product[0].product_detail[0].subCategoryId);
-    const [price, setPrice] = useState(product[0].product_detail[0].price);
+    const [discounts, setDiscount] = useState(product[0].product_detail.map(item => item.discount));
+    const [store, setStore] = useState(product[0].product_detail.map(item => item.store_id));
+    const [unit, setUnit] = useState(product[0].product_detail.map(item => item.unit_id));
+    const [subCategoryId, setSubcategory] = useState(product[0].product_detail.map(item => item.subCategoryId));
+    const [prices, setPrice] = useState(product[0].product_detail.map(item => item.price));
     const [quantity, setQuantity] = useState(product[0].quantity);
     const [description, setDescription] = useState(product[0].description);
     const setFilename = product[0].filename;
     const id = product[0].id;
-    const id_product_detail = product[0].product_detail[0].id;
+    const id_product_detail = product[0].product_detail.map(item => item.id);
 
     const handleImage = (e) => {
         const file = e.target.files[0];
@@ -75,14 +75,14 @@ const ProductbyId = props => {
         const forms = new FormData();
         forms.append('title', title);
         forms.append('image', imageUploaded);
-        forms.append('price', price);
+        forms.append('price', prices);
         forms.append('quantity', quantity);
         forms.append('description', description);
         forms.append('subCategoryId', subCategoryId);
         forms.append('filename', setFilename);
         forms.append('unit', unit);
         forms.append('code', code);
-        forms.append('discount', discount);
+        forms.append('discount', discounts);
         forms.append('group', group);
         forms.append('store', store);
         forms.append('id', id);
@@ -153,11 +153,11 @@ const ProductbyId = props => {
                                 </div>
                                 <div className='mb-5'>
                                     <label for="price" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Price (Rp)</label>
-                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={price} onChange={e => setPrice(e.target.value)} name="price" id="price" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={prices} onChange={e => setPrice(e.target.value)} name="price" id="price" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
                                 </div>
                                 <div className='mb-5'>
                                     <label for="discount" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Discount (%)</label>
-                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={discount} onChange={e => setDiscount(e.target.value)} name="discount" id="discount" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={discounts} onChange={e => setDiscount(e.target.value)} name="discount" id="discount" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
                                 </div>
                                 <div className='mb-5'>
                                     <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Units</label>
