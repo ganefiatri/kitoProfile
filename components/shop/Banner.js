@@ -2,7 +2,7 @@ import React from 'react';
 
 const Banner = () => {
     return (
-        <div className='justify-items-center grid grid-flow-row-dense grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 p-3 gap-2.5'>
+        <div className='relative w-[600px] md:w-full lg:w-full sm:w-full'>
             <div id="carouselExampleIndicators" className="carousel slide relative w-full col-span-2" data-bs-ride="carousel">
                 <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                     <button
@@ -67,36 +67,6 @@ const Banner = () => {
                     <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
-            </div>
-            <div className='relative w-full'>
-                <div className="flex justify-center items-center relative max-w-sm pb-3" >
-                    <img className="h-[225px] w-full" src="https://images.unsplash.com/photo-1596179140779-a95dd4e86125?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="" />
-                    <div className="p-10 mt-14 absolute w-full">
-                        <a href="#">
-                            <h5 className="mb-2 text-sm font-thin tracking-tight text-gray-200 dark:text-white uppercase">Hosana Membership</h5>
-                        </a>
-                        <a href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Join Now</h5>
-                        </a>
-                        <a href="/auth/login" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:opacity-60 focus:ring-4 focus:outline-none focus:ring-blue-300 hover:scale-105 transform transition duration-300 ease-out">
-                            SignIn
-                        </a>
-                        <a href="/auth/register" className="inline-flex items-center ml-3 px-3 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:opacity-60 focus:ring-4 focus:outline-none focus:ring-blue-300 hover:scale-105 transform transition duration-300 ease-out">
-                            SignUp
-                        </a>
-                    </div>
-                </div>
-                <div className="flex justify-center items-center relative max-w-sm" >
-                    <img className="h-[225px] w-full" src="https://images.unsplash.com/photo-1622622290949-e15fa509d6c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=600&q=60" alt="" />
-                    <div className="p-10 mt-auto absolute w-full">
-                        <a href="#">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-200 dark:text-white uppercase">Product Packages</h5>
-                        </a>
-                        <a href="/product" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:opacity-60 focus:ring-4 focus:outline-none focus:ring-blue-300 hover:scale-105 transform transition duration-300 ease-out">
-                            Browse Now
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     );

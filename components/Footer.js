@@ -5,8 +5,10 @@ function Footer() {
     <div className="grid grid-cols-1 md:grid-cols-4 gap-y-10 gap-x-10 px-16 py-14 bg-gray-100 text-gray-600">
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">About</h5>
-            <p className='leading-loose text-justify'>Our Vision As a building material center with imported and local products, the most complete and competitive prices & become a market leader in its field.</p>
-            <p className='text-justify leading-loose'>Our Mission Determined to be the most complete ceramic sales center and building materials that can provide quality goods, competitive prices, as trendsetters, always up to date, innovation and have resources that are knowledgeable, high performance and oriented to customer satisfaction.</p>
+            <p className='leading-loose text-justify'>
+                <a href="/about" className='underline'>More detail</a>
+            </p>
+            
         </div>
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">Address</h5>
@@ -34,6 +36,9 @@ function Footer() {
             </p>
             <p>
                 <a href="/contact">Contact</a>
+            </p>
+            <p>
+                <a href="/auth/login" className='bg-slate-300 p-2 border rounded-md'>Admin</a>
             </p>
         </div>
     </div>

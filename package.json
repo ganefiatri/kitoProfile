@@ -20,6 +20,7 @@
     "chart.js": "^2.9.4",
     "cloudinary": "^1.33.0",
     "datauri": "^4.1.0",
+    "firebase": "^9.16.0",
     "formidable": "^2.1.1",
     "formidable-serverless": "^1.1.1",
     "formik": "^2.2.9",
@@ -40,14 +41,16 @@
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.6.1",
     "react-select": "^5.7.0",
-    "react-toastify": "^9.1.1",
+    "react-toastify": "^4.5.2",
     "sharp": "^0.31.3",
     "styled-components": "^5.3.6",
     "swiper": "^8.4.5",
     "tailwind-scrollbar-hide": "^1.1.7",
-    "tw-elements": "^1.0.0-alpha13"
+    "tw-elements": "^1.0.0-alpha13",
+    "twilio": "^3.84.1"
   },
   "devDependencies": {
+    "@types/twilio": "^3.19.3",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",
     "prisma": "^4.6.1",

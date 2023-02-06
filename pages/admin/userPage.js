@@ -1,7 +1,6 @@
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import React, { useEffect, useMemo, useState } from 'react';
-import { HiPlusSm, HiSearch } from 'react-icons/hi';
 import Header from '../../components/admin/Header';
 import SideNavbar from '../../layout/SideNavbar';
 import Link from "next/link";
@@ -10,7 +9,6 @@ import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
-import axios from '../../utils/axios';
 
 const UserPage = () => {
     const { data: session } = useSession();

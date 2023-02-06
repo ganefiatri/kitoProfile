@@ -1,13 +1,35 @@
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import Head from 'next/head';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import Banner from '../../components/customer/Banner';
 import Cardcustomer from '../../components/customer/Cardcustomer';
 import Footer from '../../components/Footer';
 import Header from '../../components/frontend/Header';
-import { signOut, getSession,  useSession } from 'next-auth/react'
+// import { signOut, getSession,  useSession } from 'next-auth/react'
+import { auth } from "../../utils/firebase";
+import prisma from '../../utils/prisma';
 
-const Dashboard = () => {
-    const { data: session } = useSession()
+const Dashboard = ({ userPhone }) => {
+    console.log(userPhone.map(item => item.id))
+    // const { data: session } = useSession()
+    const auth = getAuth();
+    const [phone, setPhone] = useState('');
+    const router = useRouter();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const phones = user.phoneNumber;
+          const PhoneNumbers = '0' + phones.slice(3);
+          setPhone(PhoneNumbers);
+        } else {
+            signOut(auth)
+            router.push('/shop')
+        }
+    });
+
+    const point = userPhone.map(item => item.history.reduce((sum, items) => sum + parseInt(items.productDetail.poin), 0));
+    const id = userPhone.map(item => item.id);
+//    
     return (
         <div className='w-[600px] md:w-full lg:w-full sm:w-full'>
             <Head>
@@ -26,7 +48,7 @@ const Dashboard = () => {
                 <section>
                     <div className='justify-items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 p-3 ml-3 gap-2.5'>
                         {/* Card Info Section */}
-                        <Cardcustomer />
+                        <Cardcustomer phoneNumber={phone} poin={point} id={id}/>
                     </div>
                 </section>
             </main>
@@ -37,19 +59,29 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-export async function getServerSideProps({ req }) {
-    const session = await getSession({ req })
-
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/auth/login",
-                permanent: false
+export async function getServerSideProps(context) {
+    // console.log(context.query.NoHp)
+    const userPhone = await prisma.phone_user_poin.findMany({
+        where:{
+            number: context.query.NoHp
+        },
+        select: {
+            id: true,
+            number: true,
+            history: {
+                select:{
+                    productDetail: {
+                        select:{
+                            poin: true
+                        }
+                    }
+                }
             }
         }
-    }
+    })
+
     // autorize user
     return {
-        props: { session }
+        props: { userPhone }
     }
 }

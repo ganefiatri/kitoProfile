@@ -17,9 +17,11 @@ model user {
   image         String?
   password      String?
   role          role      @default(USER)
+  phone         String?   @unique
   accounts      account[]
   sessions      session[]
-  history       history[]
+
+  @@fulltext([phone])
 }
 
 model account {
@@ -57,12 +59,32 @@ model verificationToken {
   @@unique([identifier, token])
 }
 
+model phone_user_poin {
+  id      String    @id @default(cuid())
+  number  String    @unique
+  history history[]
+  redeem  redeem[]
+}
+
 model history {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    String
-  user      user     @relation(fields: [userId], references: [id])
+  id            String           @id @default(cuid())
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  phoneId       String?
+  productId     String?
+  userPhone     phone_user_poin? @relation(fields: [phoneId], references: [id])
+  productDetail product_detail?   @relation(fields: [productId], references: [id])
+}
+
+model redeem {
+  id          String           @id @default(cuid())
+  redeem_poin String?
+  total_poin  String?
+  phoneId     String
+  createdAt   DateTime         @default(now())
+  expiredAt   String?
+  updatedAt   DateTime         @updatedAt
+  userPhone   phone_user_poin? @relation(fields: [phoneId], references: [id])
 }
 
 model stores {
@@ -111,10 +133,15 @@ model product_detail {
   subCategoryId String?
   discount      String?
   price         String?
+  poin          String?       
+  createdAt     DateTime     @default(now())
+  expiredAt     String?
+  updatedAt     DateTime?
   product       product?     @relation(fields: [product_id], references: [id])
   units         units?       @relation(fields: [unit_id], references: [id])
   stores        stores?      @relation(fields: [store_id], references: [id])
   subCategory   subCategory? @relation(fields: [subCategoryId], references: [id])
+  history       history[]
 }
 
 model category {

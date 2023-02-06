@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { FaUpload } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import prisma from '../../../utils/prisma';
+import { MdDateRange } from 'react-icons/md';
 
 export default function Create({ subCategory, units, stores }) {
     const { data: session } = useSession();
@@ -16,6 +17,8 @@ export default function Create({ subCategory, units, stores }) {
     const [description, setDescription] = useState('');
     const [code, setCode] = useState('');
     const [price, setPrice] = useState('');
+    const [poin, setPoin] = useState(10);
+    const [expired, setExpired] = useState('');
     const [discount, setDiscount] = useState('');
 
     const router = useRouter();
@@ -50,6 +53,8 @@ export default function Create({ subCategory, units, stores }) {
         forms.append('discount', discount);
         forms.append('group', group);
         forms.append('store', store);
+        forms.append('poin', poin);
+        forms.append('expired', expired);
 
         await fetch("/api/product/createdata", {
             method: "POST",
@@ -159,6 +164,15 @@ export default function Create({ subCategory, units, stores }) {
                                         <option value="KITO">KITO</option>
                                     </select>
                                 </div>
+                                <div className='mb-5'>
+                                    <label for="poin" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Set Poin</label>
+                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={poin} min={0} onChange={e => setPoin(e.target.value)} name="poin" id="poin" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label for="date" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Date</label>
+                                    <input type="date" value={expired} min={0} onChange={e => setExpired(e.target.value)} name="date" id="date" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                
                                 <div className='mb-5'>
                                     <label for="description" className='block text-gray-400 font-normal text-sm leading-none mb-3'>Description</label>
                                     <textarea id="description" name='description' value={description} onChange={e => setDescription(e.target.value)} className='py-3 px-4 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="4" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>

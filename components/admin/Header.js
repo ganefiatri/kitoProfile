@@ -1,5 +1,6 @@
 import { getSession, signOut, useSession } from 'next-auth/react';
 import React from 'react';
+import { BiUserCheck } from 'react-icons/bi';
 import { HiOutlineMenuAlt2 } from "react-icons/hi"
 
 const Header = () => {
@@ -29,8 +30,9 @@ const Header = () => {
                     <div className='relative inline-block text-left'>
                         <button className='flex items-center focus:outline-none' type="button" id='headlessui-menu-button-1' aria-haspopup="true" aria-expanded="false">
                             <div className='relative cursor-pointer w-10 h-10 overflow-hidden rounded-full border border-border-100'>
-                                <span className='block overflow-hidden bg-none border absolute inset-0'>
-                                   {session && <img src={session.user.image = "null" ? "https://hokito.sgp1.digitaloceanspaces.com/default-img.jpg" : session.user.image} alt="user"/>} 
+                                <span className='block overflow-hidden bg-none border absolute inset-0 justify-center items-center'>
+                                    <BiUserCheck className='h-8 w-8 text-green-500'/>
+                                   {/* {session && <img src={session.user.image = "null" ? "https://hokito.sgp1.digitaloceanspaces.com/default-img.jpg" : session.user.image} alt="user"/>}  */}
                                 </span>
                             </div>
                         </button>

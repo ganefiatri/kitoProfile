@@ -66,7 +66,7 @@ const Header = () => {
                             <Link href="/contact">Contact</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/shop">Shop</Link>
+                            <Link href="/shop">Members</Link>
                         </li>
                         {session?.user.role == "ADMIN" ? (
                             <li className="p-4 text-sm uppercase">

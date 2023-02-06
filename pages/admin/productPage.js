@@ -28,8 +28,6 @@ const ProductPage = () => {
             setProduct(data)
         }))
     }
-    console.log(productDetail)
-
 
     const handleButtonDelete = async (e, id) => {
         e.preventDefault();

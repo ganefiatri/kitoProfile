@@ -1,15 +1,103 @@
 import Head from 'next/head';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import Footer from '../components/Footer';
 import Header from '../components/frontend/Header';
 import ProductCardSearch from '../components/product/ProductCardSearch';
-import Banner from '../components/shop/Banner';
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { auth } from "../utils/firebase"
+import { useRouter } from 'next/router';
 import prisma from '../utils/prisma';
+import FormCard from '../layout/FormCard';
+import Banner from '../components/contact/Banner';
 
-const Shop = ({ products }) => {
-    const rowRef = useRef(null)
-    const [isMoved, setIsMoved] = useState(false)
+const Shop = ({ validatePhone }) => {
+    // console.log(validatePhone)
+    const [isPhoneVerify, setIsPhoneVerify] = useState(false);
+    const [phoneInput, setPhone] = useState("");
+    const [otp, setOtp] = useState("");
+    const [user, setUser] = useState(false);
+    const rowRef = useRef(null);
+    const [isMoved, setIsMoved] = useState(false);
+
+    const router = useRouter();
+
+    const configureCaptcha = () => {
+        const auth = getAuth();
+        auth.languageCode = 'it';
+        window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+            'size': 'invisible',
+            'callback': (response) => {
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+                onSignInSubmit();
+                console.log("recapca verified");
+            }
+        }, auth);
+        setIsPhoneVerify(true);
+    }
+
+    const checkUser = (e) => {
+        e.preventDefault()
+        if (!phoneInput) {
+            toast('You Not Input Phone Number Correctly', { hideProgressBar: true, autoClose: 5000, type: 'error', position: 'top-right' });
+        } else {
+            router.push(`/shop/?phoneNo=${phoneInput}`);
+            setUser(true);
+            if (user) {
+                onSignInSubmit();
+            } else {
+                toast('Click Send OTP to Check Your Number', { hideProgressBar: true, autoClose: 5000, type: 'warning', position: 'top-right' });
+            }
+        }
+    }
+
+    const onSignInSubmit = async () => {
+        if (validatePhone === 0) {
+            toast('Your Phone Number Not Found in our system!', { hideProgressBar: true, autoClose: 5000, type: 'error', position: 'top-right' });
+            router.push('/shop');
+            setUser(false)
+        } else {
+            toast('We Found Your Phone Number, We Already Send OTP to your phone number.', { hideProgressBar: true, autoClose: 5000, type: 'success', position: 'top-right' })
+            setUser(false)
+            configureCaptcha();
+    
+            const phoneNumber = "+62" + phoneInput;
+            const appVerifier = window.recaptchaVerifier;
+    
+            const auth = getAuth();
+            signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                    // SMS sent. Prompt user to type the code from the message, then sign the
+                    // user in with confirmationResult.confirm(code).
+                    window.confirmationResult = confirmationResult;
+                    console.log("otp has been sent")
+                }).catch((error) => {
+                    // Error; SMS not sent
+                    console.log(error)
+                });
+        }
+
+
+    }
+
+    const handleValidatePhone = (e) => {
+        e.preventDefault();
+
+        const code = otp;
+        confirmationResult.confirm(code).then((result) => {
+            toast('Success Login!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+            router.push({
+                pathname:'/customer/dashboard/',
+                query: {
+                    NoHp: phoneInput
+                }
+            });
+        }).catch((error) => {
+            toast('Your Otp Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        });
+    };
 
     const handleClick = (direction) => {
         setIsMoved(true)
@@ -22,6 +110,7 @@ const Shop = ({ products }) => {
             rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
         }
     }
+
     return (
         <div>
             <Head>
@@ -33,9 +122,61 @@ const Shop = ({ products }) => {
                 <link rel="icon" href="/assets/favicon/favicon.ico" />
             </Head>
             <Header />
-            <Banner />
+            <Banner/>
             <main className='max-w-7xl mx-auto px-2 sm:px-16'>
-                <section className='pt-10'>
+                <section className='pt-10 pb-5'>
+                    <div className='flex items-center justify-center justify-items-center w-full'>
+                        <div className='rounded-xl w-96 p-7 shadow-xl'>
+                            <h1 className='text-xl font-bold mb-6 text-indigo-900 text-center'>
+                                Check Your Poin
+                            </h1>
+
+                            {isPhoneVerify ? (
+                                // Verify OTP using phone session
+                                <form onSubmit={handleValidatePhone}>
+                                    <fieldset className='mb-4'>
+                                        <label className='text-sm block mb-2'>OTP</label>
+                                        <input
+                                            className='h-10 border w-full rounded border-gray-400'
+                                            required
+                                            type='number'
+                                            name='otp'
+                                            value={otp} onChange={e => setOtp(e.target.value)}
+                                        />
+                                    </fieldset>
+                                    <button className='bg-indigo-900 w-full h-10 rounded font-semibold text-white hover:bg-indigo-700'>
+                                        Validate OTP
+                                    </button>
+                                </form>
+                            ) : (
+                                //Get Phone Session Form
+                                <form onSubmit={checkUser}>
+                                    <fieldset className='mb-4'>
+                                        <input
+                                            className='h-10 border w-full rounded border-gray-400 pl-1'
+                                            required
+                                            type='tel'
+                                            name='phone'
+                                            value={phoneInput} onChange={e => setPhone(e.target.value)}
+                                            placeholder="Phone Number"
+                                        />
+                                    </fieldset>
+                                    {user ? (
+                                    <button className='bg-indigo-900 w-full h-10 rounded font-semibold text-white hover:bg-indigo-700'>
+                                        Send Otp
+                                    </button>
+                                    ):(
+                                        <button className='bg-indigo-900 w-full h-10 rounded font-semibold text-white hover:bg-indigo-700'>
+                                        Check Phone Number
+                                    </button>   
+                                    )}
+                                </form>
+                            )}
+                        </div>
+                        <div id='sign-in-button'></div>
+                    </div>
+                </section>
+                {/* <section className='pt-10'>
                     <h2 className='text-4xl font-thin pb-3 text-left'>Product</h2>
                     <p className='text-gray-400 font-extralight text-left pb-5 cursor-pointer underline'>View all </p>
                     <div className="group relative md:-ml-2">
@@ -47,30 +188,38 @@ const Shop = ({ products }) => {
                         </div>
                         <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
                     </div>
-                </section>
+                </section> */}
             </main>
             <Footer />
         </div>
     );
 }
 
+
 export default Shop;
 
-export async function getServerSideProps() {
-    const products = await prisma.product.findMany({
-        include: {
-            product_detail: {
-                include: {
-                    subCategory: true,
-                    units: true,
-                    stores: true
-                }
-            }
+export async function getServerSideProps(context) {
+    // console.log(context.query.phoneNo)
+    // const products = await prisma.product.findMany({
+    //     include: {
+    //         product_detail: {
+    //             include: {
+    //                 subCategory: true,
+    //                 units: true,
+    //                 stores: true
+    //             }
+    //         }
+    //     }
+    // });
+    const validatePhone = await prisma.phone_user_poin.count({
+        where: {
+            number: context.query.phoneNo
         }
-    });
+    })
     return {
         props: {
-            products: JSON.parse(JSON.stringify(products)),
+            // products: JSON.parse(JSON.stringify(products)),
+            validatePhone
         }
     };
 } 

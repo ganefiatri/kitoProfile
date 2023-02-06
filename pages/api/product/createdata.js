@@ -57,6 +57,8 @@ export default async (req, res) => {
                             subCategoryId: fields.subCategory,
                             discount: fields.discount,
                             price: fields.price,
+                            poin: fields.poin,
+                            expiredAt: fields.expired,
                         },
                         include: {
                             product: true

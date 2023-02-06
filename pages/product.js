@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect,  useState } from 'react';
 import Banner from '../components/contact/Banner';
 import Footer from '../components/Footer';
 import Header from '../components/frontend/Header';
 import ProductCardSearch from '../components/product/ProductCardSearch';
 import Search from '../components/product/Search';
 import prisma from '../utils/prisma';
-import { AiOutlineLeft, AiOutlineRight, AiOutlineSearch } from 'react-icons/ai';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { FiDelete } from 'react-icons/fi'
 import Select from 'react-select';
 
@@ -19,24 +19,9 @@ const Product = ({ productsQuery, productCat, productStr }) => {
     const [input, setInput] = useState("");
     const [fetchCategory, setFetchCategory] = useState([]);
     const [fetchStore, setFetchStore] = useState([]);
-    const { rowRef } = useRef(null);
-    const [isMoved, setIsMoved] = useState(false);
     const [selectedOptionCat, setSelectedOptionCat] = useState(null);
     const [selectedOptionStr, setSelectedOptionStr] = useState(null);
     const [show, setShow] = useState('default')
-
-
-    const handleClick = (direction) => {
-        setIsMoved(true)
-
-        if (rowRef.current) {
-            const { scrollLeft, clientWidth } = rowRef.current
-
-            const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth
-
-            rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
-        }
-    }
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -137,8 +122,7 @@ const Product = ({ productsQuery, productCat, productStr }) => {
                 </section>
                 <section className='pt-10'>
                     <div className="group relative md:-ml-2">
-                        <AiOutlineLeft className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`} onClick={() => handleClick("left")} />
-                        <div ref={rowRef} className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+                       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                             {(() => {
                                 switch (show) {
                                     case 'category':
@@ -164,7 +148,6 @@ const Product = ({ productsQuery, productCat, productStr }) => {
                                 }
                             })()}
                         </div>
-                        <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
                     </div>
                 </section>
             </main>
