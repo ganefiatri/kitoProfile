@@ -9,6 +9,8 @@ import Header from '../../components/frontend/Header';
 // import { signOut, getSession,  useSession } from 'next-auth/react'
 import { auth } from "../../utils/firebase";
 import prisma from '../../utils/prisma';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = ({ userPhone }) => {
     console.log(userPhone.map(item => item.id))
