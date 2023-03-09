@@ -41,12 +41,68 @@ const HistoryPoinPage = () => {
 
     const column = [
         {
-            name: 'Phone Number',
-            selector: row => row.userPhone.number,
+            name: 'Tgl',
+            selector: row => row.tgl,
         },
         {
-            name: 'Product',
-            selector: row => row.productDetail.product.title,
+            name: 'Nama',
+            selector: row => row.nama_cust,
+        },
+        {
+            name: 'No Faktur',
+            selector: row => row.no_faktur,
+        },
+        {
+            name: 'No Cust',
+            selector: row => row.no_cust,
+        },
+        {
+            name: 'Jenis',
+            selector: row => row.jenis,
+        },
+        {
+            name: 'Qty',
+            selector: row => row.qty,
+        },
+        {
+            name: 'Unit',
+            selector: row => row.unit,
+        },
+        {
+            name: 'Bns',
+            selector: row => row.bns,
+        },
+        {
+            name: 'Kode Stock',
+            selector: row => row.kode_stock,
+        },
+        {
+            name: 'Nama Stock',
+            selector: row => row.nama_stock,
+        },
+        {
+            name: 'Sls',
+            selector: row => row.sls,
+        },
+        {
+            name: 'Harga',
+            selector: row => row.harga,
+        },
+        {
+            name: 'Disc',
+            selector: row => row.disc,
+        },
+        {
+            name: 'Biaya',
+            selector: row => row.biaya,
+        },
+        {
+            name: 'Jumlah',
+            selector: row => row.jumlah,
+        },
+        {
+            name: 'Loc',
+            selector: row => row.loc,
         },
         {
             name: "Action",
@@ -61,6 +117,20 @@ const HistoryPoinPage = () => {
             )
         }
     ];
+
+    const handleImport = (e) => {
+        const files = e.target.files[0];
+        sendXlxs(files);
+    }
+
+    const sendXlxs = async (files) => {
+        const forms = new FormData();
+        forms.append('userNumber', files);
+        await fetch("/api/historypoin/upload", {
+            method: "POST",
+            body: forms,
+        });
+    }
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -88,12 +158,12 @@ const HistoryPoinPage = () => {
                             All history Poin here
                         </p>
                     </div>
-                    <Link href="/admin/historypoin/create"
-                        className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
-                    >
-                        <HiPlusSm className="w-6 h-6 fill-white" />
-                        <span className="text-sm font-semibold tracking-wide">Create History Poin</span>
-                    </Link>
+                    <div className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1">
+                        <input type="file" name="file" className="custom-file-input hidden" id="inputGroupFile" required onChange={handleImport}
+                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                           
+                        <label className="text-sm font-semibold tracking-wide cursor-pointer"  htmlFor="inputGroupFile">Import Excel</label>
+                    </div>
                 </div>
                 <DataTable
                     columns={column}

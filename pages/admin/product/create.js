@@ -7,8 +7,11 @@ import { FaUpload } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import prisma from '../../../utils/prisma';
 import { MdDateRange } from 'react-icons/md';
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from 'react-toastify';
 
-export default function Create({ subCategory, units, stores }) {
+
+export default function Create({ subCategory, units, stores, brands }) {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState();
     const [createObjectURL, setCreateObjectURL] = useState(null);
@@ -17,9 +20,18 @@ export default function Create({ subCategory, units, stores }) {
     const [description, setDescription] = useState('');
     const [code, setCode] = useState('');
     const [price, setPrice] = useState('');
-    const [poin, setPoin] = useState(10);
-    const [expired, setExpired] = useState('');
     const [discount, setDiscount] = useState('');
+    // spesifikasi State
+    const [specTitle1, setSpecTitle1] = useState('');
+    const [specTitle2, setSpecTitle2] = useState('');
+    const [specTitle3, setSpecTitle3] = useState('');
+    const [specTitle4, setSpecTitle4] = useState('');
+    const [specTitle5, setSpecTitle5] = useState('');
+    const [specDetail1, setSpecDetail1] = useState('');
+    const [specDetail2, setSpecDetail2] = useState('');
+    const [specDetail3, setSpecDetail3] = useState('');
+    const [specDetail4, setSpecDetail4] = useState('');
+    const [specDetail5, setSpecDetail5] = useState('');
 
     const router = useRouter();
 
@@ -37,9 +49,11 @@ export default function Create({ subCategory, units, stores }) {
     const handleFormData = async (e) => {
         e.preventDefault();
         const subCategory = e.target.subCategory.value;
+        const brands = e.target.brands.value;
         const unit = e.target.unit.value;
         const group = e.target.group.value;
         const store = e.target.store.value;
+        const location = e.target.loc.value;
 
         const forms = new FormData();
         forms.append('title', title);
@@ -53,15 +67,31 @@ export default function Create({ subCategory, units, stores }) {
         forms.append('discount', discount);
         forms.append('group', group);
         forms.append('store', store);
-        forms.append('poin', poin);
-        forms.append('expired', expired);
+        forms.append('loc', location);
+        forms.append('brands', brands);
+        // spec
+        forms.append('spec1', specTitle1);
+        forms.append('spec2', specTitle2);
+        forms.append('spec3', specTitle3);
+        forms.append('spec4', specTitle4);
+        forms.append('spec5', specTitle5);
+        forms.append('answer1', specDetail1);
+        forms.append('answer2', specDetail2);
+        forms.append('answer3', specDetail3);
+        forms.append('answer4', specDetail4);
+        forms.append('answer5', specDetail5);
 
-        await fetch("/api/product/createdata", {
+        const res = await fetch("/api/product/createdata", {
             method: "POST",
             body: forms,
         });
-
-        router.push("/admin/productPage");
+        const result = await res.json();
+        if(!result){
+            toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        }else{
+            toast('Successfully Linked data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+        }
+        router.push("/admin/productPage")
     }
 
     return (
@@ -165,22 +195,87 @@ export default function Create({ subCategory, units, stores }) {
                                     </select>
                                 </div>
                                 <div className='mb-5'>
-                                    <label for="poin" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Set Poin</label>
-                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={poin} min={0} onChange={e => setPoin(e.target.value)} name="poin" id="poin" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
-                                </div>
-                                <div className='mb-5'>
-                                    <label for="date" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Date</label>
-                                    <input type="date" value={expired} min={0} onChange={e => setExpired(e.target.value)} name="date" id="date" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
-                                </div>
-                                
-                                <div className='mb-5'>
                                     <label for="description" className='block text-gray-400 font-normal text-sm leading-none mb-3'>Description</label>
                                     <textarea id="description" name='description' value={description} onChange={e => setDescription(e.target.value)} className='py-3 px-4 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="4" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
                                 </div>
                             </div>
                         </div>
+                        <div className='my-5 flex flex-wrap sm:my-8'>
+                            <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
+                                <h4 className='text-base font-semibold mb-2'>Spesifikasi</h4>
+                                <p className='text-sm'>Add Spesifikasi Product</p>
+                            </div>
+                            <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Brands</label>
+                                    <select name='brands' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        {brands.map(item => (
+                                            <option value={item.id}>{item.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Product From</label>
+                                    <select name='loc' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                                        <option value="">Choose Product From</option>
+                                        <option value="IMPORT">IMPORT</option>
+                                        <option value="LOKAL">LOKAL</option>
+                                    </select>
+                                </div>
+                                <div className='flex'>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="spec1" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Title 1</label>
+                                        <input type="text" value={specTitle1} onChange={e => setSpecTitle1(e.target.value)} name="spec1" id="spec1" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    </div>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="detail1" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Detail 1</label>
+                                        <textarea id="detail1" name='detail1' value={specDetail1} onChange={e => setSpecDetail1(e.target.value)} className='py-3 px-3 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="1.5" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
+                                    </div>
+                                </div>
+                                <div className='flex'>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="spec2" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Title 2</label>
+                                        <input type="text" value={specTitle2} onChange={e => setSpecTitle2(e.target.value)} name="spec2" id="spec2" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    </div>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="detail2" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Detail 2</label>
+                                        <textarea id="detail2" name='detail2' value={specDetail2} onChange={e => setSpecDetail2(e.target.value)} className='py-3 px-3 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="1.5" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
+                                    </div>
+                                </div>
+                                <div className='flex'>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="spec3" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Title 3</label>
+                                        <input type="text" value={specTitle3} onChange={e => setSpecTitle3(e.target.value)} name="spec3" id="spec3" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    </div>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="detail3" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Detail 3</label>
+                                        <textarea id="detail3" name='detail3' value={specDetail3} onChange={e => setSpecDetail3(e.target.value)} className='py-3 px-3 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="1.5" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
+                                    </div>
+                                </div>
+                                <div className='flex'>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="spec4" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Title 4</label>
+                                        <input type="text" value={specTitle4} onChange={e => setSpecTitle4(e.target.value)} name="spec4" id="spec4" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    </div>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="detail4" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Detail 4</label>
+                                        <textarea id="detail4" name='detail4' value={specDetail4} onChange={e => setSpecDetail4(e.target.value)} className='py-3 px-3 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="1.5" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
+                                    </div>
+                                </div>
+                                <div className='flex'>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="spec5" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Title 5</label>
+                                        <input type="text" value={specTitle5} onChange={e => setSpecTitle5(e.target.value)} name="spec5" id="spec5" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    </div>
+                                    <div className='mb-5 w-full pr-1'>
+                                        <label for="detail5" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Spesification Detail 5</label>
+                                        <textarea id="detail5" name='detail5' value={specDetail5} onChange={e => setSpecDetail5(e.target.value)} className='py-3 px-3 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent ' rows="1.5" autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false'></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className='mb-4 text-end'>
-                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
+                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Product</button>
                         </div>
                     </form>
                 </section>
@@ -191,9 +286,10 @@ export default function Create({ subCategory, units, stores }) {
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
-    const subCategory = await prisma.subCategory.findMany();
+    const subCategory = await prisma.subCategoryThird.findMany();
     const units = await prisma.units.findMany();
     const stores = await prisma.stores.findMany();
+    const brands = await prisma.brands.findMany();
 
     if (!session) {
         return {
@@ -205,6 +301,6 @@ export async function getServerSideProps({ req }) {
     }
     // autorize user
     return {
-        props: { session, subCategory, units, stores }
+        props: { session, subCategory, units, stores, brands }
     }
 }

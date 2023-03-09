@@ -13,6 +13,7 @@ import {
     MdAdUnits,
     MdVerifiedUser,
     MdHistory,
+    MdBrandingWatermark,
 } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { FaProjectDiagram, FaRegComments } from "react-icons/fa";
@@ -38,11 +39,15 @@ function SideNavbar({ children }) {
                     </a>
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/categoryPage">
                         <MdCategory className="w-5 h-5 mx-4"/>
-                        <span>ParentCategory</span>
+                        <span>FirstCategory</span>
                     </a>
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/subCategoryPage">
                         <MdCategory className="w-5 h-5 mx-4"/>
-                        <span>SubCategory</span>
+                        <span>SecondSubCategory</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/thirdSubCategoryPage">
+                        <MdCategory className="w-5 h-5 mx-4"/>
+                        <span>ThirdSubCategory</span>
                     </a>
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/productPage">
                         <MdOutlineProductionQuantityLimits className="w-5 h-5 mx-4"/>
@@ -64,17 +69,25 @@ function SideNavbar({ children }) {
                         <MdAdUnits className="w-5 h-5 mx-4"/>
                         <span>Units</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/userPoinPage">
-                        <MdVerifiedUser className="w-5 h-5 mx-4"/>
-                        <span>User Poin</span>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/brandPage">
+                        <MdBrandingWatermark className="w-5 h-5 mx-4"/>
+                        <span>Brands</span>
                     </a>
-                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/historyPoinPage">
-                        <MdHistory className="w-5 h-5 mx-4"/>
-                        <span>History Poin</span>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/linkCustomerPage">
+                        <MdVerifiedUser className="w-5 h-5 mx-4"/>
+                        <span>Link Customer Register</span>
                     </a>
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/expiredPoinPage">
                         <BiCalendarEvent className="w-5 h-5 mx-4"/>
-                        <span>Expired Date</span>
+                        <span>Set User Expired Date</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/customerPoinPage">
+                        <MdVerifiedUser className="w-5 h-5 mx-4"/>
+                        <span>Import Customer Poin</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/historyPoinPage">
+                        <MdHistory className="w-5 h-5 mx-4"/>
+                        <span>Import History Poin</span>
                     </a>
                 </div>
             </aside>

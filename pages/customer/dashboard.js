@@ -29,7 +29,9 @@ const Dashboard = ({ userPhone }) => {
         }
     });
 
-    const point = userPhone.map(item => item.history.reduce((sum, items) => sum + parseInt(items.productDetail.poin), 0));
+    // const point = userPhone.map(item => item.customers.reduce((sum, items) => sum + parseInt(items.payment), 0));
+    const point = userPhone.map(item => item.redeem.map(items => items.total_poin))
+    console.log(point)
     const id = userPhone.map(item => item.id);
 //    
     return (
@@ -62,25 +64,33 @@ const Dashboard = ({ userPhone }) => {
 export default Dashboard;
 
 export async function getServerSideProps(context) {
-    // console.log(context.query.NoHp)
-    const userPhone = await prisma.phone_user_poin.findMany({
+    const userPhone = await prisma.user.findMany({
         where:{
-            number: context.query.NoHp
+            phone: context.query.NoHp
         },
         select: {
             id: true,
-            number: true,
-            history: {
+            phone: true,
+            name: true,
+            customers: {
                 select:{
-                    productDetail: {
+                    id: true,
+                    payment: true,
+                    histories: {
                         select:{
-                            poin: true
+                            id: true
                         }
                     }
                 }
+            },
+            redeem: {
+                select: {
+                    expiredAt: true,
+                    total_poin: true,
+                }
             }
         }
-    })
+    });
 
     // autorize user
     return {

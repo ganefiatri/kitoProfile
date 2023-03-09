@@ -21,6 +21,8 @@ export default async (req, res) => {
                 },
                 data: {
                     name: fields.name,
+                    contact: fields.contact,
+                    map: fields.map,
                     description: fields.description,
                     img: fields.image,
                     filename: fields.filename,
@@ -36,7 +38,6 @@ export default async (req, res) => {
                 try {
                     // delete
                     const filePathDel = fields.filename;
-    
                     if (!filePathDel) {
                         return res.status(405).json({ error: "no Path to delete" });
                     } else {
@@ -53,7 +54,7 @@ export default async (req, res) => {
                     }
                     // Read file
                     const file = fs.readFileSync(files.image.path);
-                    const imageName = new Date().getTime()+ "-" + files.image.name;
+                    const imageName = new Date().getTime() + "-" + files.image.name;
                     // Upload the file
                     s3Client.putObject({
                         // params
@@ -63,7 +64,7 @@ export default async (req, res) => {
                         Body: file,
                         ContentType: "image/jpeg",
                     }, async () => res.status(201).send("Image uploaded"));
-    
+
                     if (!fields) {
                         return res.status(500).send("You Dont Have Field");
                     } else {
@@ -74,17 +75,18 @@ export default async (req, res) => {
                             },
                             data: {
                                 name: fields.name,
+                                contact: fields.contact,
+                                map: fields.map,
                                 description: fields.description,
                                 img: url,
                                 filename: imageName,
                             }
                         });
                     }
-    
                 } catch (error) {
                     console.log(error);
                 }
-            }  
+            }
         }
     });
 };

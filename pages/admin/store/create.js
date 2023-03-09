@@ -4,13 +4,17 @@ import React, { useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Create() {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState();
     const [createObjectURL, setCreateObjectURL] = useState(null);
     const [name, setName] = useState('');
+    const [contact, setContact] = useState('');
+    const [map, setMap] = useState('');
     const [description, setDesc] = useState('');
     const router = useRouter();
 
@@ -31,18 +35,25 @@ export default function Create() {
 
     const handleFormData = async (e) => {
         e.preventDefault();
-            const forms = new FormData();
-            forms.append('name', name);
-            forms.append('description', description);
-            forms.append('image', imageUploaded);
-            // await axios.post("/api/category/createdata",forms);
-            const result = await fetch("/api/store/upload", {
-                method: "POST",
-                body: forms
-            });
-            
-            router.push("/admin/storePage");
-            // console.log({result});
+        const forms = new FormData();
+        forms.append('name', name);
+        forms.append('contact', contact);
+        forms.append('map', map);
+        forms.append('description', description);
+        forms.append('image', imageUploaded);
+        // await axios.post("/api/category/createdata",forms);
+        const res = await fetch("/api/store/upload", {
+            method: "POST",
+            body: forms
+        });
+        const result = await res.json();
+        if (result) {
+            toast('Succesfully Insert Data, fill again!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+        } else {
+            toast('Failed Inserting Data! Try Again', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        }
+        router.push("/admin/storePage");
+        // console.log({result});
 
 
     }
@@ -99,8 +110,16 @@ export default function Create() {
                                     <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                                 <div className='mb-5'>
-                                    <label for="description" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Description</label>
+                                    <label for="description" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Address</label>
                                     <input type="text" value={description} onChange={e => setDesc(e.target.value)} name="description" id="description" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label for="contact" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Contact</label>
+                                    <input type="text" value={contact} onChange={e => setContact(e.target.value)} name="contact" id="contact" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label for="map" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Link Map</label>
+                                    <input type="text" value={map} onChange={e => setMap(e.target.value)} name="map" id="map" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                             </div>
                         </div>

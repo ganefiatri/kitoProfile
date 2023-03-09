@@ -10,12 +10,16 @@ import CustomLoader from '../../components/CustomLoader';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import { HiPlusSm } from 'react-icons/hi';
+import { FaFileExcel } from 'react-icons/fa';
+import { read, utils } from 'xlsx';
+import { async } from '@firebase/util';
 
 const UserPoinPage = () => {
     const { data: session } = useSession();
     const [user, setUser] = useState([]);
     const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
     const [filterText, setFilterText] = useState('');
+    const [userImport, setUserImport] = useState();
     const [pending, setPending] = useState(true);
 
     const filteredItems = user.filter(
@@ -83,6 +87,20 @@ const UserPoinPage = () => {
         }
     ];
 
+    const handleImport = (e) => {
+        const files = e.target.files[0];
+        sendXlxs(files);
+    }
+
+    const sendXlxs = async (files) => {
+        const forms = new FormData();
+        forms.append('userNumber', files);
+        await fetch("/api/userpoin/upload", {
+            method: "POST",
+            body: forms,
+        });
+    }
+
     useEffect(() => {
         const timeout = setTimeout(() => {
             fetchUser();
@@ -108,6 +126,12 @@ const UserPoinPage = () => {
                         <p class="text-sm font-medium text-gray-500">
                             All Users Poin here
                         </p>
+                    </div>
+                    <div className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1">
+                        <input type="file" name="file" className="custom-file-input hidden" id="inputGroupFile" required onChange={handleImport}
+                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                           
+                        <label className="text-sm font-semibold tracking-wide cursor-pointer"  htmlFor="inputGroupFile">Import Excel</label>
                     </div>
                     <Link href="/admin/userpoin/create"
                         className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"

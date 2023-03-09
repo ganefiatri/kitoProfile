@@ -10,16 +10,19 @@ datasource db {
 }
 
 model user {
-  id            String    @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?         @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  role          role      @default(USER)
-  phone         String?   @unique
+  role          role            @default(USER)
+  phone         String?         @unique
   accounts      account[]
   sessions      session[]
+  customers     customer_poin[]
+  history       history_poin[]
+  redeem        redeem[]
 
   @@fulltext([phone])
 }
@@ -60,31 +63,94 @@ model verificationToken {
 }
 
 model phone_user_poin {
-  id      String    @id @default(cuid())
-  number  String    @unique
+  id      Int       @id @default(autoincrement())
+  number  String
   history history[]
-  redeem  redeem[]
+}
+
+model customer_poin {
+  id           Int            @id @default(autoincrement())
+  loc          String
+  ar_type      String
+  ar_no        String
+  ar_date      String
+  due_date     String
+  cust_code    String
+  total_ar     String
+  payment      String
+  giro_rls     String
+  description  String
+  giro_no      String
+  ar_notemp    String
+  ac_code      String
+  seri_id      String
+  status       String
+  flag_gl      String
+  flag_giro    String
+  status_giro  String
+  giro         String
+  flag_gl_cair String
+  ac_biaya     String
+  biaya        String
+  cust_name    String
+  sales_code   String
+  sisa         String
+  phone1       String
+  due          String
+  jual         String
+  retur_panjar String
+  periode      String
+  keterangan   String
+  kind         String
+  userId       String?
+  jenis        String
+  user         user?          @relation(fields: [userId], references: [id])
+  histories    history_poin[]
+}
+
+model history_poin {
+  id           Int            @id @default(autoincrement())
+  tgl          String
+  jenis        String
+  no_faktur    String
+  no_cust      String
+  nama_cust    String
+  qty          String
+  unit         String
+  bns          String
+  kode_stock   String
+  nama_stock   String
+  sls          String
+  harga        String
+  disc         String
+  biaya        String
+  jumlah       String
+  loc          String
+  customerId   Int?
+  userId       String?
+  customerPoin customer_poin? @relation(fields: [customerId], references: [id])
+  users        user?          @relation(fields: [userId], references: [id])
 }
 
 model history {
   id            String           @id @default(cuid())
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
-  phoneId       String?
+  phoneId       Int?
   productId     String?
   userPhone     phone_user_poin? @relation(fields: [phoneId], references: [id])
-  productDetail product_detail?   @relation(fields: [productId], references: [id])
+  productDetail product_detail?  @relation(fields: [productId], references: [id])
 }
 
 model redeem {
-  id          String           @id @default(cuid())
+  id          String   @id @default(cuid())
   redeem_poin String?
-  total_poin  String?
-  phoneId     String
-  createdAt   DateTime         @default(now())
+  createdAt   DateTime @default(now())
   expiredAt   String?
-  updatedAt   DateTime         @updatedAt
-  userPhone   phone_user_poin? @relation(fields: [phoneId], references: [id])
+  updatedAt   DateTime @updatedAt
+  total_poin  String?
+  userId      String?
+  users       user?    @relation(fields: [userId], references: [id])
 }
 
 model stores {
@@ -93,6 +159,8 @@ model stores {
   description String?
   img         String?
   filename    String?
+  contact     String?
+  map         String?
   products    product_detail[]
 }
 
@@ -126,22 +194,42 @@ model units {
 }
 
 model product_detail {
-  id            String       @id @default(cuid())
+  id            String            @id @default(cuid())
   product_id    String?
   unit_id       String?
   store_id      String?
   subCategoryId String?
   discount      String?
   price         String?
-  poin          String?       
-  createdAt     DateTime     @default(now())
-  expiredAt     String?
+  createdAt     DateTime          @default(now())
   updatedAt     DateTime?
-  product       product?     @relation(fields: [product_id], references: [id])
-  units         units?       @relation(fields: [unit_id], references: [id])
-  stores        stores?      @relation(fields: [store_id], references: [id])
-  subCategory   subCategory? @relation(fields: [subCategoryId], references: [id])
+  brand_id      String?
+  loc           String?
+  poin          String?
+  expiredAt     String?
+  product       product?          @relation(fields: [product_id], references: [id])
+  units         units?            @relation(fields: [unit_id], references: [id])
+  brands        brands?           @relation(fields: [brand_id], references: [id])
+  stores        stores?           @relation(fields: [store_id], references: [id])
+  subCategory   subCategoryThird? @relation(fields: [subCategoryId], references: [id])
   history       history[]
+  spesification spesification[]
+}
+
+model spesification {
+  id            String          @id @default(cuid())
+  titleOne      String?
+  titleTwo      String?
+  titleThree    String?
+  titleFour     String?
+  titleFive     String?
+  answerOne     String?
+  answerTwo     String?
+  answerThree   String?
+  answerFour    String?
+  answerFive    String?
+  productId     String?
+  productDetail product_detail? @relation(fields: [productId], references: [id])
 }
 
 model category {
@@ -155,13 +243,29 @@ model category {
 }
 
 model subCategory {
-  id         String           @id @default(cuid())
-  name       String           @unique
-  categoryId String?
-  category   category?        @relation(fields: [categoryId], references: [id])
-  products   product_detail[]
+  id               String             @id @default(cuid())
+  name             String             @unique
+  categoryId       String?
+  category         category?          @relation(fields: [categoryId], references: [id])
+  subCategoryThird subCategoryThird[]
 
   @@fulltext([name])
+}
+
+model subCategoryThird {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  subcatId    String?
+  subCategory subCategory?     @relation(fields: [subcatId], references: [id])
+  products    product_detail[]
+
+  @@fulltext([name])
+}
+
+model brands {
+  id             String           @id @default(cuid())
+  name           String           @unique
+  product_detail product_detail[]
 }
 
 enum role {

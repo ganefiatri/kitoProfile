@@ -5,41 +5,73 @@ import Header from '../../../../components/admin/Header';
 import SideNavbar from '../../../../layout/SideNavbar';
 import prisma from '../../../../utils/prisma';
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export async function getServerSideProps({ params }) {
-    const users = await prisma.phone_user_poin.findMany({
+    const user_import = await prisma.user.findMany({
         where: {
             id: params.id
+        },
+        include: {
+            customers: {
+                where:{
+                    jenis: "IMPORT"
+                }
+            }
+        }
+    });
+    const user_eksport = await prisma.user.findMany({
+        where: {
+            id: params.id
+        },
+        include: {
+            customers: {
+                where:{
+                    jenis: "EKSPORT"
+                }
+            }
         }
     });
     return {
         props: {
-            user: users,
+            user_import,
+            user_eksport
         },
     }
 }
 
 const subCategorybyId = props => {
-    const { user } = props;
+    const { user_import, user_eksport } = props;
     const router = useRouter()
-    const [userpoin, setUserPoin] = useState(user[0].number)
+    const [userpoin, setUserPoin] = useState(user_import[0].phone)
+    const [expired, setExpired] = useState('');
+    const [selectedNames, setSelectedNames] = useState('');
     //state
+    const payment_import = user_import.map(item => item.customers.reduce((sum, items) => sum + parseInt(items.payment), 0));
+    const payment_eksport = user_eksport.map(item => item.customers.reduce((sum, items) => sum + parseInt(items.payment), 0));
+    const total_payment = parseInt(payment_import) + parseInt(payment_eksport);
 
     const handleFormData = async (e) => {
         e.preventDefault();
-        const id = user[0].id;
-        const res = await fetch("/api/userpoin/editdata", {
-            method: "PUT",
+        const res = await fetch("/api/expiredpoin/createdata", {
+            method: "POST",
             body: JSON.stringify({
-                number: userpoin,
-                id: id
+                id: user_import[0].id,
+                poin: selectedNames,
+                date: expired
             }),
             headers: {
                 'Content-Type': 'application/json',
             }
         });
         const result = await res.json();
-        router.push("/admin/userPoinPage")
+        if(!result){
+            toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        }else{
+            toast('Successfully Linked data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+            router.push("/admin/linkCustomerPage")
+        }
     }
 
     return (
@@ -57,23 +89,43 @@ const subCategorybyId = props => {
                 {/* Category */}
                 <section>
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
-                        <h1 className='text-lg font-semibold text-heading'>Edit SubCategory</h1>
+                        <h1 className='text-lg font-semibold text-heading'>Add Expired date and Total Poin</h1>
                     </div>
                     <form onSubmit={handleFormData}>
                         <div className='my-5 flex flex-wrap sm:my-8'>
                             <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
                                 <h4 className='text-base font-semibold mb-2'>Details</h4>
-                                <p className='text-sm'>Add Category and Subcategory from here</p>
+                                <p className='text-sm'>Add Expired date and Total Poin from here</p>
                             </div>
                             <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                 <div className='mb-5'>
                                     <label for="number" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Number</label>
-                                    <input type="text" inputmode="numeric" pattern="[0-9]*" value={userpoin} onChange={e => setUserPoin(e.target.value)} name="number" id="number" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent'/>
+                                    <input type="text" disabled inputmode="numeric" pattern="[0-9]*" value={userpoin} onChange={e => setUserPoin(e.target.value)} name="number" id="number" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                <div className='mb-5 w-1/2'>
+                                    <label for="date" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Set Expired Date</label>
+                                    <input type="date" value={expired} min={0} onChange={e => setExpired(e.target.value)} name="date" id="date" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Total Import Payment</label>
+                                    <input type="text" disabled name="poin" value={payment_import} />
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Total Eksport Payment</label>
+                                    <input type="text" disabled name="poin" value={payment_eksport} />
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Total Payment</label>
+                                    <input type="text" disabled name="poin" value={total_payment} />
+                                </div>
+                                <div className='mb-5'>
+                                    <label className='block mb-3 text-sm font-normal leading-none text-gray-400'>Total Poin</label>
+                                    <input type="text" placeholder='masukan total poin' name="poin" onChange={e => setSelectedNames(e.target.value)} value={selectedNames} className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent'/>
                                 </div>
                             </div>
                         </div>
                         <div className='mb-4 text-end'>
-                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Edit User Poin</button>
+                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Create expired date & Poin</button>
                         </div>
                     </form>
                 </section>

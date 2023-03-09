@@ -35,8 +35,10 @@ const Showroom = ({ stores }) => {
                         <LargeCard
                             img={store.img}
                             title={store.name}
+                            map={store.map}
+                            contact={store.contact}
                             description={store.description}
-                            buttonText="Get Inspired"
+                            buttonText="Map"
                         />
                     ))}
             </div>

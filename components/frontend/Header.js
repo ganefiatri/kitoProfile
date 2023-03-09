@@ -17,8 +17,8 @@ const Header = () => {
     useEffect(() => {
         const changeColor = () => {
             if (window.scrollY >= 100) {
-                setColor("#ffffff");
-                setTextColor("#000000");
+                setColor("#484848");
+                setTextColor("#ffffff");
             } else {
                 setColor("transparent");
                 setTextColor("#ffffff");
@@ -38,14 +38,13 @@ const Header = () => {
                             <Link href="/">Home</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            {/*  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" */}
-                            <Link href="/product">Product</Link>
-                        </li>
-                        <li className="p-4 text-sm uppercase">
                             <Link href="/about">About</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/showroom">Showroom</Link>
+                            <Link href="/showroom">Find Store</Link>
+                        </li>
+                        <li className="p-4 text-sm uppercase">
+                            <Link href="/project">Project</Link>
                         </li>
                     </ul>
                 </div>
@@ -57,17 +56,25 @@ const Header = () => {
                 <div className="flex items-center justify-end">
                     <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/project">Project</Link>
-                        </li>
-                        <li className="p-4 text-sm uppercase">
-                            <Link href="/store">Find Store</Link>
+                            {/*  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" */}
+                            <Link href="/product">Product</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/contact">Contact</Link>
                         </li>
+                        {/* <li className="p-4 text-sm uppercase">
+                            <Link href="/showroom">Showroom</Link>
+                        </li> */}
                         <li className="p-4 text-sm uppercase">
                             <Link href="/shop">Members</Link>
                         </li>
+                        {!session? (
+                            <li className="p-4 text-sm uppercase">
+                                <Link className="border p-2" href="/auth/login">Login</Link>
+                            </li>) : (
+                            ''
+                        )
+                        }
                         {session?.user.role == "ADMIN" ? (
                             <li className="p-4 text-sm uppercase">
                                 <Link className="border p-2" href="/admin/homePage">Admin</Link>

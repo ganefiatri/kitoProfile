@@ -5,6 +5,8 @@ import Header from '../../../../components/admin/Header';
 import SideNavbar from '../../../../layout/SideNavbar';
 import prisma from '../../../../utils/prisma';
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export async function getServerSideProps({ params }) {
     const stores = await prisma.stores.findMany({
@@ -26,6 +28,8 @@ const ProductbyId = props => {
     const [imageUploaded, setImageUploaded] = useState(store[0].img);
     const [createObjectURL, setCreateObjectURL] = useState(store[0].img);
     const [name, setName] = useState(store[0].name);
+    const [contact, setContact] = useState(store[0].contact);
+    const [map, setMap] = useState(store[0].map);
     const [description, setDesc] = useState(store[0].description);
     const setFilename = store[0].filename;
     const id = store[0].id;
@@ -48,15 +52,23 @@ const ProductbyId = props => {
         e.preventDefault();
         const forms = new FormData();
         forms.append('name', name);
+        forms.append('contact', contact);
+        forms.append('map', map);
         forms.append('image', imageUploaded);
         forms.append('description', description);
         forms.append('filename', setFilename);
         forms.append('id', id);
         // await axios.post("/api/category/createdata",forms);
-        const result = await fetch("/api/store/editdata", {
+        const res = await fetch("/api/store/editdata", {
             method: "PUT",
             body: forms,
         });
+        const result = await res.json();
+        if (result) {
+            toast('Succesfully Insert Data, fill again!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+        } else {
+            toast('Failed Inserting Data! Try Again', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        }
         router.push("/admin/storePage")
         // console.log(result)
     }
@@ -111,6 +123,14 @@ const ProductbyId = props => {
                                 <div className='mb-5'>
                                     <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
                                     <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label for="contact" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Contact</label>
+                                    <input type="text" value={contact} onChange={e => setContact(e.target.value)} name="contact" id="contact" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                </div>
+                                <div className='mb-5'>
+                                    <label for="map" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Link Map</label>
+                                    <input type="text" value={map} onChange={e => setMap(e.target.value)} name="map" id="map" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                                 <div className='mb-5'>
                                     <label for="desc" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Description</label>

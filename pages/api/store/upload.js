@@ -41,6 +41,8 @@ export default async (req, res) => {
                     const post = await prisma.stores.create({
                         data: {
                             name: fields.name,
+                            contact: fields.contact,
+                            map: fields.map,
                             description: fields.description,
                             img: url,
                             filename: imageName,

@@ -34,37 +34,19 @@ const History = ({historyByUser}) => {
 export default History;
 
 export async function getServerSideProps(context) {
-    // console.log(context.query.NoHp)
-    const historyByUser = await prisma.history.findMany({
-        select: {
-            userPhone: {
-                select: {
-                    number: true
-                }
-            },
-            productDetail: {
-                select: {
-                    poin: true,
-                    product: {
-                        select: {
-                            title: true,
-                            image: true
-                        }
-                    },
-                    stores: {
-                        select: {
-                            name: true
-                        }
-                    }
-                }
-            }
+    // console.log(context.query.q)
+    const historyByUser = await prisma.user.findMany({
+        where:{
+            id: context.query.q
         },
-        where: {
-            userPhone: {
-                id: context.query.q
+        include:{
+            customers: {
+                include: {
+                    histories: true
+                }
             }
         }
-    })
+    });
 
     // autorize user
     return {

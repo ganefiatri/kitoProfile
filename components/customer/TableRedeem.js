@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const TableRedeem = ({ redeem }) => {
+    console.log(redeem)
     const clickRedeem = async (e) => {
         e.preventDefault();
         const id = String(redeem.map(item => item.id));
@@ -40,7 +41,7 @@ const TableRedeem = ({ redeem }) => {
                             <tr className="text-base font-bold text-left bg-gray-50">
                                 <th className="px-4 py-3 border-b-2 border-blue-500">Phone Number</th>
                                 <th className="px-4 py-3 border-b-2 border-green-500">Poin</th>
-                                <th className="px-4 py-3 border-b-2 border-green-500">Redeem</th>
+                                {/* <th className="px-4 py-3 border-b-2 border-green-500">Redeem</th> */}
                                 <th className="px-4 py-3 border-b-2 border-green-500">Expired</th>
                                 <th className="px-4 py-3 border-b-2 border-red-500">Action</th>
                             </tr>
@@ -51,15 +52,15 @@ const TableRedeem = ({ redeem }) => {
                                 <tr className="py-10 border-b border-gray-200 hover:bg-gray-100">
                                     <td className="flex flex-row items-center px-4 py-4">
                                         <div className="flex-1 pl-1">
-                                            <div className="font-medium dark:text-white">{item.userPhone.number}</div>
+                                            <div className="font-medium dark:text-white">{item.users.phone}</div>
                                         </div>
                                     </td>
                                     <td className="px-4 py-4">
                                         {item.total_poin}
                                     </td>
-                                    {item.redeem_poin && (
+                                    {/* {item.redeem_poin && (
                                         <td className="px-4 py-4">{item.redeem_poin}</td>
-                                    )}
+                                    )} */}
                                     <td className="px-4 py-4">
                                         {item.expiredAt}
                                     </td>

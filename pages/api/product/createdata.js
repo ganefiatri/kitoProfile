@@ -57,14 +57,28 @@ export default async (req, res) => {
                             subCategoryId: fields.subCategory,
                             discount: fields.discount,
                             price: fields.price,
-                            poin: fields.poin,
-                            expiredAt: fields.expired,
+                            loc: fields.loc,
+                            brand_id: fields.brands
                         },
                         include: {
                             product: true
                         },
                     });
-                    // console.log(result)
+                    const spec = await prisma.spesification.create({
+                        data: {
+                            productId: result.id,
+                            titleOne: fields.spec1,
+                            titleTwo: fields.spec2,
+                            titleThree: fields.spec3,
+                            titleFour: fields.spec4,
+                            titleFive: fields.spec5,
+                            answerOne: fields.answer1,
+                            answerTwo: fields.answer2,
+                            answerThree: fields.answer3,
+                            answerFour: fields.answer4,
+                            answerFive: fields.answer5,
+                        }
+                    });
                 }
 
             } catch (error) {

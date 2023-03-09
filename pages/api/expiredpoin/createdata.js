@@ -5,13 +5,13 @@ export default async function handler(req, res) {
     // console.log(req.body)
     if (req.method === "POST") {
         if (!req.body) return res.status(404).json({ error: "Dont have form data..!" })
-        const { number, poin, date } = req.body;
+        const { poin, date, id } = req.body;
    
       await prisma.redeem.create({
             data: {
                 total_poin: poin,
-                phoneId: number,
-                expiredAt: date
+                expiredAt: date,
+                userId: id
             }
         });
         return res.status(200).json({ message: "Success fully create subCategory !" });
