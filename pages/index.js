@@ -68,19 +68,19 @@ export default function Home({ products, categories }) {
 
         </section>
 
-        <section className='pt-10'>
+        {/* <section className='pt-10'>
           <h2 className='text-4xl font-thin pb-3 text-center'>Products</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
           <div className="group relative md:-ml-2">
             <AiOutlineLeft className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`} onClick={() => handleClick("left")} />
             <div ref={rowRef} className='flex overflow-scroll scrollbar-hide p-3 ml-3'>
               {products.map(item => (
-                <ProductCard key={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name}/>
+                  <ProductCard key={item.id} id={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name}/>
               ))}
             </div>
             <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
           </div>
-        </section>
+        </section> */}
 
         {/* {session ? User({ session, handleSignOut }) : Guest()} */}
       </main>

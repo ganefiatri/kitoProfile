@@ -25,7 +25,7 @@ const Dashboard = ({ userPhone }) => {
           setPhone(PhoneNumbers);
         } else {
             signOut(auth)
-            router.push('/shop')
+            router.push('/customer/dashboard')
         }
     });
 

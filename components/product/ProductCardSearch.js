@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react'
 
-function ProductCardSearch({ img, title, price, description, quantity, subCategory, discount, place, group, unit }) {
+function ProductCardSearch({ img, id, title, price, description, quantity, subCategory, discount, place, group, unit }) {
     const Format = price;
     const currencyFormat = Format.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     const DiscountPrice = price * discount / 100;
@@ -12,7 +12,7 @@ function ProductCardSearch({ img, title, price, description, quantity, subCatego
         <div className="cursor-pointer">
             <div className="relative h-full w-64">
                 <div class="w-full p-4">
-                    <a href="" className="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
+                    <a href={`/product/detail/${id}`} className="c-card block bg-white shadow-md hover:shadow-xl rounded-t-lg overflow-hidden">
                         <div className="relative pb-48 overflow-hidden">
                             <Image
                                 className="absolute inset-0 h-full w-full"
@@ -24,7 +24,7 @@ function ProductCardSearch({ img, title, price, description, quantity, subCatego
                                 {discount}%
                             </p>
                         </div>
-                    </a>
+                    
                     <div class="p-4 bg-slate-100">
                         <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">Highlight</span>
                         <h2 class="mt-2 mb-2  font-bold">{title}</h2>
@@ -51,6 +51,7 @@ function ProductCardSearch({ img, title, price, description, quantity, subCatego
                             <i class="far fa-address-card fa-fw text-gray-900 mr-2"></i> {subCategory} Category
                         </span>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>

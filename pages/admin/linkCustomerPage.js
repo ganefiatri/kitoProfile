@@ -105,19 +105,19 @@ const LinkCustomerPage = () => {
         }
     ];
 
-    const handleImport = (e) => {
-        const files = e.target.files[0];
-        sendXlxs(files);
-    }
+    // const handleImport = (e) => {
+    //     const files = e.target.files[0];
+    //     sendXlxs(files);
+    // }
 
-    const sendXlxs = async (files) => {
-        const forms = new FormData();
-        forms.append('userNumber', files);
-        await fetch("/api/customerpoin/upload", {
-            method: "POST",
-            body: forms,
-        });
-    }
+    // const sendXlxs = async (files) => {
+    //     const forms = new FormData();
+    //     forms.append('userNumber', files);
+    //     await fetch("/api/customerpoin/upload", {
+    //         method: "POST",
+    //         body: forms,
+    //     });
+    // }
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -145,12 +145,12 @@ const LinkCustomerPage = () => {
                             All Customer Register here
                         </p>
                     </div>
-                    <div className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1">
+                    {/* <div className="inline-flex gap-x-2 items-center py-2.5 px-6 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1">
                         <input type="file" name="file" className="custom-file-input hidden" id="inputGroupFile" required onChange={handleImport}
                             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
 
                         <label className="text-sm font-semibold tracking-wide cursor-pointer" htmlFor="inputGroupFile">Import Excel</label>
-                    </div>
+                    </div> */}
 
                 </div>
                 <DataTable

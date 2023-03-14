@@ -66,7 +66,7 @@ const Header = () => {
                             <Link href="/showroom">Showroom</Link>
                         </li> */}
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/shop">Members</Link>
+                            <Link href="/shops">Shop</Link>
                         </li>
                         {!session? (
                             <li className="p-4 text-sm uppercase">
