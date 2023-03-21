@@ -7,14 +7,14 @@ import { FaUpload } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import prisma from '../../../utils/prisma';
 import { MdDateRange } from 'react-icons/md';
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function Create({ subCategory, units, stores, brands }) {
     const { data: session } = useSession();
-    const [imageUploaded, setImageUploaded] = useState();
-    const [createObjectURL, setCreateObjectURL] = useState(null);
+    const [imageUploaded, setImageUploaded] = useState('');
+    const [createObjectURL, setCreateObjectURL] = useState('');
     const [title, setTitle] = useState('');
     const [quantity, setQuantity] = useState('');
     const [description, setDescription] = useState('');
@@ -36,8 +36,8 @@ export default function Create({ subCategory, units, stores, brands }) {
     const router = useRouter();
 
     const handleImage = (e) => {
+        // addimage
         const file = e.target.files[0];
-
         setImageUploaded(file);
         const fileReader = new FileReader();
         fileReader.onload = function (e) {
@@ -86,9 +86,9 @@ export default function Create({ subCategory, units, stores, brands }) {
             body: forms,
         });
         const result = await res.json();
-        if(!result){
+        if (!result) {
             toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
-        }else{
+        } else {
             toast('Successfully Linked data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
         }
         router.push("/admin/productPage")
@@ -128,11 +128,16 @@ export default function Create({ subCategory, units, stores, brands }) {
                                             <br />
                                             <span className='text-xs'>PNG, JPG</span>
                                         </p>
-                                        <input id="dropzone-file" onChange={handleImage} type="file" className='hidden' />
-                                        <div className='flex mb-5'>
-                                            {createObjectURL && <img src={createObjectURL} alt="image" width={100} className='h-[100px] object-contain' />}
-                                        </div>
+                                        <input id="dropzone-file" onChange={handleImage} type="file" name="file" className='hidden' />
+
                                     </label>
+                                </section>
+                                <section>
+                                    <div className='flex mb-5 overflow-hidden relative'>
+                                         {createObjectURL &&
+                                            <img src={createObjectURL} alt="image" width={100} className='h-[100px] object-cover p-1' />
+                                         }
+                                    </div>
                                 </section>
                             </div>
                         </div>

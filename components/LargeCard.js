@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import { MdMap } from 'react-icons/md'
+import {FaWhatsapp} from "react-icons/fa";
 
 function LargeCard({ img, company ,title, description, buttonText, contact, map }) {
     return (
@@ -19,7 +20,8 @@ function LargeCard({ img, company ,title, description, buttonText, contact, map 
               <p>{description}</p>
               <p className='mb-5'>{contact}</p>
   
-              <a href={map} target='_blank' className="text-sm text-white bg-gray-600 px-4 py-2 rounded-lg mt-5 hover:scale-105 transform transition duration-300 ease-out">{buttonText}</a>
+              <a href={map} target='_blank' className="w-full flex px-6 py-2.5 bg-yellow-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-yellow-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out justify-center justify-items-center items-center mb-2"><MdMap className='h-6 w-6 mr-2'/>{buttonText}</a>
+              <a href="https://api.whatsapp.com/send?phone=6281260038883" className="w-full flex px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out justify-center justify-items-center items-center" target="_blank"><FaWhatsapp className='h-6 w-6 mr-2'/> Whatsapp us</a>
           </div>
       </div>
     )

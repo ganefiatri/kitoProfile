@@ -11,7 +11,16 @@ export async function getServerSideProps({ params }) {
             id: params.id
         },
         include: {
-            product: true,
+            product: {
+                select: {
+                    title: true,
+                    description: true,
+                    quantity: true,
+                    image: true,
+                    group: true,
+                    productImage: true
+                }
+            },
             subCategory: true,
             stores: true,
             units: true,
@@ -27,7 +36,7 @@ export async function getServerSideProps({ params }) {
 }
 
 const Id = ({ product }) => {
-    console.log(product)
+    // console.log(product)
     return (
         <div>
             <Head>
@@ -43,17 +52,27 @@ const Id = ({ product }) => {
             {/* Banner Section */}
             <Banner />
             {product.map(item => (
-                <ProductDetail key={item.id} id={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name} 
-                titleOne={item.spesification.map(items => items.titleOne)}
-                titleTwo={item.spesification.map(items => items.titleTwo)}
-                titleThree={item.spesification.map(items => items.titleThree)}
-                titleFour={item.spesification.map(items => items.titleFour)}
-                titleFive={item.spesification.map(items => items.titleFive)}
-                answerOne={item.spesification.map(items => items.answerOne)}
-                answerTwo={item.spesification.map(items => items.answerTwo)}
-                answerThree={item.spesification.map(items => items.answerThree)}
-                answerFour={item.spesification.map(items => items.answerFour)}
-                answerFive={item.spesification.map(items => items.answerFive)}
+                <ProductDetail key={item.id} id={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name}
+                    titleOne={item.spesification.map(items => items.titleOne)}
+                    titleTwo={item.spesification.map(items => items.titleTwo)}
+                    titleThree={item.spesification.map(items => items.titleThree)}
+                    titleFour={item.spesification.map(items => items.titleFour)}
+                    titleFive={item.spesification.map(items => items.titleFive)}
+                    answerOne={item.spesification.map(items => items.answerOne)}
+                    answerTwo={item.spesification.map(items => items.answerTwo)}
+                    answerThree={item.spesification.map(items => items.answerThree)}
+                    answerFour={item.spesification.map(items => items.answerFour)}
+                    answerFive={item.spesification.map(items => items.answerFive)}
+                    img2={item.product.productImage.map(item => item.image0)}
+                    img3={item.product.productImage.map(item => item.image1)}
+                    img4={item.product.productImage.map(item => item.image2)}
+                    img5={item.product.productImage.map(item => item.image3)}
+                    img6={item.product.productImage.map(item => item.image4)}
+                    img7={item.product.productImage.map(item => item.image5)}
+                    img8={item.product.productImage.map(item => item.image6)}
+                    img9={item.product.productImage.map(item => item.image7)}
+                    img10={item.product.productImage.map(item => item.image8)}
+                    img11={item.product.productImage.map(item => item.image9)}
                 />
             ))}
         </div>

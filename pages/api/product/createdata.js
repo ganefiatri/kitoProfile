@@ -14,10 +14,7 @@ export default async (req, res) => {
     // parse request to readable form
     const form = new formidable.IncomingForm();
     form.parse(req, async (err, fields, files) => {
-        const session = await getSession({ req });
-        if (!session) {
-            return res.status(405).json({ error: "Access Denied !" })
-        } else {
+        const session = await getSession({ req })
             // Account for parsing errors
             if (err) return res.status(500);
             try {
@@ -80,11 +77,9 @@ export default async (req, res) => {
                         }
                     });
                 }
-
             } catch (error) {
                 console.log(error);
             }
-        }
     });
 };
 

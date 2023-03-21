@@ -182,9 +182,36 @@ model product {
   createdAt      DateTime         @default(now())
   code           String
   group          group            @default(HOSANA)
+  productImage   productImg[]
   product_detail product_detail[]
 
   @@fulltext([title])
+}
+
+model productImg {
+  id         String   @id @default(cuid())
+  product_id String?
+  image0     String?
+  filename0  String?
+  image1     String?
+  filename1  String?
+  image2     String?
+  filename2  String?
+  image3     String?
+  filename3  String?
+  image4     String?
+  filename4  String?
+  image5     String?
+  filename5  String?
+  image6     String?
+  filename6  String?
+  image7     String?
+  filename7  String?
+  image8     String?
+  filename8  String?
+  image9     String?
+  filename9  String?
+  product    product? @relation(fields: [product_id], references: [id])
 }
 
 model units {

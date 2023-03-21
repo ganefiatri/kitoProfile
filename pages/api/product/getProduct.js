@@ -9,9 +9,10 @@ export default async function handler(req, res) {
                                 include:{
                                         units: true,
                                         subCategory: true,
-                                        stores: true
+                                        stores: true,
                                 }
                         },
+                        productImage: true
                 }
         })
         res.status(200).json(products)

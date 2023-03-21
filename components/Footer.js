@@ -28,18 +28,18 @@ function Footer() {
             <p>
                 <a href="/product">Product</a>
             </p>
-            <p>
+            {/* <p>
                 <a href="/showroom">Showroom</a>
-            </p>
+            </p> */}
             <p>
                 <a href="/store">Store</a>
             </p>
             <p>
                 <a href="/contact">Contact</a>
             </p>
-            <p>
+            {/* <p>
                 <a href="/auth/login" className='bg-slate-300 p-2 border rounded-md'>Admin</a>
-            </p>
+            </p> */}
         </div>
     </div>
   )

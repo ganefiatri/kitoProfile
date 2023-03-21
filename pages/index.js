@@ -10,10 +10,11 @@ import Link from 'next/link'
 import Cardinfo from '../components/frontend/Cardinfo'
 import { useRef, useState } from 'react'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+import ProjectHome from '../components/project/ProjectHome'
 
 const prisma = new PrismaClient();
 
-export default function Home({ products, categories }) {
+export default function Home({ products, categories, projects }) {
   const { data: session } = useSession()
   const rowRef = useRef(null)
   const [isMoved, setIsMoved] = useState(false)
@@ -65,9 +66,18 @@ export default function Home({ products, categories }) {
               <Category key={item.id} img={item.img} title={item.name} />
             ))}
           </div>
-
         </section>
 
+        <section className='pt-10'>
+        <h2 className='text-4xl text-center font-thin pb-3'>Project</h2>
+        <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/project">View all</a></p>
+
+          <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+              {projects.map(item => (
+                <ProjectHome key={item.id} name={item.name} img={item.img} />
+              ))}
+          </div>
+        </section>
         {/* <section className='pt-10'>
           <h2 className='text-4xl font-thin pb-3 text-center'>Products</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
@@ -110,10 +120,12 @@ export async function getServerSideProps() {
       id: 'asc'
     }
   });
+  const projects = await prisma.project.findMany({});
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
       categories,
+      projects
     }
   };
 } 

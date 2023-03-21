@@ -24,14 +24,14 @@ const ProductPage = () => {
     );
 
     const fetchProduct = async () => {
-       await fetch('/api/product/getProduct').then(res => res.json().then((data) => {
+        await fetch('/api/product/getProduct').then(res => res.json().then((data) => {
             setProduct(data)
         }))
     }
 
     const handleButtonDelete = async (e, id) => {
         e.preventDefault();
-        if(confirm('Are you sure want to delete this ?')){
+        if (confirm('Are you sure want to delete this ?')) {
             try {
                 await fetch("/api/product/deletedata?id=" + id, {
                     method: "DELETE",
@@ -41,7 +41,7 @@ const ProductPage = () => {
             } catch (err) {
                 console.log(err)
             }
-        }else{
+        } else {
             console.log("not gonna happen!")
         }
     };
@@ -65,10 +65,6 @@ const ProductPage = () => {
     }
 
     const column = [
-        {
-            name: 'Code',
-            selector: row => row.code,
-        },
         {
             name: 'Name',
             selector: row => row.title,
@@ -112,6 +108,11 @@ const ProductPage = () => {
             cell: row =>
             (
                 <>
+                    <button>
+                        <a href={`/admin/product/image/${row.id}`} className="p-1 bg-green-600 text-white rounded-lg">
+                            Img
+                        </a>
+                    </button>
                     <button>
                         <Link href={`/admin/product/edit/${row.id}`}>
                             <BiEdit className='h-5 w-5' />

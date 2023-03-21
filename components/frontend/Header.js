@@ -31,7 +31,7 @@ const Header = () => {
             style={{ backgroundColor: `${color}` }}
             className="fixed left-0 top-0 w-full z-10 ease-in duration-300"
         >
-            <div className="max-w-[1240px] grid grid-cols-3 items-center p-4 text-white">
+            <div className="w-full grid grid-cols-3 items-center p-4 text-white">
                 <div className="flex items-center my-auto">
                     <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
                         <li className="p-4 text-sm uppercase">
