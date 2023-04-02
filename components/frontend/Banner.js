@@ -1,9 +1,26 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from 'swiper';
 
-const Banner = () => {
+const Banner = ({ picture }) => {
+    console.log(picture)
     return (
         <div className='relative w-[600px] md:w-full lg:w-full sm:w-full'>
-            <div id="carouselExampleIndicators" className="carousel slide relative w-full" data-bs-ride="carousel">
+            <Swiper navigation={true} modules={[Navigation]}>
+                {picture.map(item => (
+                    <SwiperSlide>
+                        <div className='absolute top-80 left-28 z-auto justify-center items-start text-white'>
+                            <h5 className="text-2xl font-extralight mb-5">Hosana Kito Group</h5>
+                            <h5 className="text-5xl font-bold">{item.title}</h5>
+                        </div>
+                        <img src={item.img} alt={item.title} className="block w-full h-auto" />
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+            {/* <div id="carouselExampleIndicators" className="carousel slide relative w-full" data-bs-ride="carousel">
                 <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                     <button
                         type="button"
@@ -82,7 +99,7 @@ const Banner = () => {
                     <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
-            </div>
+            </div> */}
         </div>
     );
 }

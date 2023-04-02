@@ -1,16 +1,23 @@
-import { getAuth, signOut } from 'firebase/auth';
+// import { getAuth, signOut } from 'firebase/auth';
+import { signOut } from 'next-auth/react';
 import { auth } from "../../utils/firebase";
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
-const Cardcustomer = ({phoneNumber, poin, id}) => {
-    const auth = getAuth();
-    const user = auth;
+const Cardcustomer = ({ phoneNumber, poin, id }) => {
+    // console.log(phoneNumber)
+    // const auth = getAuth();
+    // const user = auth;
     const router = useRouter();
     // console.log(user)
+    function handleProfile(e) {
+        e.preventDefault()
+        router.push(`/customer/profile?q=${id}`)
+    }
+
     function handleSignOut(e) {
         e.preventDefault()
-        signOut(auth)
+        signOut()
         router.push('/shop')
     }
 
@@ -31,9 +38,12 @@ const Cardcustomer = ({phoneNumber, poin, id}) => {
                 <img src="https://images.unsplash.com/photo-1591727826491-c30be2c4fd21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8aW50ZXJpb3IlMjBkZXNpZ24lMjB0b2lsZXQlMjBibGFja3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60" alt="" />
                 <div className="p-10 mt-14 absolute ">
                     <div className="flex flex-col items-center pb-10">
-                        <img className='w-24 h-24 mb-3 rounded-full shadow-lg' src="../images/default-img.jpg"alt="user" />
+                        <img className='w-24 h-24 mb-3 rounded-full shadow-lg' src="../images/default-img.jpg" alt="user" />
                         <h5 className="mb-1 text-xl font-medium text-slate-200 dark:text-white">{phoneNumber}</h5>
                         {/* <span class="text-sm text-slate-200 dark:text-gray-400">{session?.user.email}</span> */}
+                        <div className="flex mt-4 space-x-3 md:mt-6">
+                            <button onClick={handleProfile} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Profile</button>
+                        </div>
                         <div className="flex mt-4 space-x-3 md:mt-6">
                             <button onClick={handleSignOut} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Logout</button>
                         </div>

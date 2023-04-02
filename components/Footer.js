@@ -6,7 +6,7 @@ function Footer() {
         <div className="space-y-4 text-xs text-gray-800">
             <h5 className="font-bold">About</h5>
             <p className='leading-loose text-justify'>
-                <a href="/about" className='underline'>More detail</a>
+                <a href="/aboutDynamic" className='underline'>More detail</a>
             </p>
             
         </div>

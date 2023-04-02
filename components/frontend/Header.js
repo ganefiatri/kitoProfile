@@ -38,7 +38,7 @@ const Header = () => {
                             <Link href="/">Home</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
-                            <Link href="/about">About</Link>
+                            <Link href="/aboutDynamic">About</Link>
                         </li>
                         <li className="p-4 text-sm uppercase">
                             <Link href="/showroom">Find Store</Link>

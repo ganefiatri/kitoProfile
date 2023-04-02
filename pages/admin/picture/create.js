@@ -12,9 +12,9 @@ export default function Create() {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState();
     const [createObjectURL, setCreateObjectURL] = useState(null);
-    const [name, setName] = useState('');
-
+    const [title, setTitle] = useState('');
     const router = useRouter();
+
 
     const handleImage = (e) => {
         const file = e.target.files[0];
@@ -28,23 +28,20 @@ export default function Create() {
 
     const handleFormData = async (e) => {
         e.preventDefault();
-       
         const forms = new FormData();
-        forms.append('name', name);
+        forms.append('title', title);
         forms.append('image', imageUploaded);
-        // await axios.post("/api/category/createdata",forms);
-       const res = await fetch("/api/category/upload", {
+        const res = await fetch("/api/picture/upload", {
             method: "POST",
             body: forms
         });
         const result = await res.json();
-        if(!result){
+        if (!result) {
             toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
-        }else{
-            toast('Successfully create data', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
-           
-            router.push('/admin/categoryPage');
+        } else {
+            toast('Successfully Linked data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
         }
+        router.push("/admin/picturePage");
     }
 
     return (
@@ -62,7 +59,7 @@ export default function Create() {
                 {/* Category */}
                 <section>
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
-                        <h1 className='text-lg font-semibold text-heading'>Create New Category</h1>
+                        <h1 className='text-lg font-semibold text-heading'>Create New Picture Dashboard</h1>
                     </div>
                     {/* {loading ? <CustomLoader className="justify-items-center items-center" />
                         : ( */}
@@ -70,7 +67,7 @@ export default function Create() {
                                 <div className='my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8'>
                                     <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
                                         <h4 className='text-base font-semibold mb-2'>Image</h4>
-                                        <p className='text-sm'>Upload Your Category Image here</p>
+                                        <p className='text-sm'>Upload Your Project Image here</p>
                                     </div>
                                     <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                         <section className='upload'>
@@ -93,17 +90,17 @@ export default function Create() {
                                 <div className='my-5 flex flex-wrap sm:my-8'>
                                     <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
                                         <h4 className='text-base font-semibold mb-2'>Details</h4>
-                                        <p className='text-sm'>Add Category and Subcategory from here</p>
+                                        <p className='text-sm'>Add Picture Dashboard from here</p>
                                     </div>
                                     <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                         <div className='mb-5'>
-                                            <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
-                                            <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                            <label for="title" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Title</label>
+                                            <input type="text" value={title} onChange={e => setTitle(e.target.value)} name="title" id="title" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                         </div>
                                     </div>
                                 </div>
                                 <div className='mb-4 text-end'>
-                                    <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Category</button>
+                                    <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Add Picture</button>
                                 </div>
                             </form>
                         {/* )} */}

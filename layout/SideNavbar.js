@@ -37,6 +37,14 @@ function SideNavbar({ children }) {
                         <MdOutlineSpaceDashboard className="w-5 h-5 mx-4"/>
                         <span>Dashboard</span>
                     </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/picturePage">
+                        <MdOutlineSpaceDashboard className="w-5 h-5 mx-4"/>
+                        <span>Picture Dashboard</span>
+                    </a>
+                    <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/aboutPage">
+                        <MdHistory className="w-5 h-5 mx-4"/>
+                        <span>About Dynamic</span>
+                    </a>
                     <a className="text-start flex w-full items-center text-base text-body-dark focus:text-accent" href="/admin/categoryPage">
                         <MdCategory className="w-5 h-5 mx-4"/>
                         <span>FirstCategory</span>

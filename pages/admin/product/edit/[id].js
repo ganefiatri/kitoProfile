@@ -21,7 +21,7 @@ export async function getServerSideProps({ params }) {
             },
         }
     });
-    const subCategory = await prisma.subCategory.findMany();
+    const subCategory = await prisma.subCategoryThird.findMany();
     const units = await prisma.units.findMany();
     const stores = await prisma.stores.findMany();
 

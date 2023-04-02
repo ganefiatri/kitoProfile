@@ -7,6 +7,8 @@ import { useState } from "react"
 import { useFormik } from "formik"
 import { register_validate } from "../../lib/validate"
 import { useRouter } from "next/router"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
     const [show, setShow] = useState({ password: false, cpassword: false })
@@ -29,11 +31,16 @@ function Register() {
             body: JSON.stringify(values)
         }
 
-        await fetch('/api/auth/signup', option)
-            .then(res => res.json())
-            .then(() => {
-                 router.push('/auth/login')
-            })
+        try {
+            await fetch('/api/auth/signup', option)
+                .then(res => res.json())
+                .then(() => {
+                    toast('Successfully Created User!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+                    router.push('/auth/login')
+                })
+        } catch (error) {
+            toast(error, { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        }
 
 
     }

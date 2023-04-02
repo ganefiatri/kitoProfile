@@ -1,0 +1,32 @@
+-- CreateTable
+CREATE TABLE `about` (
+    `id` VARCHAR(191) NOT NULL,
+    `imgBanner` VARCHAR(191) NULL,
+    `imgCompany1` VARCHAR(191) NULL,
+    `imgCompany2` VARCHAR(191) NULL,
+    `imgConcept` VARCHAR(191) NULL,
+    `imgClass1` VARCHAR(191) NULL,
+    `imgClass2` VARCHAR(191) NULL,
+    `imgClass3` VARCHAR(191) NULL,
+    `imgClass4` VARCHAR(191) NULL,
+    `textCompany1` VARCHAR(191) NULL,
+    `textCompany2` VARCHAR(191) NULL,
+    `visionTitle` VARCHAR(191) NULL,
+    `visionDetail` VARCHAR(191) NULL,
+    `missionTitle` VARCHAR(191) NULL,
+    `missionDetail` VARCHAR(191) NULL,
+    `valueDetail` VARCHAR(191) NULL,
+    `conceptTitle` VARCHAR(191) NULL,
+    `conceptDetail` VARCHAR(191) NULL,
+    `classTitle` VARCHAR(191) NULL,
+    `classTitle1` VARCHAR(191) NULL,
+    `classTitle2` VARCHAR(191) NULL,
+    `classTitle3` VARCHAR(191) NULL,
+    `classTitle4` VARCHAR(191) NULL,
+    `classDetail1` VARCHAR(191) NULL,
+    `classDetail2` VARCHAR(191) NULL,
+    `classDetail3` VARCHAR(191) NULL,
+    `classDetail4` VARCHAR(191) NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

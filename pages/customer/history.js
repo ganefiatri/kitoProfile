@@ -40,11 +40,7 @@ export async function getServerSideProps(context) {
             id: context.query.q
         },
         include:{
-            customers: {
-                include: {
-                    histories: true
-                }
-            }
+           history: true,
         }
     });
 

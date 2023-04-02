@@ -7,11 +7,11 @@ const ProjectHome = ({img, name}) => {
         <div className="relative h-full w-56">
             <a href="/product">
                 <Image
-                    className="rounded-xl h-60 bg-contain"
+                    className="rounded-xl h-60 bg-cover p-5"
                     src={img}
                     alt={name}
-                    width={500}
-                    height={500}
+                    width={300}
+                    height={300}
                 />
                 <h2 className='p-2 uppercase text-center'>{name}</h2>
              </a>

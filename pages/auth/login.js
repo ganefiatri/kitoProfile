@@ -10,6 +10,9 @@ import { useFormik } from 'formik'
 import login_validate from "../../lib/validate"
 import { useRouter } from "next/router"
 
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify"
+
 function Login() {
     const [show, setShow] = useState(false)
     const router = useRouter()
@@ -30,14 +33,20 @@ function Login() {
             password: values.password,
             callbackUrl: "/"
         })
-        console.log(status)
-        if (status.ok) router.push(status.url)
+        // let readerr = status
+        // console.log(readerr)
+        if (status.ok){
+            toast('Successfully Login!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' }) 
+            router.push(status.url)
+        }else {
+            toast(status.error, { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        }
     }
 
     // Google Handler function
-    async function handleGoogleSignin() {
-        signIn('google', { callbackUrl: `${process.env.NEXTAUTH_URL}/` })
-    }
+    // async function handleGoogleSignin() {
+    //     signIn('google', { callbackUrl: `${process.env.NEXTAUTH_URL}/` })
+    // }
 
     return (
         <Layout>
@@ -77,11 +86,11 @@ function Login() {
                     <div className="input-button">
                         <button type="submit" className={styles.button}>Login</button>
                     </div>
-                    <div className="input-button">
+                    {/* <div className="input-button">
                         <button type="button" onClick={() => signIn("google", { callbackUrl: '/' })} className={styles.button_custom}>Sign In With Google
                         <Image src={'/assets/google.svg'} width="20" height={20} alt="logo-google"/>
                         </button>
-                    </div>
+                    </div> */}
 
                     {/* handle to sign up */}
                     <p className="text-center text-gray-400">

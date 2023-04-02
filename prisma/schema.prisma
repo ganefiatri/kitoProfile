@@ -15,6 +15,7 @@ model user {
   email         String?         @unique
   emailVerified DateTime?
   image         String?
+  tgl_lahir     String?
   password      String?
   role          role            @default(USER)
   phone         String?         @unique
@@ -170,6 +171,51 @@ model project {
   place    String?
   img      String?
   filename String?
+}
+
+model picture {
+  id       String  @id @default(cuid())
+  title    String  @unique
+  img      String?
+  filename String?
+}
+
+model about {
+  id       String  @id @default(cuid())
+  imgBanner String?
+  imgCompany1 String?
+  imgCompany2 String?
+  imgConcept String?
+  imgClass1 String?
+  imgClass2 String?
+  imgClass3 String?
+  imgClass4 String?
+  fileNameBanner  String?
+  fileNameCompany1  String?
+  fileNameCompany2  String?
+  fileNameConcept  String?
+  fileNameClass1  String?
+  fileNameClass2  String?
+  fileNameClass3  String?
+  fileNameClass4  String?
+  textCompany1 String? @db.Text
+  textCompany2 String? @db.Text
+  visionTitle String? 
+  visionDetail  String? @db.Text
+  missionTitle  String? 
+  missionDetail String? @db.Text
+  valueDetail String? @db.Text
+  conceptTitle  String?
+  conceptDetail String? @db.Text
+  classTitle  String?
+  classTitle1  String?
+  classTitle2  String?
+  classTitle3  String?
+  classTitle4  String?
+  classDetail1  String?
+  classDetail2  String?
+  classDetail3  String?
+  classDetail4  String?
 }
 
 model product {

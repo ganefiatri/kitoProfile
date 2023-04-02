@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const TableRedeem = ({ redeem }) => {
-    console.log(redeem)
+    // console.log(redeem)
     const clickRedeem = async (e) => {
         e.preventDefault();
         const id = String(redeem.map(item => item.id));

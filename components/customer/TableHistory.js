@@ -1,6 +1,7 @@
 import React from 'react';
 
 const TableHistory = ({ history }) => {
+    console.log(history.map(item => item.history.map(items => items.nama_stock)))
     // console.log(history.map(item => item.customers.map(items => items.histories.map(itemss => itemss.nama_cust))))
     // const Poin = history.reduce((sum,item) => sum + parseInt(item.productDetail.poin), 0);
     // console.log(Poin)
@@ -28,24 +29,24 @@ const TableHistory = ({ history }) => {
                             </tr>
                         </thead>
                         <tbody className="text-sm font-normal text-gray-700">
-                            {history.map(item => item.customers.map(items => items.histories.map(itemss => (
+                            {history.map(item => item.history.map(items => ( 
                                 <tr className="py-10 border-b border-gray-200 hover:bg-gray-100">
                                     <td className="flex flex-row items-center px-4 py-4">
                                         <div className="flex-1 pl-1">
-                                            <div className="font-medium dark:text-white">{itemss.nama_stock}</div>
+                                            <div className="font-medium dark:text-white">{items.nama_stock}</div>
                                         </div>
                                     </td>
                                     <td className="px-4 py-4">
-                                        {itemss.qty}
+                                        {items.qty}
                                     </td>
                                     <td className="px-4 py-4">
-                                        {itemss.tgl}
+                                        {items.tgl}
                                     </td>
                                     <td className="px-4 py-4">
-                                        {toCurrency(itemss.jumlah)}
+                                        {toCurrency(items.jumlah)}
                                     </td>
                                 </tr>
-                            ))))}
+                            )))}
                         </tbody>
                     </table>
                 </div>

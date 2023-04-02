@@ -8,30 +8,33 @@ import Footer from '../../components/Footer';
 import Header from '../../components/frontend/Header';
 // import { signOut, getSession,  useSession } from 'next-auth/react'
 import { auth } from "../../utils/firebase";
-import prisma from '../../utils/prisma';
+// import prisma from '../../utils/prisma';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { getSession, useSession } from 'next-auth/react';
+import prisma from '../../utils/prisma';
 
-const Dashboard = ({ userPhone }) => {
-    console.log(userPhone.map(item => item.id))
-    // const { data: session } = useSession()
+const Dashboard = ({userPhone}) => {
+    // console.log(userPhone.email)
+    const { data: session } = useSession()
     const auth = getAuth();
     const [phone, setPhone] = useState('');
     const router = useRouter();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-          const phones = user.phoneNumber;
-          const PhoneNumbers = '0' + phones.slice(3);
-          setPhone(PhoneNumbers);
-        } else {
-            signOut(auth)
-            router.push('/customer/dashboard')
-        }
-    });
+    // console.log(session)
+    // onAuthStateChanged(auth, (user) => {
+    //     if (user) {
+    //       const phones = user.phoneNumber;
+    //       const PhoneNumbers = '0' + phones.slice(3);
+    //       setPhone(PhoneNumbers);
+    //     } else {
+    //         // signOut(auth)
+    //         // router.push('/customer/dashboard')
+    //     }
+    // });
 
-    // const point = userPhone.map(item => item.customers.reduce((sum, items) => sum + parseInt(items.payment), 0));
-    const point = userPhone.map(item => item.redeem.map(items => items.total_poin))
-    console.log(point)
+    const point = userPhone.map(item => item.customers.reduce((sum, items) => sum + parseInt(items.payment), 0));
+    // const point = userPhone.map(item => item.redeem.map(items => items.total_poin))
+    // console.log(point)
     const id = userPhone.map(item => item.id);
 //    
     return (
@@ -52,7 +55,7 @@ const Dashboard = ({ userPhone }) => {
                 <section>
                     <div className='justify-items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 p-3 ml-3 gap-2.5'>
                         {/* Card Info Section */}
-                        <Cardcustomer phoneNumber={phone} poin={point} id={id}/>
+                        <Cardcustomer phoneNumber={userPhone.map(item => item.email)} poin={point} id={id}/>
                     </div>
                 </section>
             </main>
@@ -63,15 +66,27 @@ const Dashboard = ({ userPhone }) => {
 
 export default Dashboard;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({req}) {
+    const session = await getSession({ req })
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: "/auth/login",
+                permanent: false
+            }
+        }
+    }
+    // console.log(session.user.email)
     const userPhone = await prisma.user.findMany({
         where:{
-            phone: context.query.NoHp
+            email: session.user.email
         },
         select: {
             id: true,
             phone: true,
             name: true,
+            email: true,
             customers: {
                 select:{
                     id: true,
@@ -94,6 +109,6 @@ export async function getServerSideProps(context) {
 
     // autorize user
     return {
-        props: { userPhone }
+        props: { session, userPhone }
     }
 }

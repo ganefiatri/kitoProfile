@@ -14,7 +14,7 @@ import ProjectHome from '../components/project/ProjectHome'
 
 const prisma = new PrismaClient();
 
-export default function Home({ products, categories, projects }) {
+export default function Home({ products, categories, projects, picture }) {
   const { data: session } = useSession()
   const rowRef = useRef(null)
   const [isMoved, setIsMoved] = useState(false)
@@ -45,8 +45,8 @@ export default function Home({ products, categories, projects }) {
       <Header />
 
       {/* Banner Section */}
-      <Banner />
-
+        <Banner picture={picture}/>
+     
 
       {/* Category Section */}
       <main className='max-w-7xl mx-auto px-2 sm:px-16'>
@@ -61,10 +61,16 @@ export default function Home({ products, categories, projects }) {
           <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
 
-          <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+          {/* <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
             {categories.map(item => (
               <Category key={item.id} img={item.img} title={item.name} />
             ))}
+          </div> */}
+          <div class="grid grid-cols-4 gap-4">
+          {categories.map(item => (
+            <a href={`/category/${item.id}`} className='relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white'>
+              {item.name}</a>
+             ))}
           </div>
         </section>
 
@@ -114,18 +120,20 @@ export async function getServerSideProps() {
       id: 'asc'
     }
   });
-  const categories = await prisma.category.findMany({
+  const categories = await prisma.subCategoryThird.findMany({
     take: 10,
     orderBy: {
       id: 'asc'
     }
   });
   const projects = await prisma.project.findMany({});
+  const picture = await prisma.picture.findMany({});
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
       categories,
-      projects
+      projects,
+      picture
     }
   };
 } 

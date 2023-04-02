@@ -33,10 +33,10 @@ const Redeem = ({userPhone}) => {
 export default Redeem;
 
 export async function getServerSideProps(context) {
-    // console.log(context.query.NoHp)
+    // console.log(context.query.q)
     const userPhone = await prisma.redeem.findMany({
         where:{
-            userId: context.query.id
+            userId: context.query.q
         },
         select: {
             id: true,
