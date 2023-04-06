@@ -11,7 +11,7 @@ const Banner = ({ picture }) => {
         <div className='relative w-[600px] md:w-full lg:w-full sm:w-full'>
             <Swiper navigation={true} modules={[Navigation]}>
                 {picture.map(item => (
-                    <SwiperSlide>
+                    <SwiperSlide key={item.id}>
                         <div className='absolute top-80 left-28 z-auto justify-center items-start text-white'>
                             <h5 className="text-2xl font-extralight mb-5">Hosana Kito Group</h5>
                             <h5 className="text-5xl font-bold">{item.title}</h5>
