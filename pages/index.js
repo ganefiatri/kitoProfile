@@ -45,7 +45,7 @@ export default function Home({ categories, projects, pictures }) {
       <Header />
 
       {/* Banner Section */}  
-      {/* <Banner picture={pictures}/> */}
+      <Banner picture={pictures}/>
      
 
       {/* Category Section */}
@@ -66,9 +66,9 @@ export default function Home({ categories, projects, pictures }) {
               <Category key={item.id} img={item.img} title={item.name} />
             ))}
           </div> */}
-          <div class="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-4">
           {categories.map(item => (
-            <a href={`/category/${item.id}`} className='relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white'>
+            <a key={item.id} href={`/category/${item.id}`} className='relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white'>
               {item.name}</a>
              ))}
           </div>
