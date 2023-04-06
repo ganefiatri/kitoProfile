@@ -45,7 +45,7 @@ export default function Home({ categories, projects, pictures }) {
       <Header />
 
       {/* Banner Section */}  
-      <Banner picture={pictures}/>
+      {/* <Banner picture={pictures}/> */}
      
 
       {/* Category Section */}
