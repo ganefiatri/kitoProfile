@@ -45,7 +45,7 @@ export default function Home({ categories, projects, pictures }) {
       <Header />
 
       {/* Banner Section */}  
-        <Banner key={pictures.map(item => item.id)} picture={pictures}/>
+      <Banner picture={pictures}/>
      
 
       {/* Category Section */}
@@ -108,24 +108,11 @@ export default function Home({ categories, projects, pictures }) {
 }
 
 export async function getServerSideProps() {
-  // const products = await prisma.product_detail.findMany({
-  //   include: {
-  //     product:true,
-  //     subCategory: true,
-  //     stores: true,
-  //     units: true,
-  //   },
-  //   take: 10,
-  //   orderBy: {
-  //     id: 'asc'
-  //   }
-  // });
   const categories = await prisma.subCategoryThird.findMany();
   const projects = await prisma.project.findMany();
   const pictures = await prisma.picture.findMany();
   return {
     props: {
-      // products: JSON.parse(JSON.stringify(products)),
       categories,
       projects,
       pictures
