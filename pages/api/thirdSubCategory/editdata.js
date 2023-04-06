@@ -5,7 +5,7 @@ export default async function handler(req, res){
         if (!req.body) return res.status(404).json({ error: "Dont have form data..!" })
         const { name, category,id} = req.body;
 
-        await prisma.subCategoryThird.update({
+        await prisma.sub_category_third.update({
             where:{
                 id: id
             },

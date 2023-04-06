@@ -14,7 +14,7 @@ import ProjectHome from '../components/project/ProjectHome'
 
 // const prisma = new PrismaClient();
 export async function getServerSideProps() {
-  const categories = await prisma.subCategoryThird.findMany();
+  const categories = await prisma.sub_category_third.findMany();
   const projects = await prisma.project.findMany();
   const pictures = await prisma.picture.findMany();
   return {

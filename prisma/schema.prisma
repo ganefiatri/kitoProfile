@@ -284,7 +284,7 @@ model product_detail {
   units         units?            @relation(fields: [unit_id], references: [id])
   brands        brands?           @relation(fields: [brand_id], references: [id])
   stores        stores?           @relation(fields: [store_id], references: [id])
-  subCategory   subCategoryThird? @relation(fields: [subCategoryId], references: [id])
+  subCategory   sub_category_third? @relation(fields: [subCategoryId], references: [id])
   history       history[]
   spesification spesification[]
 }
@@ -320,12 +320,12 @@ model subCategory {
   name             String             @unique
   categoryId       String?
   category         category?          @relation(fields: [categoryId], references: [id])
-  subCategoryThird subCategoryThird[]
+  subCategoryThird sub_category_third[]
 
   @@fulltext([name])
 }
 
-model subCategoryThird {
+model sub_category_third {
   id          String           @id @default(cuid())
   name        String           @unique
   subcatId    String?

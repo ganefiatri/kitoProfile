@@ -5,7 +5,7 @@ export default async function handler(req, res){
         if (!req.body) return res.status(404).json({ error: "Dont have form data..!" })
         const { name, category } = req.body;
 
-        await prisma.subCategoryThird.create({
+        await prisma.sub_category_third.create({
             data: {
                 name: name,
                 subcatId: category
