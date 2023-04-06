@@ -1,12 +1,12 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
+import { Navigation } from 'swiper';
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from 'swiper';
 
 const Banner = ({ picture }) => {
-    console.log(picture)
+    // console.log(picture)
     return (
         <div className='relative w-[600px] md:w-full lg:w-full sm:w-full'>
             <Swiper navigation={true} modules={[Navigation]}>

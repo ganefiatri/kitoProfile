@@ -14,7 +14,7 @@ import ProjectHome from '../components/project/ProjectHome'
 
 const prisma = new PrismaClient();
 
-export default function Home({ products, categories, projects, picture }) {
+export default function Home({ categories, projects, picture }) {
   const { data: session } = useSession()
   const rowRef = useRef(null)
   const [isMoved, setIsMoved] = useState(false)
@@ -45,7 +45,7 @@ export default function Home({ products, categories, projects, picture }) {
       <Header />
 
       {/* Banner Section */}
-        <Banner picture={picture}/>
+        <Banner key={picture.id} picture={picture}/>
      
 
       {/* Category Section */}
@@ -108,18 +108,18 @@ export default function Home({ products, categories, projects, picture }) {
 }
 
 export async function getServerSideProps() {
-  const products = await prisma.product_detail.findMany({
-    include: {
-      product:true,
-      subCategory: true,
-      stores: true,
-      units: true,
-    },
-    take: 10,
-    orderBy: {
-      id: 'asc'
-    }
-  });
+  // const products = await prisma.product_detail.findMany({
+  //   include: {
+  //     product:true,
+  //     subCategory: true,
+  //     stores: true,
+  //     units: true,
+  //   },
+  //   take: 10,
+  //   orderBy: {
+  //     id: 'asc'
+  //   }
+  // });
   const categories = await prisma.subCategoryThird.findMany({
     take: 10,
     orderBy: {
@@ -130,7 +130,7 @@ export async function getServerSideProps() {
   const picture = await prisma.picture.findMany({});
   return {
     props: {
-      products: JSON.parse(JSON.stringify(products)),
+      // products: JSON.parse(JSON.stringify(products)),
       categories,
       projects,
       picture
