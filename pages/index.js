@@ -1,30 +1,12 @@
 import Head from 'next/head'
 import Banner from '../components/frontend/Banner'
-import Category from '../components/Category'
 import Footer from '../components/Footer'
 import Header from '../components/frontend/Header'
-import ProductCard from '../components/ProductCard'
 import prisma from '../utils/prisma';
 import { useSession } from 'next-auth/react'
-import Link from 'next/link'
 import Cardinfo from '../components/frontend/Cardinfo'
 import { useRef, useState } from 'react'
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import ProjectHome from '../components/project/ProjectHome'
-
-// const prisma = new PrismaClient();
-export async function getServerSideProps() {
-  const categories = await prisma.sub_category_third.findMany();
-  const projects = await prisma.project.findMany();
-  const pictures = await prisma.picture.findMany();
-  return {
-    props: {
-      categories,
-      projects,
-      pictures
-    }
-  };
-} 
 
  const Home = ({ categories, projects, pictures }) => {
   const { data: session } = useSession()
@@ -120,3 +102,16 @@ export async function getServerSideProps() {
 }
 
 export default Home;
+
+export async function getServerSideProps() {
+  const categories = await prisma.sub_category_third.findMany();
+  const projects = await prisma.project.findMany();
+  const pictures = await prisma.picture.findMany();
+  return {
+    props: {
+      categories,
+      projects,
+      pictures
+    }
+  };
+} 
