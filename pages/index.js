@@ -4,7 +4,7 @@ import Category from '../components/Category'
 import Footer from '../components/Footer'
 import Header from '../components/frontend/Header'
 import ProductCard from '../components/ProductCard'
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../utils/prisma';
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Cardinfo from '../components/frontend/Cardinfo'
@@ -12,7 +12,7 @@ import { useRef, useState } from 'react'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import ProjectHome from '../components/project/ProjectHome'
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export default function Home({ categories, projects, pictures }) {
   const { data: session } = useSession()
