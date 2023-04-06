@@ -22,7 +22,7 @@ import Link from "next/link";
 import { getSession, signOut, useSession } from 'next-auth/react';
 import Header from "../components/admin/Header";
 
-function SideNavbar({ children }) {
+const SideNavbar = ({ children }) => {
     const { data: session } = useSession()
 
     function handleSignOut(e) {

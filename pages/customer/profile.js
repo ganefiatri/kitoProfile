@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
 import Banner from '../../components/contact/Banner';
-import TableHistory from '../../components/customer/TableHistory';
 import Header from '../../components/frontend/Header';
 import prisma from '../../utils/prisma';
 
 const Profile = ({ profileDetail }) => {
-    console.log(profileDetail)
     const [name, setName] = useState(profileDetail.map(item => item.name));
     const [email, setEmail] = useState(profileDetail.map(item => item.email));
     const [tglLahir, setTglLahir] = useState(profileDetail.map(item => item.tgl_lahir));

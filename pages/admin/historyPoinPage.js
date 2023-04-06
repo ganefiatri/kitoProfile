@@ -3,13 +3,9 @@ import Head from 'next/head';
 import React, { useEffect, useMemo, useState } from 'react';
 import Header from '../../components/admin/Header';
 import SideNavbar from '../../layout/SideNavbar';
-import Link from "next/link";
 import DataTable from 'react-data-table-component';
-import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
-import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
-import { HiPlusSm } from 'react-icons/hi';
 
 const HistoryPoinPage = () => {
     const { data: session } = useSession();
@@ -151,10 +147,10 @@ const HistoryPoinPage = () => {
                     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
                     <link rel="icon" href="/assets/favicon/favicon.ico" />
                 </Head>
-                <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
+                <div className="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">History Poin</h1>
-                        <p class="text-sm font-medium text-gray-500">
+                        <h1 className="text-2xl font-semibold leading-relaxed text-gray-600">History Poin</h1>
+                        <p className="text-sm font-medium text-gray-500">
                             All history Poin here
                         </p>
                     </div>

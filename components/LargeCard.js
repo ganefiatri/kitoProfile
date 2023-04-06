@@ -3,7 +3,7 @@ import React from 'react'
 import { MdMap } from 'react-icons/md'
 import {FaWhatsapp} from "react-icons/fa";
 
-function LargeCard({ img, company ,title, description, buttonText, contact, map }) {
+const LargeCard = ({ img, company ,title, description, buttonText, contact, map }) => {
     return (
       <div className="relative py-10 cursor-pointer">
           <div className="relative h-[500px] min-w-[600px]">

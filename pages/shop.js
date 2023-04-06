@@ -1,20 +1,15 @@
 import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react';
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Footer from '../components/Footer';
 import Header from '../components/frontend/Header';
-import ProductCardSearch from '../components/product/ProductCardSearch';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { auth } from "../utils/firebase"
 import { useRouter } from 'next/router';
 import prisma from '../utils/prisma';
-import FormCard from '../layout/FormCard';
 import Banner from '../components/contact/Banner';
 
 const Shop = ({ validatePhone }) => {
-    // console.log(validatePhone)
     const [isPhoneVerify, setIsPhoneVerify] = useState(false);
     const [phoneInput, setPhone] = useState("");
     const [otp, setOtp] = useState("");

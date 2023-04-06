@@ -46,6 +46,7 @@ export default async (req, res) => {
                             filename: imageName,
                         }
                     });
+                    return res.status(201).json({message: "success input Data"});
                 }
 
             } catch (error) {

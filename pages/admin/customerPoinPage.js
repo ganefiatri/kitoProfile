@@ -9,10 +9,6 @@ import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
-import { HiPlusSm } from 'react-icons/hi';
-import { FaFileExcel } from 'react-icons/fa';
-import { read, utils } from 'xlsx';
-import { async } from '@firebase/util';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from 'next/router';
@@ -253,8 +249,8 @@ const CustomerPoinPage = () => {
                 </Head>
                 <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Customer Poin</h1>
-                        <p class="text-sm font-medium text-gray-500">
+                        <h1 className="text-2xl font-semibold leading-relaxed text-gray-600">Customer Poin</h1>
+                        <p className="text-sm font-medium text-gray-500">
                             All Customer Poin here
                         </p>
                     </div>

@@ -38,6 +38,8 @@ export default async (req, res) => {
                     filename: imageName,
                 }
             });
+
+            return res.status(200).json({message: "upload category image succesfully"})
         }
     });
 };

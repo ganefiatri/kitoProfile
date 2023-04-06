@@ -27,7 +27,7 @@ export async function getServerSideProps({ params }) {
             spesification: true,
         },
     });
-    const catName = await prisma.subCategoryThird.findMany({
+    const catName = await prisma.sub_category_third.findMany({
         where: {
             id: params.id
         }
@@ -42,7 +42,7 @@ export async function getServerSideProps({ params }) {
 }
 
 const Id = ({ product, catName }) => {
-    console.log(catName)
+    
     return (
         <div>
             <Head>

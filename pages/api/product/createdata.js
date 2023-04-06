@@ -76,6 +76,7 @@ export default async (req, res) => {
                             answerFive: fields.answer5,
                         }
                     });
+                    return res.status(201).json({message: "success input Data"});
                 }
             } catch (error) {
                 console.log(error);

@@ -50,6 +50,7 @@ export default async (req, res) => {
                             }
                             console.log("Successfully deleted file", data);
                         });
+                        
                     }
                     // Read file
                     const file = fs.readFileSync(files.image.path);
@@ -78,6 +79,7 @@ export default async (req, res) => {
                                 filename: imageName,
                             }
                         });
+                        return res.status(201).json({message: "success upload category"})
                     }
 
                 } catch (error) {

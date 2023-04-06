@@ -1,7 +1,7 @@
 import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import React, { useEffect, useMemo, useState } from 'react';
-import { HiPlusSm, HiSearch } from 'react-icons/hi';
+import { HiPlusSm } from 'react-icons/hi';
 import Header from '../../components/admin/Header';
 import SideNavbar from '../../layout/SideNavbar';
 import Link from "next/link";
@@ -10,7 +10,6 @@ import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
-import axios from '../../utils/axios';
 
 const projectPage = () => {
     const { data: session } = useSession();
@@ -112,10 +111,10 @@ const projectPage = () => {
                     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
                     <link rel="icon" href="/assets/favicon/favicon.ico" />
                 </Head>
-                <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
+                <div className="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Project</h1>
-                        <p class="text-sm font-medium text-gray-500">
+                        <h1 className="text-2xl font-semibold leading-relaxed text-gray-600">Project</h1>
+                        <p className="text-sm font-medium text-gray-500">
                             Let's grow to your business! Create your Project and upload here
                         </p>
                     </div>

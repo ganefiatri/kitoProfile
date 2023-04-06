@@ -23,6 +23,7 @@ export default async function handler(req, res) {
                         }
                         console.log("Successfully deleted file", data);
                 });
+                
         }
         
         const result = await prisma.category.delete({
@@ -30,5 +31,5 @@ export default async function handler(req, res) {
                         id: req.query.id,
                 }
         });
-        return res.json(result);
+        return res.statu(201).json({message: result});
 };

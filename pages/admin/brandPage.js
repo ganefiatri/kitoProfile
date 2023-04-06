@@ -10,7 +10,6 @@ import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
-import axios from '../../utils/axios';
 
 const BrandPage = () => {
     const { data: session } = useSession();
@@ -105,8 +104,8 @@ const BrandPage = () => {
                 </Head>
                 <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Brands</h1>
-                        <p class="text-sm font-medium text-gray-500">
+                        <h1 className="text-2xl font-semibold leading-relaxed text-gray-600">Brands</h1>
+                        <p className="text-sm font-medium text-gray-500">
                             Let's grow to your business! Create your brands and upload here
                         </p>
                     </div>

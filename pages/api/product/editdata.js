@@ -118,6 +118,7 @@ export default async (req, res) => {
                                 product: true
                             },
                         });
+                        return res.status(201).json({message: "success input Data"});
                     }
 
                 } catch (error) {

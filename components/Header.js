@@ -13,7 +13,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function Header() {
+const Header = () => {
     const router = useRouter();
     const handleClick = (e) => {
         e.preventDefault()
@@ -125,4 +125,4 @@ function Header() {
     )
 }
 
-export default Header
+export default Header;

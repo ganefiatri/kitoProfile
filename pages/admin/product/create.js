@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 
-export default function Create({ subCategory, units, stores, brands }) {
+ const Create = ({ subCategory, units, stores, brands }) => {
     const { data: session } = useSession();
     const [imageUploaded, setImageUploaded] = useState('');
     const [createObjectURL, setCreateObjectURL] = useState('');
@@ -289,9 +289,11 @@ export default function Create({ subCategory, units, stores, brands }) {
     );
 }
 
+export default Create;
+
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req });
-    const subCategory = await prisma.subCategoryThird.findMany();
+    const subCategory = await prisma.sub_category_third.findMany();
     const units = await prisma.units.findMany();
     const stores = await prisma.stores.findMany();
     const brands = await prisma.brands.findMany();

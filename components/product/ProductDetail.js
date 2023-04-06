@@ -29,17 +29,16 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
     const DiscountPrice = price * discount / 100;
     const TotalDiscPrice = price - DiscountPrice;
     const FormatTotalPrice = TotalDiscPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-    console.log(img4)
-    console.log(img5)
+    
     return (
-        <section class="py-10 font-poppins dark:bg-gray-800">
-            <div class="max-w-6xl px-4 mx-auto">
-                <div class="flex flex-wrap mb-24 -mx-4">
-                    <div class="w-full px-4 mb-8 md:w-1/2 md:mb-0">
-                        <div class="sticky top-0 overflow-hidden ">
-                            <div class="relative mb-6 lg:mb-10 lg:h-96">
-                                <a class="absolute left-0 transform lg:ml-2 top-1/2 translate-1/2" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5 text-blue-500 bi bi-chevron-left dark:text-blue-200" viewBox="0 0 16 16">
+        <section className="py-10 font-poppins dark:bg-gray-800">
+            <div className="max-w-6xl px-4 mx-auto">
+                <div className="flex flex-wrap mb-24 -mx-4">
+                    <div className="w-full px-4 mb-8 md:w-1/2 md:mb-0">
+                        <div className="sticky top-0 overflow-hidden ">
+                            <div className="relative mb-6 lg:mb-10 lg:h-96">
+                                <a className="absolute left-0 transform lg:ml-2 top-1/2 translate-1/2" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 text-blue-500 bi bi-chevron-left dark:text-blue-200" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z">
                                         </path>
                                     </svg>
@@ -88,13 +87,13 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                 </Swiper>
                                 {/* <img class="object-contain w-full lg:h-full" src={img} alt="" /> */}
                                 <a class="absolute right-0 transform lg:mr-2 top-1/2 translate-1/2" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5 text-blue-500 bi bi-chevron-right dark:text-blue-200" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 text-blue-500 bi bi-chevron-right dark:text-blue-200" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
                                         </path>
                                     </svg>
                                 </a>
                             </div>
-                            <div class="flex-wrap hidden -mx-2 md:flex">
+                            <div className="flex-wrap hidden -mx-2 md:flex">
                                 <Swiper
                                     onSwiper={setThumbsSwiper}
                                     spaceBetween={10}
@@ -141,12 +140,12 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                             </div>
                         </div>
                     </div>
-                    <div class="w-full px-4 md:w-1/2">
-                        <div class="lg:pl-20">
-                            <div class="mb-6 ">
-                                <span class="px-2.5 py-0.5 text-xs text-blue-600 bg-blue-100 dark:bg-gray-700 rounded-xl dark:text-gray-200">New
+                    <div className="w-full px-4 md:w-1/2">
+                        <div className="lg:pl-20">
+                            <div className="mb-6 ">
+                                <span className="px-2.5 py-0.5 text-xs text-blue-600 bg-blue-100 dark:bg-gray-700 rounded-xl dark:text-gray-200">New
                                     Arrival</span>
-                                <h2 class="max-w-xl mt-6 mb-6 text-xl font-semibold leading-loose tracking-wide text-gray-700 md:text-2xl dark:text-gray-300">
+                                <h2 className="max-w-xl mt-6 mb-6 text-xl font-semibold leading-loose tracking-wide text-gray-700 md:text-2xl dark:text-gray-300">
                                     {title}
                                 </h2>
                                 {/* <div class="flex flex-wrap items-center mb-6">
@@ -188,88 +187,88 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                     View the acer store
                                 </a>
                             </div> */}
-                                <p class="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
+                                <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
                                     <span>Rp.{currencyFormat}</span>
-                                    <span class="ml-3 text-base font-normal text-gray-500 line-through dark:text-gray-400">Rp.{FormatTotalPrice}</span>
+                                    <span className="ml-3 text-base font-normal text-gray-500 line-through dark:text-gray-400">Rp.{FormatTotalPrice}</span>
                                 </p>
                             </div>
                             {/* detail */}
-                            <div class="mb-6">
-                                <h2 class="mb-2 text-lg font-bold text-gray-700 dark:text-gray-400">Detail Product :</h2>
-                                <div class="bg-gray-100 dark:bg-gray-700 rounded-xl">
-                                    <div class="p-3 lg:p-5 ">
-                                        <div class="p-2 rounded-xl lg:p-6 dark:bg-gray-800 bg-gray-50">
-                                            <div class="flex flex-wrap justify-center gap-x-10 gap-y-4">
-                                                <div class="w-full mb-4 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                            <div className="mb-6">
+                                <h2 className="mb-2 text-lg font-bold text-gray-700 dark:text-gray-400">Detail Product :</h2>
+                                <div className="bg-gray-100 dark:bg-gray-700 rounded-xl">
+                                    <div className="p-3 lg:p-5 ">
+                                        <div className="p-2 rounded-xl lg:p-6 dark:bg-gray-800 bg-gray-50">
+                                            <div className="flex flex-wrap justify-center gap-x-10 gap-y-4">
+                                                <div className="w-full mb-4 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <MdOutlineAdUnits className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 Unit
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {unit}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <BiGroup className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 Group
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {group}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 lg:mb-0 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <MdPlace className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 Place
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {place}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 lg:mb-0 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <MdProductionQuantityLimits className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 Quantity
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {quantity}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 lg:mb-0 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <BiCategoryAlt className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 Category
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {subCategory}
                                                             </h2>
                                                         </div>
@@ -281,82 +280,82 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                 </div>
                             </div>
                             {/* spek */}
-                            <div class="mb-6">
-                                <h2 class="mb-2 text-lg font-bold text-gray-700 dark:text-gray-400">Spesifications Product:</h2>
-                                <div class="bg-gray-100 dark:bg-gray-700 rounded-xl">
-                                    <div class="p-3 lg:p-5 ">
-                                        <div class="p-2 rounded-xl lg:p-6 dark:bg-gray-800 bg-gray-50">
-                                            <div class="flex flex-wrap justify-center gap-x-10 gap-y-4">
-                                                <div class="w-full mb-4 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                            <div className="mb-6">
+                                <h2 className="mb-2 text-lg font-bold text-gray-700 dark:text-gray-400">Spesifications Product:</h2>
+                                <div className="bg-gray-100 dark:bg-gray-700 rounded-xl">
+                                    <div className="p-3 lg:p-5 ">
+                                        <div className="p-2 rounded-xl lg:p-6 dark:bg-gray-800 bg-gray-50">
+                                            <div className="flex flex-wrap justify-center gap-x-10 gap-y-4">
+                                                <div className="w-full mb-4 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <FaList className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 {titleOne}
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {answerOne}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <FaList className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 {titleTwo}
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {answerTwo}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 lg:mb-0 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <FaList className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 {titleThree}
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {answerThree}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 lg:mb-0 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <FaList className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 {titleFour}
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {answerFour}
                                                             </h2>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="w-full mb-4 lg:mb-0 md:w-2/5">
-                                                    <div class="flex ">
-                                                        <span class="mr-3 text-gray-500 dark:text-gray-400">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                    <div className="flex ">
+                                                        <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <FaList className='h-5 w-5' />
                                                         </span>
                                                         <div>
-                                                            <p class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                                            <p className="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                                                                 {titleFive}
                                                             </p>
-                                                            <h2 class="text-base font-semibold text-gray-700 dark:text-gray-400">
+                                                            <h2 className="text-base font-semibold text-gray-700 dark:text-gray-400">
                                                                 {answerFive}
                                                             </h2>
                                                         </div>
@@ -367,10 +366,10 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                     </div>
                                 </div>
                             </div>
-                            <div class="py-6 mb-6 border-t border-b border-gray-200 dark:border-gray-700">
-                                <span class="text-base text-gray-600 dark:text-gray-400">Description</span>
-                                <p class="mt-2 text-sm text-blue-500 dark:text-blue-200">
-                                    <span class="text-gray-600 dark:text-gray-400">
+                            <div className="py-6 mb-6 border-t border-b border-gray-200 dark:border-gray-700">
+                                <span className="text-base text-gray-600 dark:text-gray-400">Description</span>
+                                <p className="mt-2 text-sm text-blue-500 dark:text-blue-200">
+                                    <span className="text-gray-600 dark:text-gray-400">
                                         {description}
                                     </span>
                                 </p>

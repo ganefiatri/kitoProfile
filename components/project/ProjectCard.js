@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 
-function ProjectCard({img, name,}) {
+const ProjectCard = ({img, name,}) => {
     return (
         <div className="cursor-pointer hover:scale-105 transform transition duration-300 ease-out">
             <div className="relative h-60 w-60">

@@ -31,5 +31,5 @@ export default async function handler(req, res) {
                         id: req.query.id,
                 }
         });
-        return res.json(result);
+        return res.status(201).json({message: result});
 };

@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 
-function Register() {
+const Register = () => {
     const [show, setShow] = useState({ password: false, cpassword: false })
     const router = useRouter()
     const formik = useFormik({
@@ -104,4 +104,4 @@ function Register() {
     )
 }
 
-export default Register
+export default Register;

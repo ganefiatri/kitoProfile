@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react'
 
-function ProductCardSearch({ img, id, title, price, description, quantity, subCategory, discount, place, group, unit }) {
+const ProductCardSearch = ({ img, id, title, price, description, quantity, subCategory, discount, place, group, unit }) => {
     const Format = price;
     const currencyFormat = Format.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     const DiscountPrice = price * discount / 100;

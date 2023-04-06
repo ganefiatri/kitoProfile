@@ -13,7 +13,7 @@ import { useRouter } from "next/router"
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify"
 
-function Login() {
+const Login = () => {
     const [show, setShow] = useState(false)
     const router = useRouter()
     // formik hook
@@ -102,4 +102,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Login;

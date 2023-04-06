@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styles from '../styles/Layout.module.css'
 
-function Layout({ children }) {
+const Layout = ({ children }) => {
     return (
         <div className="flex xl:p-20  xl:h-screen bg-gray-200">
             <div className="m-auto xs:h-screen bg-slate-50 rounded-md w-full xl:w-3/4 grid lg:grid-cols-2">
@@ -24,4 +24,4 @@ function Layout({ children }) {
     )
 }
 
-export default Layout
+export default Layout;

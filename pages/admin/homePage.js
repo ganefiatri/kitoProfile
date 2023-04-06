@@ -1,23 +1,20 @@
 import React from 'react';
 import SideNavbar from '../../layout/SideNavbar';
 import { getSession, useSession } from "next-auth/react";
-import { HiPlusSm } from "react-icons/hi";
-import { TfiMoney } from "react-icons/tfi";
 import { FiUsers } from "react-icons/fi";
 import { MdProductionQuantityLimits, MdCategory } from "react-icons/md"
 import Head from 'next/head';
 import Header from '../../components/admin/Header';
 import prisma from "../../utils/prisma";
 import { BiStore } from 'react-icons/bi';
-// import prisma from '../../utils/prisma';
 
 const HomePage = props => {
     const { data: session } = useSession()
     const {category, product, users, store} = props;
-    const cat = category.length;
-    const pro = product.length;
-    const usr = users.length;
-    const str = store?.length;
+    const cat = Boolean(category && category.length);
+    const pro = Boolean(product && product.length);
+    const usr = Boolean(users && users.length);
+    const str = Boolean(store && store.length);
     return (
         <>
             <Header />
@@ -30,7 +27,7 @@ const HomePage = props => {
                     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
                     <link rel="icon" href="/assets/favicon/favicon.ico" />
                 </Head>
-                <div class="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
+                <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
                     <div className='rounded-lg p-4 bg-white'>
                         <div className='flex pb-8 justify-between'>
                             <div className='flex flex-col'>

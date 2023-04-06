@@ -5,7 +5,6 @@ import Banner from '../components/contact/Banner';
 import Footer from '../components/Footer';
 import Header from '../components/frontend/Header';
 import ProductCardSearch from '../components/product/ProductCardSearch';
-import Search from '../components/product/Search';
 import prisma from '../utils/prisma';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FiDelete } from 'react-icons/fi'
@@ -13,9 +12,7 @@ import Select from 'react-select';
 
 
 const Product = ({ productsQuery, productCat, productStr, productBrand }) => {
-    // console.log(productCat)
     const router = useRouter();
-    const queries = router.query.case;
     const [input, setInput] = useState("");
     const [fetchCategory, setFetchCategory] = useState([]);
     const [fetchStore, setFetchStore] = useState([]);

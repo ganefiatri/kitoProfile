@@ -5,9 +5,7 @@ import Header from '../../components/admin/Header';
 import SideNavbar from '../../layout/SideNavbar';
 import Link from "next/link";
 import DataTable from 'react-data-table-component';
-import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
-import { BiEdit } from 'react-icons/bi';
 import { MdDelete } from 'react-icons/md';
 import { HiPlusSm } from 'react-icons/hi';
 

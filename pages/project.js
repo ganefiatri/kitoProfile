@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
 import Banner from '../components/contact/Banner';
-import ContactInfo from '../components/contact/ContactInfo';
 import Footer from '../components/Footer';
 import Header from '../components/frontend/Header';
 import ProjectNav from '../components/project/ProjectNav';

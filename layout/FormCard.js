@@ -1,4 +1,6 @@
-export default function FormCard({ children, currentStep, prevFormStep }) {
+
+
+ const FormCard = ({ children, currentStep, prevFormStep }) => {
     return (
         <div className='flex items-center justify-center justify-items-center w-full'>
         <div className='rounded-xl w-96 p-7 shadow-xl'>
@@ -25,3 +27,4 @@ export default function FormCard({ children, currentStep, prevFormStep }) {
       </div>
     );
   }
+  export default FormCard;

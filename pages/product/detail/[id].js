@@ -36,7 +36,6 @@ export async function getServerSideProps({ params }) {
 }
 
 const Id = ({ product }) => {
-    // console.log(product)
     return (
         <div>
             <Head>

@@ -1,12 +1,9 @@
 import React from 'react'
-import Head from 'next/head'
 import Header from '../../components/admin/Header'
-import Footer from '../../components/Footer'
-
 import { getSession, useSession } from "next-auth/react"
 import SideNavbar from '../../layout/SideNavbar'
 
-export default function Dashboard() {
+const Dashboard = () => {
     const { data: session } = useSession()
 
     return (
@@ -16,6 +13,8 @@ export default function Dashboard() {
         </div>
     )
 }
+
+export default Dashboard;
 
 // Dashboard.layout = Admin;
 

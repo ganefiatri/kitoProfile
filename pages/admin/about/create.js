@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Create() {
+ const Create = () => {
     const { data: session } = useSession();
     const [imageBanner, setImageBanner] = useState();
     const [imageCompany1, setImageCompany1] = useState();
@@ -472,6 +472,8 @@ export default function Create() {
         </>
     );
 }
+
+export default Create;
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })

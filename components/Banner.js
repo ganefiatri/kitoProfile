@@ -2,7 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import {useRouter} from 'next/router'
 
-function Banner() {
+const Banner = () => {
   const router = useRouter();
 
   const handleClick = (e) => {
@@ -25,4 +25,4 @@ function Banner() {
   )
 }
 
-export default Banner
+export default Banner;

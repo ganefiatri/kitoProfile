@@ -9,10 +9,6 @@ import FilterComponent from '../../components/FilterComponent';
 import CustomLoader from '../../components/CustomLoader';
 import { BiEdit } from 'react-icons/bi';
 import { MdDelete, MdOutlineTimer } from 'react-icons/md';
-import { HiPlusSm } from 'react-icons/hi';
-import { FaFileExcel } from 'react-icons/fa';
-import { read, utils } from 'xlsx';
-import { async } from '@firebase/util';
 
 const LinkCustomerPage = () => {
     const { data: session } = useSession();
@@ -138,10 +134,10 @@ const LinkCustomerPage = () => {
                     <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
                     <link rel="icon" href="/assets/favicon/favicon.ico" />
                 </Head>
-                <div class="items-center justify-between pb-5 lg:flex xl:flex md:flex">
+                <div className="items-center justify-between pb-5 lg:flex xl:flex md:flex">
                     <div className=''>
-                        <h1 class="text-2xl font-semibold leading-relaxed text-gray-600">Customer Register</h1>
-                        <p class="text-sm font-medium text-gray-500">
+                        <h1 className="text-2xl font-semibold leading-relaxed text-gray-600">Customer Register</h1>
+                        <p className="text-sm font-medium text-gray-500">
                             All Customer Register here
                         </p>
                     </div>

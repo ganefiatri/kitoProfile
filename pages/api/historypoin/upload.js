@@ -44,7 +44,6 @@ export default async (req, res) => {
                 result.push(obj)
             }
 
-            console.log(result)
 
 
             // const arrayData = jsonData.map(item => item.number)

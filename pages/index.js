@@ -10,20 +10,20 @@ import ProjectHome from '../components/project/ProjectHome'
 
  const Home = ({ categories, projects, pictures }) => {
   const { data: session } = useSession()
-  const rowRef = useRef(null)
-  const [isMoved, setIsMoved] = useState(false)
+  // const rowRef = useRef(null)
+  // const [isMoved, setIsMoved] = useState(false)
 
-  const handleClick = (direction) => {
-    setIsMoved(true)
+  // const handleClick = (direction) => {
+  //   setIsMoved(true)
 
-    if (rowRef.current) {
-      const { scrollLeft, clientWidth } = rowRef.current
+  //   if (rowRef.current) {
+  //     const { scrollLeft, clientWidth } = rowRef.current
 
-      const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth
+  //     const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth
 
-      rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
-    }
-  };
+  //     rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
+  //   }
+  // };
 
   return (
     <div className='w-[600px] md:w-full lg:w-full sm:w-full'>
@@ -104,9 +104,9 @@ import ProjectHome from '../components/project/ProjectHome'
 export default Home;
 
 export async function getServerSideProps() {
-  const categories = await prisma.sub_category_third.findMany();
   const projects = await prisma.project.findMany();
   const pictures = await prisma.picture.findMany();
+  const categories = await prisma.sub_category_third.findMany();
   return {
     props: {
       categories,

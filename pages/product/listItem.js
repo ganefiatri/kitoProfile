@@ -56,10 +56,10 @@ const ListItem = () => {
     }, [])
 
     return (
-        <nav class="flex pt-10 space-x-3 items-center justify-center">
+        <nav className="flex pt-10 space-x-3 items-center justify-center">
             <div>
                 <form onSubmit={submitHandlerCat}>
-                    <select id="category" value={cat} onChange={e => setCat(e.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="category" value={cat} onChange={e => setCat(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>All Category</option>
                         {fetchCategory.map(item => (
                             <option value={item.id}>{item.name}</option>
@@ -68,7 +68,7 @@ const ListItem = () => {
                 </form>
             </div>
             <div>
-                <select id="group" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select id="group" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="all" selected>All Company Group</option>
                     <option value="HOSANA">Hosana</option>
                     <option value="KITO">Kito</option>
@@ -76,7 +76,7 @@ const ListItem = () => {
             </div>
             <div>
                 <form onSubmit={submitHandlerStr}>
-                    <select id="place" value={str} onChange={e => setStr(e.target.value)} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="place" value={str} onChange={e => setStr(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="all" selected>All Place</option>
                         {fetchStore.map(item => (
                             <option value={item.id}>{item.name}</option>

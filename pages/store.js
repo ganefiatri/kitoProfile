@@ -6,7 +6,7 @@ import Banner from "../components/about/Banner";
 import Address from "../components/store/Address";
 
 
-function store() {
+const store = () => {
   return (
     <div>
       <Head>
@@ -29,4 +29,4 @@ function store() {
   )
 }
 
-export default store
+export default store;

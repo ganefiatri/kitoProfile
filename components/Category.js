@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 
 
-function Category({ img, title }) {
+const Category = ({ img, title }) => {
     return (
         <div className="cursor-pointer">
             <div className="relative h-full w-56">
@@ -21,4 +21,4 @@ function Category({ img, title }) {
     )
 }
 
-export default Category
+export default Category;

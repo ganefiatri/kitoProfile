@@ -6,9 +6,7 @@ import Banner from '../../components/customer/Banner';
 import Cardcustomer from '../../components/customer/Cardcustomer';
 import Footer from '../../components/Footer';
 import Header from '../../components/frontend/Header';
-// import { signOut, getSession,  useSession } from 'next-auth/react'
 import { auth } from "../../utils/firebase";
-// import prisma from '../../utils/prisma';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { getSession, useSession } from 'next-auth/react';

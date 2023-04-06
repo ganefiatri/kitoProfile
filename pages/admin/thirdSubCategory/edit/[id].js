@@ -7,7 +7,7 @@ import prisma from '../../../../utils/prisma';
 import { useRouter } from "next/router";
 
 export async function getServerSideProps({ params }) {
-    const subCategoryId = await prisma.subCategoryThird.findMany({
+    const subCategoryId = await prisma.sub_category_third.findMany({
         where: {
             id: params.id
         }
@@ -45,7 +45,6 @@ const subCategorybyId = props => {
         });
         const result = await res.json();
         router.push("/admin/thirdSubCategoryPage")
-        console.log({result});
     }
 
     return (
