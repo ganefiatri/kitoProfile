@@ -39,7 +39,7 @@ import ProjectHome from '../components/project/ProjectHome'
       <Header />
 
       {/* Banner Section */}  
-      <Banner picture={pictures}/>
+      {/* <Banner picture={pictures}/> */}
      
 
       {/* Category Section */}
