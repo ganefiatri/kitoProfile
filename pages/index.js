@@ -13,8 +13,20 @@ import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import ProjectHome from '../components/project/ProjectHome'
 
 // const prisma = new PrismaClient();
+export async function getServerSideProps() {
+  const categories = await prisma.subCategoryThird.findMany();
+  const projects = await prisma.project.findMany();
+  const pictures = await prisma.picture.findMany();
+  return {
+    props: {
+      categories,
+      projects,
+      pictures
+    }
+  };
+} 
 
-export default function Home({ categories, projects, pictures }) {
+ const Home = ({ categories, projects, pictures }) => {
   const { data: session } = useSession()
   const rowRef = useRef(null)
   const [isMoved, setIsMoved] = useState(false)
@@ -107,15 +119,4 @@ export default function Home({ categories, projects, pictures }) {
   )
 }
 
-export async function getServerSideProps() {
-  const categories = await prisma.subCategoryThird.findMany();
-  const projects = await prisma.project.findMany();
-  const pictures = await prisma.picture.findMany();
-  return {
-    props: {
-      categories,
-      projects,
-      pictures
-    }
-  };
-} 
+export default Home;
