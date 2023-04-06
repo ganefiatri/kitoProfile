@@ -4,7 +4,7 @@ import Category from '../components/Category'
 import Footer from '../components/Footer'
 import Header from '../components/frontend/Header'
 import ProductCard from '../components/ProductCard'
-import { prisma } from '../utils/prisma';
+import prisma from '../utils/prisma';
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Cardinfo from '../components/frontend/Cardinfo'
@@ -120,12 +120,7 @@ export async function getServerSideProps() {
   //     id: 'asc'
   //   }
   // });
-  const categories = await prisma.subCategoryThird.findMany({
-    take: 10,
-    orderBy: {
-      id: 'asc'
-    }
-  });
+  const categories = await prisma.subCategoryThird.findMany();
   const projects = await prisma.project.findMany();
   const pictures = await prisma.picture.findMany();
   return {

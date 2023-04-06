@@ -8,8 +8,8 @@ import "swiper/css/navigation";
 const Banner = ({ picture }) => {
     // console.log(picture)
     return (
-        <div className='relative w-[600px] md:w-full lg:w-full sm:w-full'>
-            <Swiper navigation={true} modules={[Navigation]}>
+        <>
+            <Swiper className='relative w-[600px] md:w-full lg:w-full sm:w-full' navigation={true} modules={[Navigation]}>
                 {picture.map(item => (
                     <SwiperSlide key={item.id}>
                         <div className='absolute top-80 left-28 z-auto justify-center items-start text-white'>
@@ -100,7 +100,7 @@ const Banner = ({ picture }) => {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div> */}
-        </div>
+        </>
     );
 }
 
