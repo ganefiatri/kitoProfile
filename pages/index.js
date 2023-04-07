@@ -2,13 +2,13 @@ import Head from 'next/head'
 import Banner from '../components/frontend/Banner'
 import Footer from '../components/Footer'
 import Header from '../components/frontend/Header'
-import prisma from '../utils/prisma';
+// import prisma from '../utils/prisma';
 import { useSession } from 'next-auth/react'
 import Cardinfo from '../components/frontend/Cardinfo'
 import { useRef, useState } from 'react'
 import ProjectHome from '../components/project/ProjectHome'
 
- const Home = ({ categories, projects }) => {
+ const Home = () => {
   const { data: session } = useSession()
   // const rowRef = useRef(null)
   // const [isMoved, setIsMoved] = useState(false)
@@ -47,7 +47,7 @@ import ProjectHome from '../components/project/ProjectHome'
         <section>
           <div className='justify-items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 p-3 ml-3 gap-2.5'>
             {/* Card Info Section */}
-            <Cardinfo />
+            {/* <Cardinfo /> */}
           </div>
         </section>
 
@@ -61,10 +61,10 @@ import ProjectHome from '../components/project/ProjectHome'
             ))}
           </div> */}
           <div className="grid grid-cols-4 gap-4">
-          {categories.map(item => (
+          {/* {categories.map(item => (
             <a key={item.id} href={`/category/${item.id}`} className='relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white'>
               {item.name}</a>
-             ))}
+             ))} */}
           </div>
         </section>
 
@@ -73,9 +73,9 @@ import ProjectHome from '../components/project/ProjectHome'
         <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/project">View all</a></p>
 
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
-              {projects.map(item => (
+              {/* {projects.map(item => (
                 <ProjectHome key={item.id} name={item.name} img={item.img} />
-              ))}
+              ))} */}
           </div>
         </section>
         {/* <section className='pt-10'>
@@ -103,15 +103,15 @@ import ProjectHome from '../components/project/ProjectHome'
 
 export default Home;
 
-export async function getServerSideProps() {
-  const projects = await prisma.project.findMany();
-  // const pictures = await prisma.picture.findMany();
-  const categories = await prisma.sub_category_third.findMany();
-  return {
-    props: {
-      categories : JSON.parse(JSON.stringify(categories)),
-      projects: JSON.parse(JSON.stringify(projects)),
-      // pictures : JSON.parse(JSON.stringify(pictures))
-    }
-  };
-} 
+// export async function getServerSideProps() {
+//   const projects = await prisma.project.findMany();
+//   const pictures = await prisma.picture.findMany();
+//   const categories = await prisma.sub_category_third.findMany();
+//   return {
+//     props: {
+//       categories : JSON.parse(JSON.stringify(categories)),
+//       projects: JSON.parse(JSON.stringify(projects)),
+//       pictures : JSON.parse(JSON.stringify(pictures))
+//     }
+//   };
+// } 
