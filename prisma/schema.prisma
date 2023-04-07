@@ -15,10 +15,10 @@ model user {
   email         String?         @unique
   emailVerified DateTime?
   image         String?
-  tgl_lahir     String?
   password      String?
   role          role            @default(USER)
   phone         String?         @unique
+  tgl_lahir     String?
   accounts      account[]
   sessions      session[]
   customers     customer_poin[]
@@ -181,41 +181,41 @@ model picture {
 }
 
 model about {
-  id       String  @id @default(cuid())
-  imgBanner String?
-  imgCompany1 String?
-  imgCompany2 String?
-  imgConcept String?
-  imgClass1 String?
-  imgClass2 String?
-  imgClass3 String?
-  imgClass4 String?
-  fileNameBanner  String?
-  fileNameCompany1  String?
-  fileNameCompany2  String?
+  id               String  @id @default(cuid())
+  imgBanner        String?
+  imgCompany1      String?
+  imgCompany2      String?
+  imgConcept       String?
+  imgClass1        String?
+  imgClass2        String?
+  imgClass3        String?
+  imgClass4        String?
+  textCompany1     String? @db.Text
+  textCompany2     String? @db.Text
+  visionTitle      String?
+  visionDetail     String? @db.Text
+  missionTitle     String?
+  missionDetail    String? @db.Text
+  valueDetail      String? @db.Text
+  conceptTitle     String?
+  conceptDetail    String? @db.Text
+  classTitle       String?
+  classTitle1      String?
+  classTitle2      String?
+  classTitle3      String?
+  classTitle4      String?
+  classDetail1     String?
+  classDetail2     String?
+  classDetail3     String?
+  classDetail4     String?
+  fileNameBanner   String?
+  fileNameClass1   String?
+  fileNameClass2   String?
+  fileNameClass3   String?
+  fileNameClass4   String?
+  fileNameCompany1 String?
+  fileNameCompany2 String?
   fileNameConcept  String?
-  fileNameClass1  String?
-  fileNameClass2  String?
-  fileNameClass3  String?
-  fileNameClass4  String?
-  textCompany1 String? @db.Text
-  textCompany2 String? @db.Text
-  visionTitle String? 
-  visionDetail  String? @db.Text
-  missionTitle  String? 
-  missionDetail String? @db.Text
-  valueDetail String? @db.Text
-  conceptTitle  String?
-  conceptDetail String? @db.Text
-  classTitle  String?
-  classTitle1  String?
-  classTitle2  String?
-  classTitle3  String?
-  classTitle4  String?
-  classDetail1  String?
-  classDetail2  String?
-  classDetail3  String?
-  classDetail4  String?
 }
 
 model product {
@@ -267,23 +267,23 @@ model units {
 }
 
 model product_detail {
-  id            String            @id @default(cuid())
+  id            String              @id @default(cuid())
   product_id    String?
   unit_id       String?
   store_id      String?
   subCategoryId String?
   discount      String?
   price         String?
-  createdAt     DateTime          @default(now())
+  createdAt     DateTime            @default(now())
   updatedAt     DateTime?
   brand_id      String?
   loc           String?
   poin          String?
   expiredAt     String?
-  product       product?          @relation(fields: [product_id], references: [id])
-  units         units?            @relation(fields: [unit_id], references: [id])
-  brands        brands?           @relation(fields: [brand_id], references: [id])
-  stores        stores?           @relation(fields: [store_id], references: [id])
+  product       product?            @relation(fields: [product_id], references: [id])
+  units         units?              @relation(fields: [unit_id], references: [id])
+  brands        brands?             @relation(fields: [brand_id], references: [id])
+  stores        stores?             @relation(fields: [store_id], references: [id])
   subCategory   sub_category_third? @relation(fields: [subCategoryId], references: [id])
   history       history[]
   spesification spesification[]
@@ -316,10 +316,10 @@ model category {
 }
 
 model subCategory {
-  id               String             @id @default(cuid())
-  name             String             @unique
+  id               String               @id @default(cuid())
+  name             String               @unique
   categoryId       String?
-  category         category?          @relation(fields: [categoryId], references: [id])
+  category         category?            @relation(fields: [categoryId], references: [id])
   subCategoryThird sub_category_third[]
 
   @@fulltext([name])

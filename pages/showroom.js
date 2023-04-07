@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import Head from 'next/head';
 import React from 'react';
-import Banner from '../components/about/Banner';
+import Banner from '../components/contact/Banner';
 import Footer from '../components/Footer';
 import Header from '../components/frontend/Header';
 import LargeCard from '../components/LargeCard';
