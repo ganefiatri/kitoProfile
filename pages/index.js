@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client';
 import Head from 'next/head'
 import Banner from '../components/frontend/Banner'
 import Footer from '../components/Footer'
@@ -5,25 +6,24 @@ import Header from '../components/frontend/Header'
 import { useSession } from 'next-auth/react'
 import Cardinfo from '../components/frontend/Cardinfo'
 import ProjectHome from '../components/project/ProjectHome'
-import prisma from '../utils/prisma'
+
+const prisma = new PrismaClient();
+
+export async function getServerSideProps() {
+  const projects = await prisma.project.findMany();
+  const pictures = await prisma.picture.findMany();
+  const categories = await prisma.sub_category_third.findMany();
+  return {
+    props: {
+      categories,
+      projects,
+      pictures
+    }
+  };
+} 
 
  const Home = ({categories, pictures, projects }) => {
   const { data: session } = useSession();
-
-  // const rowRef = useRef(null)
-  // const [isMoved, setIsMoved] = useState(false)
-
-  // const handleClick = (direction) => {
-  //   setIsMoved(true)
-
-  //   if (rowRef.current) {
-  //     const { scrollLeft, clientWidth } = rowRef.current
-
-  //     const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth
-
-  //     rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
-  //   }
-  // };
 
   return (
     <div className='w-[600px] md:w-full lg:w-full sm:w-full'>
@@ -55,11 +55,6 @@ import prisma from '../utils/prisma'
           <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
 
-          {/* <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
-            {categories.map(item => (
-              <Category key={item.id} img={item.img} title={item.name} />
-            ))}
-          </div> */}
           <div className="grid grid-cols-4 gap-4">
           {categories.map(item => (
             <a key={item.id} href={`/category/${item.id}`} className='relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white'>
@@ -78,21 +73,7 @@ import prisma from '../utils/prisma'
               ))}
           </div>
         </section>
-        {/* <section className='pt-10'>
-          <h2 className='text-4xl font-thin pb-3 text-center'>Products</h2>
-          <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
-          <div className="group relative md:-ml-2">
-            <AiOutlineLeft className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`} onClick={() => handleClick("left")} />
-            <div ref={rowRef} className='flex overflow-scroll scrollbar-hide p-3 ml-3'>
-              {products.map(item => (
-                  <ProductCard key={item.id} id={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name}/>
-              ))}
-            </div>
-            <AiOutlineRight className={`absolute top-0 bottom-0 right-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100`} onClick={() => handleClick("right")} />
-          </div>
-        </section> */}
-
-        {/* {session ? User({ session, handleSignOut }) : Guest()} */}
+       
       </main>
 
       {/* footer section */}
@@ -102,16 +83,3 @@ import prisma from '../utils/prisma'
 }
 
 export default Home;
-
-export async function getServerSideProps() {
-  const projects = await prisma.project.findMany();
-  const pictures = await prisma.picture.findMany();
-  const categories = await prisma.sub_category_third.findMany();
-  return {
-    props: {
-      categories,
-      projects,
-      pictures
-    }
-  };
-} 
