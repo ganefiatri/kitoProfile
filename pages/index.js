@@ -8,7 +8,7 @@ import Cardinfo from '../components/frontend/Cardinfo'
 import { useRef, useState } from 'react'
 import ProjectHome from '../components/project/ProjectHome'
 
- const Home = ({ categories, projects, pictures }) => {
+ const Home = ({ categories, projects }) => {
   const { data: session } = useSession()
   // const rowRef = useRef(null)
   // const [isMoved, setIsMoved] = useState(false)
@@ -39,7 +39,7 @@ import ProjectHome from '../components/project/ProjectHome'
       <Header />
 
       {/* Banner Section */}  
-      <Banner picture={pictures}/>
+      {/* <Banner picture={pictures}/> */}
      
 
       {/* Category Section */}
@@ -105,13 +105,13 @@ export default Home;
 
 export async function getServerSideProps() {
   const projects = await prisma.project.findMany();
-  const pictures = await prisma.picture.findMany();
+  // const pictures = await prisma.picture.findMany();
   const categories = await prisma.sub_category_third.findMany();
   return {
     props: {
       categories : JSON.parse(JSON.stringify(categories)),
       projects: JSON.parse(JSON.stringify(projects)),
-      pictures : JSON.parse(JSON.stringify(pictures))
+      // pictures : JSON.parse(JSON.stringify(pictures))
     }
   };
 } 
