@@ -39,7 +39,7 @@ import ProjectHome from '../components/project/ProjectHome'
       <Header />
 
       {/* Banner Section */}  
-      {/* <Banner picture={pictures}/> */}
+      <Banner picture={pictures}/>
      
 
       {/* Category Section */}
@@ -109,9 +109,9 @@ export async function getServerSideProps() {
   const categories = await prisma.sub_category_third.findMany();
   return {
     props: {
-      categories,
-      projects,
-      pictures
+      categories : JSON.parse(JSON.stringify(categories)),
+      projects: JSON.parse(JSON.stringify(projects)),
+      pictures : JSON.parse(JSON.stringify(pictures))
     }
   };
 } 

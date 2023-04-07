@@ -11,10 +11,10 @@ import { BiStore } from 'react-icons/bi';
 const HomePage = props => {
     const { data: session } = useSession()
     const {category, product, users, store} = props;
-    const cat = Boolean(category && category.length);
-    const pro = Boolean(product && product.length);
-    const usr = Boolean(users && users.length);
-    const str = Boolean(store && store.length);
+    const cat = Boolean(category && category?.length);
+    const pro = Boolean(product && product?.length);
+    const usr = Boolean(users && users?.length);
+    const str = Boolean(store && store?.length);
     return (
         <>
             <Header />

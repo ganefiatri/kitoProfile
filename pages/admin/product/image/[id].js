@@ -43,7 +43,7 @@ const ProductbyId = props => {
         // add multiple image
         const file = e.target.files
         const img = [];
-        for (let i = 0; i < file.length; i++ ) {
+        for (let i = 0; i < file?.length; i++ ) {
             img.push(file[i])
             // setImageUploaded((img) => [...img, file[i]])
             // setImageUploaded((files) => [...files, file]);
@@ -62,7 +62,7 @@ const ProductbyId = props => {
     const handleFormData = async (e) => {
         e.preventDefault();
         const forms = new FormData();
-        for (let i = 0; i < imageUploaded.length; i++) {
+        for (let i = 0; i < imageUploaded?.length; i++) {
             forms.append(`image${i}`, imageUploaded[i])
         }
         forms.append('id', product[0].id)

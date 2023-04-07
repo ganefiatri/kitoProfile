@@ -24,7 +24,7 @@ export default async (req, res) => {
                 workbook.Sheets[sheet_name_list[0]]
                 );
             // console.log(jsonData);
-            if (jsonData.length === 0) {
+            if (jsonData?.length === 0) {
               return res.status(400).json({
                 success: false,
                 message: "xml sheet has no data",
@@ -34,11 +34,11 @@ export default async (req, res) => {
             const test = jsonData.split("\n");
             var result = [];
             var headers = test[0].split(",");
-            for(var i=1; i< test.length; i++){
+            for(var i=1; i< test?.length; i++){
                 var obj = {};
                 var currentLine = test[i].split(",");
 
-                for (let j = 0; j < headers.length; j++) {
+                for (let j = 0; j < headers?.length; j++) {
                     obj[headers[j]] = currentLine[j];
                 }
                 result.push(obj)
@@ -56,7 +56,7 @@ export default async (req, res) => {
 
             return res.status(201).json({
               success: true,
-              message: savedData.length +"rows added to the database",
+              message: savedData?.length +"rows added to the database",
             });
           } catch (err) {
             return res.status(500).json({ success: false, message: err.message });
