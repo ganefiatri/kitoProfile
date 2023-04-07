@@ -2,26 +2,12 @@ import Head from 'next/head'
 import Banner from '../components/frontend/Banner'
 import Footer from '../components/Footer'
 import Header from '../components/frontend/Header'
-// import prisma from '../utils/prisma';
 import { useSession } from 'next-auth/react'
 import Cardinfo from '../components/frontend/Cardinfo'
-import { useEffect, useRef, useState } from 'react'
 import ProjectHome from '../components/project/ProjectHome'
+import prisma from '../utils/prisma'
 
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const category = await fetch(`${process.env.NEXTAUTH_URL}/api/thirdSubCategory/getdata`);
-  const picture = await fetch(`${process.env.NEXTAUTH_URL}/api/picture/getdata`);
-  const project = await fetch(`${process.env.NEXTAUTH_URL}/api/project/getdata`);
-  const categories = await category.json();
-  const pictures = await picture.json();
-  const projects = await project.json();
-
-  // Pass data to the page via props
-  return { props: { categories, pictures, projects} }
-}
-
- const Home = ({categories,pictures, projects }) => {
+ const Home = ({categories, pictures, projects }) => {
   const { data: session } = useSession();
 
   // const rowRef = useRef(null)
@@ -117,15 +103,15 @@ export async function getServerSideProps() {
 
 export default Home;
 
-// export async function getServerSideProps() {
-//   const projects = await prisma.project.findMany();
-//   const pictures = await prisma.picture.findMany();
-//   const categories = await prisma.sub_category_third.findMany();
-//   return {
-//     props: {
-//       categories,
-//       projects,
-//       pictures
-//     }
-//   };
-// } 
+export async function getServerSideProps() {
+  const projects = await prisma.project.findMany();
+  const pictures = await prisma.picture.findMany();
+  const categories = await prisma.sub_category_third.findMany();
+  return {
+    props: {
+      categories,
+      projects,
+      pictures
+    }
+  };
+} 
