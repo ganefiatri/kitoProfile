@@ -89,7 +89,7 @@ import "react-toastify/dist/ReactToastify.css";
         if (!result) {
             toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
         } else {
-            toast('Successfully Linked data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+            toast('Successfully Create data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
         }
         router.push("/admin/productPage")
     }

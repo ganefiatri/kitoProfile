@@ -29,11 +29,8 @@ export default async (req, res) => {
                     Key: imageName,
                     Body: file,
                     ContentType: "image/jpeg",
-                }, async () => res.status(201).send("Image uploaded"));
+                });
 
-                if (!fields) {
-                    return res.status(500).send("You Dont Have Field");
-                } else {
                     const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
                     const product = await prisma.product.create({
                         data: {
@@ -76,10 +73,9 @@ export default async (req, res) => {
                             answerFive: fields.answer5,
                         }
                     });
-                    return res.status(201).json({message: "success input Data"});
-                }
+                    return res.status(201).json({message: "success input Data!"});
             } catch (error) {
-                console.log(error);
+                return res.status(500).json({message: "Failed to input Data!"});
             }
     });
 };
