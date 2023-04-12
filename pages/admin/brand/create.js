@@ -2,9 +2,9 @@ import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { toast } from 'react-toastify';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 
