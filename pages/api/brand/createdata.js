@@ -10,6 +10,7 @@ export default async function handler(req, res){
                 name: name,
             }
         });
+        return res.status(201).json({message: "success input Data!"});
     }else {
         return res.status(405).json({ error: "This request only supports POST requests" });
     }

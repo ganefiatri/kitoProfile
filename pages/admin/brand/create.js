@@ -2,8 +2,10 @@ import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-toastify';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Create = () => {
@@ -24,6 +26,11 @@ const Create = () => {
                 }
             });
             const result = await res.json();
+            if (!result) {
+                toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+            } else {
+                toast('Successfully Create data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+            }
             router.push("/admin/brandPage");
 
     }
