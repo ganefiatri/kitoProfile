@@ -5,38 +5,35 @@ import Header from '../../../../components/admin/Header';
 import SideNavbar from '../../../../layout/SideNavbar';
 import prisma from '../../../../utils/prisma';
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export async function getServerSideProps({ params }) {
-    const subCategoryId = await prisma.subCategory.findMany({
+    const brand = await prisma.brands.findMany({
         where: {
             id: params.id
         }
     });
-    const categories = await prisma.category.findMany();
-
     return {
         props: {
-            subCategory: subCategoryId,
-            categories: categories
+            brand
         },
     }
 }
 
 const subCategorybyId = props => {
-    const { subCategory, categories } = props;
+    const { brand } = props;
+    const [name, setName] = useState(brand[0].name)
     const router = useRouter()
     //state
 
     const handleFormData = async (e) => {
         e.preventDefault();
-        const name = e.target.name.value;
-        const category = e.target.category.value;
-        const id = subCategory[0].id;
-        const res = await fetch("/api/subCategory/editdata", {
+        const id = brand[0].id;
+        const res = await fetch("/api/brand/editdata", {
             method: "PUT",
             body: JSON.stringify({
                 name: name,
-                category: category,
                 id: id
             }),
             headers: {
@@ -44,8 +41,12 @@ const subCategorybyId = props => {
             }
         });
         const result = await res.json();
-        router.push("/admin/subCategoryPage")
-        console.log({result});
+            if (!result) {
+                toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+            } else {
+                toast('Successfully Edit data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+            }
+        router.push("/admin/brandPage");
     }
 
     return (
@@ -63,26 +64,18 @@ const subCategorybyId = props => {
                 {/* Category */}
                 <section>
                     <div className='flex border-b border-dashed border-border-base py-5 sm:py-8'>
-                        <h1 className='text-lg font-semibold text-heading'>Edit SubCategory</h1>
+                        <h1 className='text-lg font-semibold text-heading'>Edit Brands</h1>
                     </div>
                     <form onSubmit={handleFormData}>
                         <div className='my-5 flex flex-wrap sm:my-8'>
                             <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
                                 <h4 className='text-base font-semibold mb-2'>Details</h4>
-                                <p className='text-sm'>Add Category and Subcategory from here</p>
+                                <p className='text-sm'>Edit Brands</p>
                             </div>
                             <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                 <div className='mb-5'>
                                     <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
-                                    <input type="text" value={subCategory[0].name} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
-                                </div>
-                                <div>
-                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Parent Category</label>
-                                    <select name='category' className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                    {categories.map(item => (
-                                            <option value={item.id}>{item.name}</option>
-                                            ))}
-                                    </select>
+                                    <input type="text"value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                             </div>
                         </div>
