@@ -5,6 +5,8 @@ import Header from '../../../../components/admin/Header';
 import SideNavbar from '../../../../layout/SideNavbar';
 import prisma from '../../../../utils/prisma';
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export async function getServerSideProps({ params }) {
     const subCategoryId = await prisma.sub_category_third.findMany({
@@ -24,12 +26,12 @@ export async function getServerSideProps({ params }) {
 
 const subCategorybyId = props => {
     const { subCategory, categories } = props;
+    const [name, setName] = useState(subCategory[0].name);
     const router = useRouter()
     //state
 
     const handleFormData = async (e) => {
         e.preventDefault();
-        const name = e.target.name.value;
         const category = e.target.category.value;
         const id = subCategory[0].id;
         const res = await fetch("/api/thirdSubCategory/editdata", {
@@ -44,6 +46,11 @@ const subCategorybyId = props => {
             }
         });
         const result = await res.json();
+        if (!result) {
+            toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+        } else {
+            toast('Successfully Edit data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+        }
         router.push("/admin/thirdSubCategoryPage")
     }
 
@@ -73,7 +80,7 @@ const subCategorybyId = props => {
                             <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                 <div className='mb-5'>
                                     <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
-                                    <input type="text" value={subCategory[0].name} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
+                                    <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                                 <div>
                                     <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Second Sub Category</label>

@@ -21,7 +21,7 @@ export async function getServerSideProps({ params }) {
             },
         }
     });
-    const subCategory = await prisma.subCategoryThird.findMany();
+    const subCategory = await prisma.sub_category_third.findMany();
     const units = await prisma.units.findMany();
     const stores = await prisma.stores.findMany();
 
@@ -140,7 +140,7 @@ const ProductbyId = props => {
                         <div className='my-5 flex flex-wrap sm:my-8'>
                             <div className='w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:px-4 md:w-1/3 md:py-5'>
                                 <h4 className='text-base font-semibold mb-2'>Details</h4>
-                                <p className='text-sm'>Add Category and Subcategory from here</p>
+                                <p className='text-sm'>Edit Product from here</p>
                             </div>
                             <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                 <div className='mb-5'>
