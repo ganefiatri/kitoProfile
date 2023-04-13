@@ -45,7 +45,24 @@ export default async (req, res) => {
                     product: true
                 },
             });
-            return res.status(201).json({message: "Data Uploaded"})
+            await prisma.spesification.update({
+                where: {
+                    id: fields.id_product_spec
+                },
+                data: {
+                    titleOne: fields.spec1,
+                    titleTwo: fields.spec2,
+                    titleThree: fields.spec3,
+                    titleFour: fields.spec4,
+                    titleFive: fields.spec5,
+                    answerOne: fields.answer1,
+                    answerTwo: fields.answer2,
+                    answerThree: fields.answer3,
+                    answerFour: fields.answer4,
+                    answerFive: fields.answer5,
+                },
+            })
+            return res.status(201).json({ message: "Data Uploaded" })
         } else {
             const session = await getSession({ req });
             if (!session) {
@@ -83,12 +100,12 @@ export default async (req, res) => {
                         Key: imageName,
                         Body: file,
                         ContentType: "image/jpeg",
-                    }, async () => res.status(201).send("Image uploaded"));
+                    });
 
                     if (!fields) {
                         return res.status(500).send("You Dont Have Field");
                     } else {
-                        const post = await prisma.product.update({
+                        await prisma.product.update({
                             where: {
                                 id: fields.id
                             },
@@ -102,7 +119,7 @@ export default async (req, res) => {
                                 filename: imageName,
                             }
                         });
-                        const result = await prisma.product_detail.update({
+                        await prisma.product_detail.update({
                             where: {
                                 id: fields.id_product_detail
                             },
@@ -113,16 +130,35 @@ export default async (req, res) => {
                                 subCategoryId: fields.subCategory,
                                 discount: fields.discount,
                                 price: fields.price,
+                                brand_id: fields.brands,
+                                loc: fields.loc
                             },
                             include: {
                                 product: true
                             },
                         });
-                        return res.status(201).json({message: "success input Data"});
+                        await prisma.spesification.update({
+                            where: {
+                                id: fields.id_product_spec
+                            },
+                            data: {
+                                titleOne: fields.spec1,
+                                titleTwo: fields.spec2,
+                                titleThree: fields.spec3,
+                                titleFour: fields.spec4,
+                                titleFive: fields.spec5,
+                                answerOne: fields.answer1,
+                                answerTwo: fields.answer2,
+                                answerThree: fields.answer3,
+                                answerFour: fields.answer4,
+                                answerFive: fields.answer5,
+                            },
+                        })
+                        return res.status(201).json({ message: "success input Data" });
                     }
 
                 } catch (error) {
-                    return res.status(500).json({error: "Failed to send data!"})
+                    return res.status(500).json({ error: "Failed to send data!" })
                 }
             }
 
