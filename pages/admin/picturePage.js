@@ -32,7 +32,7 @@ const picturePage = () => {
         e.preventDefault();
         if(confirm('Are you sure want to delete this ?')){
             try {
-                await fetch("/api/project/deletedata?id=" + id, {
+                await fetch("/api/picture/deletedata?id=" + id, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                 })

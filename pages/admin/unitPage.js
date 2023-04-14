@@ -32,7 +32,7 @@ const UnitPage = () => {
         e.preventDefault();
         if(confirm('Are you sure want to delete this ?')){
             try {
-                await fetch("/api/subCategory/deletedata?id=" + id, {
+                await fetch("/api/unit/deletedata?id=" + id, {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                 })
@@ -71,7 +71,7 @@ const UnitPage = () => {
             (
                 <>
                     <button>
-                        <Link href={`/admin/subCategory/edit/${row.id}`}>
+                        <Link href={`/admin/unit/edit/${row.id}`}>
                             <BiEdit className='h-5 w-5' />
                         </Link>
                     </button>
