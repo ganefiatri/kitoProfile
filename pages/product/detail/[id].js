@@ -50,7 +50,7 @@ const Id = ({ product }) => {
             <Header />
             {/* Banner Section */}
             <Banner />
-            {product.map(item => (
+            {product ? product.map(item => (
                 <ProductDetail key={item.id} id={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name}
                     titleOne={item.spesification.map(items => items.titleOne)}
                     titleTwo={item.spesification.map(items => items.titleTwo)}
@@ -73,7 +73,7 @@ const Id = ({ product }) => {
                     img10={item.product.productImage.map(item => item.image8)}
                     img11={item.product.productImage.map(item => item.image9)}
                 />
-            ))}
+            )) : ("Please Refresh!")}
         </div>
     );
 }

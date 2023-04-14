@@ -127,7 +127,7 @@ const Product = ({ productsQuery, productCat, productStr, productBrand }) => {
                             <input type="text" value={input} onChange={(e) => setInput(e.target.value)} className='border-none font-normal px-11 py-3 rounded-md outline-none w-full bg-slate-100' />
                         </div>
                     </form>
-                    <nav class="flex pt-10 space-x-3 items-center justify-center">
+                    <nav className="flex pt-10 space-x-3 items-center justify-center">
                         <div>
                             <Select value={selectedOptionCat} options={optionsCat} onChange={submitHandlerCat} placeholder="Search By Category" />
                         </div>
@@ -164,7 +164,7 @@ const Product = ({ productsQuery, productCat, productStr, productBrand }) => {
                                         break;
                                     case 'brand':
                                         return (productBrand.map(item => (
-                                            <ProductCardSearch key={item.id} id={item.id} title={item.title} img={item.image} price={item.product_detail.map(rows => rows.price)} description={item.description} quantity={item.quantity} subCategory={item.product_detail.map(rows => rows.subCategory.name)} discount={item.product_detail.map(rows => rows.discount)} place={item.product_detail.map(rows => rows.stores.name)} group={item.group} unit={item.product_detail.map(rows => rows.units.name)} />
+                                            <ProductCardSearch key={item.id} id={item.id} title={item.product.title} img={item.product.image} price={item.price} description={item.product.description} quantity={item.product.quantity} subCategory={item.subCategory.name} discount={item.discount} place={item.stores.name} group={item.product.group} unit={item.units.name}/>
                                         )));
                                         break;
                                     default:
@@ -313,7 +313,7 @@ export async function getServerSideProps(context) {
             }
         },
         where: {
-            brand_id: context.query.searchStore
+            brand_id: context.query.searchBrand
         }
     });
 

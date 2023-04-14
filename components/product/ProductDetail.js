@@ -37,12 +37,7 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                     <div className="w-full px-4 mb-8 md:w-1/2 md:mb-0">
                         <div className="sticky top-0 overflow-hidden ">
                             <div className="relative mb-6 lg:mb-10 lg:h-96">
-                                <a className="absolute left-0 transform lg:ml-2 top-1/2 translate-1/2" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 text-blue-500 bi bi-chevron-left dark:text-blue-200" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z">
-                                        </path>
-                                    </svg>
-                                </a>
+                                
                                 <Swiper
                                     style={{
                                         "--swiper-navigation-color": "#000000",
@@ -86,12 +81,7 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                     </SwiperSlide>
                                 </Swiper>
                                 {/* <img class="object-contain w-full lg:h-full" src={img} alt="" /> */}
-                                <a class="absolute right-0 transform lg:mr-2 top-1/2 translate-1/2" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 text-blue-500 bi bi-chevron-right dark:text-blue-200" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
-                                        </path>
-                                    </svg>
-                                </a>
+                               
                             </div>
                             <div className="flex-wrap hidden -mx-2 md:flex">
                                 <Swiper
@@ -188,8 +178,8 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                 </a>
                             </div> */}
                                 <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
-                                    <span>Rp.{currencyFormat}</span>
-                                    <span className="ml-3 text-base font-normal text-gray-500 line-through dark:text-gray-400">Rp.{FormatTotalPrice}</span>
+                                    <span>Rp.{FormatTotalPrice}</span>
+                                    <span className="ml-3 text-base font-normal text-gray-500 line-through dark:text-gray-400">Rp.{currencyFormat}</span>
                                 </p>
                             </div>
                             {/* detail */}
@@ -259,7 +249,7 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-full md:ml-4 md:mt-3">
                                                     <div className="flex ">
                                                         <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <BiCategoryAlt className='h-5 w-5' />
@@ -346,7 +336,7 @@ const ProductDetail = ({ id, img, img2, img3, img4, img5, img6, img7, img8, img9
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="w-full mb-4 lg:mb-0 md:w-2/5">
+                                                <div className="w-full mb-4 lg:mb-0 md:w-full md:ml-4 md:mt-3">
                                                     <div className="flex ">
                                                         <span className="mr-3 text-gray-500 dark:text-gray-400">
                                                             <FaList className='h-5 w-5' />

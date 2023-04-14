@@ -9,7 +9,7 @@ import CustomLoader from '../../components/CustomLoader';
 import { MdDelete } from 'react-icons/md';
 import { HiPlusSm } from 'react-icons/hi';
 
-const aboutPage = () => {
+const AboutPage = () => {
     const { data: session } = useSession();
     const [about, setAbout] = useState([]);
     const [pending, setPending] = useState(true);
@@ -171,7 +171,7 @@ const aboutPage = () => {
     );
 }
 
-export default aboutPage;
+export default AboutPage;
 
 export async function getServerSideProps({ req }) {
     const session = await getSession({ req })
