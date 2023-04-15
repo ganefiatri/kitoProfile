@@ -6,6 +6,8 @@ import { FaUpload } from 'react-icons/fa';
 import Header from '../../../components/admin/Header';
 import SideNavbar from '../../../layout/SideNavbar';
 import prisma from '../../../utils/prisma';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Create = ({categories}) => {
@@ -30,6 +32,11 @@ const Create = ({categories}) => {
                 }
             });
             const result = await res.json();
+            if (!result) {
+                toast('Something Wrong!', { hideProgressBar: true, autoClose: 2000, type: 'error', position: 'top-right' })
+            } else {
+                toast('Successfully Create data!', { hideProgressBar: true, autoClose: 2000, type: 'success', position: 'top-right' })
+            }
             router.push("/admin/thirdSubCategoryPage");
 
     }
