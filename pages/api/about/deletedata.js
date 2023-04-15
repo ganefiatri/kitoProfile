@@ -21,10 +21,7 @@ export default async function handler(req, res) {
         const filePathCompany2 = deldata[0].fileNameCompany2;
         const filePathConcept = deldata[0].fileNameConcept;
 
-        if (!filePathBanner && !filePathClass1 && !filePathClass2 && !filePathClass3 && !filePathClass4 && !filePathCompany1 && !filePathCompany2 && !filePathConcept) {
-                return res.status(405).json({ error: "no data found" });
-        } else {
-
+      
                 // const params = {
                 //         Bucket: process.env.SPACES_BUCKET,
                 //         Key: [{filePathBanner},{filePathClass1},{filePathClass2},{filePathClass3},{filePathClass4},{filePathCompany1},{filePathCompany2},{filePathConcept} ],
@@ -50,7 +47,7 @@ export default async function handler(req, res) {
                 //         }
                 //         console.log("Successfully deleted file", data);
                 // });
-        }
+        
 
         const result = await prisma.about.delete({
                 where: {
