@@ -17,7 +17,7 @@ export default async (req, res) => {
         // Read file
         const file = fs.readFileSync(files.image.path);
         const imageName = new Date().getTime() + "-" + files.image.name;
-        const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
+        const url = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageName}`;
         // Upload the file
         s3Client.putObject({
             // params

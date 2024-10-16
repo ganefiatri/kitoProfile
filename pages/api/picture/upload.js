@@ -1,6 +1,6 @@
 import prisma from "../../../utils/prisma";
 import { getSession } from "next-auth/react";
-import { s3Client } from "../../../utils/s3Client";
+import { s3Client, uploadFile } from "../../../utils/s3Client";
 import formidable from 'formidable-serverless';
 const fs = require("fs");
 
@@ -24,7 +24,9 @@ export default async (req, res) => {
                 // Read file
                 const file = fs.readFileSync(files.image.path);
                 const imageName = new Date().getTime()+ "-" + files.image.name;
+
                 // Upload the file
+                // await uploadFile({bucket: process.env.SPACES_BUCKET, location:"test", files})
                 s3Client.putObject({
                     // params
                     Bucket: process.env.SPACES_BUCKET,
@@ -37,7 +39,7 @@ export default async (req, res) => {
                 if (!fields) {
                     return res.status(500).send("You Dont Have Field");
                 } else {
-                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
+                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageName}`;
                     const post = await prisma.picture.create({
                         data: {
                             title: fields.title,

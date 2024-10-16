@@ -41,7 +41,7 @@ export default async (req, res) => {
                     // Read file
                     const fileBanner = fs.readFileSync(files.imgBanner.path);
                     const imageNameBanner = new Date().getTime() + "-" + files.imgBanner.name;
-                    const urlBanner = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameBanner}`;
+                    const urlBanner = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameBanner}`;
                     urlOne = urlBanner;
                     nameUrl1 = imageNameBanner;
                     // Upload the file
@@ -59,7 +59,7 @@ export default async (req, res) => {
                     // Read file
                     const fileCompany1 = fs.readFileSync(files.imgCompany1.path);
                     const imageNameCompany1 = new Date().getTime() + "-" + files.imgCompany1.name;
-                    const urlCompany1 = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameCompany1}`;
+                    const urlCompany1 = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameCompany1}`;
                     urlTwo = urlCompany1;
                     nameUrl2 = imageNameCompany1;
                     // Upload the file
@@ -77,7 +77,7 @@ export default async (req, res) => {
                     // Read file
                     const fileCompany2 = fs.readFileSync(files.imgCompany2.path);
                     const imageNameCompany2 = new Date().getTime() + "-" + files.imgCompany2.name;
-                    const urlCompany2 = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameCompany2}`;
+                    const urlCompany2 = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameCompany2}`;
                     urlThree = urlCompany2;
                     nameUrl3 = imageNameCompany2;
                     // Upload the file
@@ -95,7 +95,7 @@ export default async (req, res) => {
                     // Read file
                     const fileConcept = fs.readFileSync(files.imgConcept.path);
                     const imageNameConcept = new Date().getTime() + "-" + files.imgConcept.name;
-                    const urlConcept = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameConcept}`;
+                    const urlConcept = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameConcept}`;
                     urlFour = urlConcept;
                     nameUrl4 = imageNameConcept;
                     // Upload the file
@@ -113,7 +113,7 @@ export default async (req, res) => {
                     // Read file
                     const fileClass1 = fs.readFileSync(files.imgClass1.path);
                     const imageNameClass1 = new Date().getTime() + "-" + files.imgClass1.name;
-                    const urlClass1 = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameClass1}`;
+                    const urlClass1 = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameClass1}`;
                     urlFive = urlClass1;
                     nameUrl5 = imageNameClass1;
                     // Upload the file
@@ -131,7 +131,7 @@ export default async (req, res) => {
                     // Read file
                     const fileClass2 = fs.readFileSync(files.imgClass2.path);
                     const imageNameClass2 = new Date().getTime() + "-" + files.imgClass2.name;
-                    const urlClass2 = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameClass2}`;
+                    const urlClass2 = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameClass2}`;
                     urlSix = urlClass2;
                     nameUrl6 = imageNameClass2;
                     // Upload the file
@@ -149,7 +149,7 @@ export default async (req, res) => {
                     // Read file
                     const fileClass3 = fs.readFileSync(files.imgClass3.path);
                     const imageNameClass3 = new Date().getTime() + "-" + files.imgClass3.name;
-                    const urlClass3 = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameClass3}`;
+                    const urlClass3 = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameClass3}`;
                     urlSeven = urlClass3;
                     nameUrl7 = imageNameClass3;
                     // Upload the file
@@ -167,7 +167,7 @@ export default async (req, res) => {
                     // Read file
                     const fileClass4 = fs.readFileSync(files.imgClass4.path);
                     const imageNameClass4 = new Date().getTime() + "-" + files.imgClass4.name;
-                    const urlClass4 = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageNameClass4}`;
+                    const urlClass4 = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageNameClass4}`;
                     urlEigth = urlClass4;
                     nameUrl8 = imageNameClass4;
                     // Upload the file

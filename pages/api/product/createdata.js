@@ -31,7 +31,7 @@ export default async (req, res) => {
                     ContentType: "image/jpeg",
                 });
 
-                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
+                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageName}`;
                     const product = await prisma.product.create({
                         data: {
                             title: fields.title,

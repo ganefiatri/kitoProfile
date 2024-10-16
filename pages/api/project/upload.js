@@ -37,7 +37,7 @@ export default async (req, res) => {
                 if (!fields) {
                     return res.status(500).send("You Dont Have Field");
                 } else {
-                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT}/${imageName}`;
+                    const url = `${process.env.SPACES_ORIGIN_ENDPOINT_DB}/${imageName}`;
                     const post = await prisma.project.create({
                         data: {
                             name: fields.name,

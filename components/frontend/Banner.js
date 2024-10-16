@@ -7,14 +7,16 @@ const Banner = ({ picture }) => {
     // console.log(picture)
     return (
         <>
-            <Swiper className='relative w-[600px] md:w-full lg:w-full sm:w-full' navigation={true} modules={[Navigation]}>
+            <Swiper className='relative md:w-full lg:w-full' navigation={true} modules={[Navigation]}>
                 {picture.map(item => (
                     <SwiperSlide key={item.id}>
-                        <div className='absolute top-80 left-28 z-auto justify-center items-start text-white'>
-                            <h5 className="text-2xl font-extralight mb-5">Hosana Kito Group</h5>
-                            <h5 className="text-5xl font-bold">{item.title}</h5>
+                        <div className='absolute top-40 md:top-52 lg:top-64 left-16 z-auto justify-center items-start text-white'>
+                            <h5 className="text-xl md:text-2xl lg:text-3xl font-extralight mb-2">Hosana Kito Group</h5>
+                            <h5 className="text-2xl md:text-3xl lg:text-5xl md:font-bold lg:font-extrabold font-semibold">{item.title}</h5>
                         </div>
-                        <img src={item.img} alt={item.title} className="block w-full h-auto" />
+                        <div className='w-full md:h-[500px] lg:h-[600px]'>
+                            <img src={item.img} alt={item.title} className="object-cover" />
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>
