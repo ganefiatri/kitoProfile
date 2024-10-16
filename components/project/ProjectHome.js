@@ -13,7 +13,7 @@ const ProjectHome = ({img, name}) => {
                     width={300}
                     height={300}
                 />
-                <h2 className='p-2 uppercase text-center'>{name}</h2>
+                <h2 className='p-2 uppercase text-center text-sm md:text-sm lg:text-base'>{name}</h2>
              </a>
         </div>
     </div>

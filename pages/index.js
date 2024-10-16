@@ -53,14 +53,21 @@ const Home = ({ categories, pictures, projects }) => {
           </div>
         </section>
 
-        <section className='pt-10'>
+        <section className='pt-10 mb-10'>
           <h2 className='text-xl md:text-2xl lg:text-4xl text-center font-thin pb-3'>Category</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
 
-          <div className="grid grid-cols-4 gap-4">
+          <div className="flex">
             {categories && categories.map(item => (
-              <a key={item.id} href={`/category/${item.id}`} className='relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-2 focus:ring-green-700 focus:text-green-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white'>
-                {item.name}</a>
+              <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
+                <div className="cursor-pointer">
+                  <div className="h-full w-full">
+                      <a href={`/category/${item.id}`} className='items-center w-full px-4 py-2 text-sm md:text-base lg:text-xl font-normal rounded-lg bg-slate-300'>
+                        {item.name}</a>
+                  </div>
+                </div>
+              </div>
+              
             ))}
           </div>
         </section>
