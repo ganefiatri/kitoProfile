@@ -54,7 +54,7 @@ const Home = ({ categories, pictures, projects }) => {
         </section>
 
         <section className='pt-10'>
-          <h2 className='text-4xl text-center font-thin pb-3'>Category</h2>
+          <h2 className='text-xl md:text-2xl lg:text-4xl text-center font-thin pb-3'>Category</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/product">View all</a></p>
 
           <div className="grid grid-cols-4 gap-4">
@@ -66,7 +66,7 @@ const Home = ({ categories, pictures, projects }) => {
         </section>
 
         <section className='pt-10'>
-          <h2 className='text-4xl text-center font-thin pb-3'>Project</h2>
+          <h2 className='text-xl md:text-2xl lg:text-4xl text-center font-thin pb-3'>Project</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/project">View all</a></p>
 
           <div className='flex space-x-3 overflow-scroll scrollbar-hide p-3 ml-3'>
