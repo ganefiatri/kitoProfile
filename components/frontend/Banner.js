@@ -11,11 +11,11 @@ const Banner = ({ picture }) => {
                 {picture.map(item => (
                     <SwiperSlide key={item.id}>
                         <div className='absolute top-40 md:top-52 lg:top-64 left-16 z-auto justify-center items-start text-white'>
-                            <h5 className="text-xl md:text-2xl lg:text-3xl font-extralight mb-2">Hosana Kito Group</h5>
-                            <h5 className="text-2xl md:text-3xl lg:text-5xl md:font-bold lg:font-extrabold font-semibold">{item.title}</h5>
+                            {/* <h5 className="text-xl md:text-2xl lg:text-3xl font-extralight mb-2">Hosana Kito Group</h5>
+                            <h5 className="text-2xl md:text-3xl lg:text-5xl md:font-bold lg:font-extrabold font-semibold">{item.title}</h5> */}
                         </div>
                         <div className='flex items-center justify-center w-full'>
-                            <img src={item.img} alt={item.title} className="h-[400px] md:h-[500px] lg:h-[600px] w-full object-cover" />
+                            <img src={item.img} alt={item.title} className="w-full h-auto object-cover" />
                         </div>
                     </SwiperSlide>
                 ))}

@@ -7,7 +7,7 @@ const Cardinfo = () => {
             <div className='md:flex justify-center items-center md:grid-cols-3'>
                 <div className="flex p-3 justify-center items-center md:col-span-1 relative">
                     <div className='item-center justify-center'>
-                        <img src="https://hokito.nyc3.digitaloceanspaces.com/img-sejarah.jpg" alt="" className='w-[400px] h-[300px] rounded-md'/>
+                        <img src="https://hokito.nyc3.digitaloceanspaces.com/card.jpg" alt="" className='w-[400px] h-[300px] lg:h-[400px] rounded-md'/>
                     </div>
                     <div className="p-10 mt-14 md:mt-6 absolute ">
                         <a href="#">
@@ -26,7 +26,7 @@ const Cardinfo = () => {
                 {/* Browse */}
                 < div className="flex p-3 justify-center items-center md:col-span-1 relative" >
                     <div className='item-center justify-center'>
-                        <img src="https://hokito.nyc3.digitaloceanspaces.com/img-sejarah.jpg" alt="" className='w-[400px] h-[300px] rounded-md'/>
+                        <img src="https://hokito.nyc3.digitaloceanspaces.com/card.jpg" alt="" className='w-[400px] h-[300px] lg:h-[400px] rounded-md'/>
                     </div>
                     <div className="p-10 mt-14 md:mt-6 absolute">
                         <a href="#">
@@ -45,7 +45,7 @@ const Cardinfo = () => {
                 {/* Contact */}
                 < div className="flex p-3 justify-center items-center col-span-1 relative" >
                     <div className='item-center justify-center'>
-                        <img src="https://hokito.nyc3.digitaloceanspaces.com/img-sejarah.jpg" alt="" className='w-[400px] h-[300px] rounded-md'/>
+                        <img src="https://hokito.nyc3.digitaloceanspaces.com/card.jpg" alt="" className='w-[400px] h-[300px] lg:h-[400px] rounded-md'/>
                     </div>
                     <div className="p-10 mt-14 md:mt-6 absolute">
                         <a href="#">

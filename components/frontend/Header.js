@@ -34,41 +34,41 @@ const Header = () => {
             <div className="md:flex lg:flex md:grid-cols-3 lg:grid-cols-3 lg:gap-6 items-center justify-center p-4 text-white/40">
                 <div className="flex md:col-span-1 lg:col-span-1 items-center my-auto">
                     <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
-                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase">
-                            <Link href="/">Home</Link>
+                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase hover:bg-red-800/90 hover:duration-500 hover:rounded-xl">
+                            <Link href="/" className="text-white">Home</Link>
                         </li>
-                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase">
-                            <Link href="/aboutDynamic">About</Link>
+                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase hover:bg-red-800/90 hover:duration-500 hover:rounded-xl">
+                            <Link href="/aboutDynamic" className="text-white">About</Link>
                         </li>
-                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase">
-                            <Link href="/showroom">Store</Link>
+                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase hover:bg-red-800/90 hover:duration-500 hover:rounded-xl">
+                            <Link href="/showroom" className="text-white">Store</Link>
                         </li>
-                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase">
-                            <Link href="/project">Project</Link>
+                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase hover:bg-red-800/90 hover:duration-500 hover:rounded-xl">
+                            <Link href="/project" className="text-white">Project</Link>
                         </li>
                     </ul>
                 </div>
-                <div className="flex md:col-span-1 lg:col-span-1 justify-center items-center -mt-8">
-                    <div className="justify-center w-[100px] h-[100px] p-6 items-center">
+                <div className="flex md:col-span-1 lg:col-span-1 justify-center items-center -mt-8 md:-mt-6 lg:-mt-4">
+                    <div className="justify-center w-[100px] h-[100px] md:w-[120px] md:h-[120px] lg:w-[140px] lg:h-[140px] p-6 items-center">
                         <Link href="/">
-                            <Image src="https://hokito.nyc3.digitaloceanspaces.com/1728993052509-logo.png" width={90} height={90} alt="hosanalogo" />
+                            <Image src="https://hokito.nyc3.digitaloceanspaces.com/logo.png" width={90} height={90} alt="hosanalogo" />
                         </Link>
                     </div>
                 </div>
                 <div className="flex md:col-span-1 lg:col-span-1 items-center justify-end">
                     <ul style={{ color: `${textColor}` }} className="hidden sm:flex">
-                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase">
+                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase hover:bg-red-800/90 hover:duration-500 hover:rounded-xl">
                             {/*  data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" */}
-                            <Link href="/product">Product</Link>
+                            <Link href="/product" className="text-white">Product</Link>
                         </li>
-                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase">
-                            <Link href="/contact">Contact</Link>
+                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase hover:bg-red-800/90 hover:duration-500 hover:rounded-xl">
+                            <Link href="/contact" className="text-white">Contact</Link>
                         </li>
                         {/* <li className="p-4 text-sm uppercase">
                             <Link href="/showroom">Showroom</Link>
                         </li> */}
-                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase">
-                            <Link href="/shops">Shop</Link>
+                        <li className="p-4 md:text-xs lg:text-base text-sm uppercase hover:bg-red-800/90 hover:duration-500 hover:rounded-xl">
+                            <Link href="/shops" className="text-white">Shop</Link>
                         </li>
                         {!session? (
                             <li className="p-4 md:text-xs lg:text-base text-sm uppercase">

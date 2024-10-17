@@ -72,7 +72,7 @@ const Home = ({ categories, pictures, projects }) => {
           </div>
         </section>
 
-        <section className='pt-10'>
+        <section className='pt-10 mb-10'>
           <h2 className='text-xl md:text-2xl lg:text-4xl text-center font-thin pb-3'>Project</h2>
           <p className='text-gray-400 font-extralight text-center pb-5 cursor-pointer underline'><a href="/project">View all</a></p>
 
