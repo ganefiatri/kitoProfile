@@ -54,7 +54,7 @@ export default async (req, res) => {
                     Key: imageName0,
                     Body: file0,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image1) {
@@ -72,7 +72,7 @@ export default async (req, res) => {
                     Key: imageName1,
                     Body: file1,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image2) {
@@ -90,7 +90,7 @@ export default async (req, res) => {
                     Key: imageName2,
                     Body: file2,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image3) {
@@ -108,7 +108,7 @@ export default async (req, res) => {
                     Key: imageName3,
                     Body: file3,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image4) {
@@ -126,7 +126,7 @@ export default async (req, res) => {
                     Key: imageName4,
                     Body: file4,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image5) {
@@ -144,7 +144,7 @@ export default async (req, res) => {
                     Key: imageName5,
                     Body: file5,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
            if (files.image6) {
@@ -162,7 +162,7 @@ export default async (req, res) => {
                     Key: imageName6,
                     Body: file6,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image7) {
@@ -180,7 +180,7 @@ export default async (req, res) => {
                     Key: imageName7,
                     Body: file7,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image8) {
@@ -198,7 +198,7 @@ export default async (req, res) => {
                     Key: imageName8,
                     Body: file8,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
 
             if (files.image9) {
@@ -216,7 +216,7 @@ export default async (req, res) => {
                     Key: imageName9,
                     Body: file9,
                     ContentType: "image/jpeg",
-                });
+                }, async () => res.status(201).json({ message: "Image uploaded" }));
             }
            
 
@@ -253,8 +253,8 @@ export default async (req, res) => {
                     message: "rows added to the database",
                   });
             }
-        } catch (error) {
-            return res.status(500).json({ success: false, message: error });
+        } catch (err) {
+            return res.status(500).json({ success: false, message: err });
         }
     });
 };

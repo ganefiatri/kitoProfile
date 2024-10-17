@@ -74,7 +74,7 @@ export default async (req, res) => {
                         }
                     });
                     return res.status(201).json({message: "success input Data!"});
-            } catch (error) {
+            } catch (err) {
                 return res.status(500).json({message: "Failed to input Data!"});
             }
     });

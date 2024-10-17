@@ -50,8 +50,8 @@ export default async (req, res) => {
                     return res.status(201).send("Successfully added to database!")
                 }
 
-            } catch (error) {
-                console.log(error);
+            } catch (err) {
+                return err;
             }
         }
     });

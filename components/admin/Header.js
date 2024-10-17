@@ -20,7 +20,7 @@ const Header = () => {
                     <a href="/" className='inline-flex'>
                         <span className='relative overflow-hidden w-40 h-12'>
                             <span className='block overflow-hidden bg-none absolute inset-0'>
-                                <img src='https://hokito.nyc3.digitaloceanspaces.com/1728993052509-logo.png' className='object-contain w-full h-full absolute' />
+                                <img src='https://hokito.nyc3.digitaloceanspaces.com/logo.png' className='object-contain w-full h-full absolute' />
                             </span>
                         </span>
                     </a>
