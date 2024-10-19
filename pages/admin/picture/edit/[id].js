@@ -7,28 +7,27 @@ import prisma from '../../../../utils/prisma';
 import { useRouter } from "next/router";
 
 export async function getServerSideProps({ params }) {
-    const projects = await prisma.project.findMany({
+    const picture = await prisma.picture.findMany({
         where: {
             id: params.id
         }
     });
     return {
         props: {
-            project: JSON.parse(JSON.stringify(projects)),
+            picture: JSON.parse(JSON.stringify(picture)),
         },
     }
 }
 
-const ProductbyId = props => {
-    const { project } = props;
+const PicturebyId = props => {
+    const { picture } = props;
     const router = useRouter()
     //state
-    const [imageUploaded, setImageUploaded] = useState(project[0].img);
-    const [createObjectURL, setCreateObjectURL] = useState(project[0].img);
-    const [name, setName] = useState(project[0].name);
-    const [place, setPlace] = useState(project[0].place);
-    const setFilename = project[0].filename;
-    const id = project[0].id;
+    const [imageUploaded, setImageUploaded] = useState(picture[0].img);
+    const [createObjectURL, setCreateObjectURL] = useState(picture[0].img);
+    const [title, setTitle] = useState(picture[0].title);
+    const setFilename = picture[0].filename;
+    const id = picture[0].id;
 
     const handleImage = (e) => {
         const file = e.target.files[0];
@@ -47,17 +46,16 @@ const ProductbyId = props => {
     const handleFormData = async (e) => {
         e.preventDefault();
         const forms = new FormData();
-        forms.append('name', name);
+        forms.append('title', title);
         forms.append('image', imageUploaded);
-        forms.append('place', place);
         forms.append('filename', setFilename);
         forms.append('id', id);
         // await axios.post("/api/category/createdata",forms);
-        const result = await fetch("/api/project/editdata", {
+        const result = await fetch("/api/picture/editdata", {
             method: "PUT",
             body: forms,
         });
-        router.push("/admin/projectPage")
+        router.push("/admin/picturePage")
         // console.log(result)
     }
 
@@ -110,21 +108,12 @@ const ProductbyId = props => {
                             <div className='p-5 md:p-8 bg-white shadow rounded w-full sm:w-8/12 md:w-2/3'>
                                 <div className='mb-5'>
                                     <label for="name" className='block mb-3 text-sm font-normal leading-none text-gray-400'>Name</label>
-                                    <input type="text" value={name} onChange={e => setName(e.target.value)} name="name" id="name" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
-                                </div>
-                                <div className='mb-5'>
-                                    <label className='block text-gray-400 font-normal text-sm leading-none mb-3'>Sub Category</label>
-                                    <select name='place' onChange={e => setPlace(e.target.value)} className='border border-gray-300 text-gray-400 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
-                                        <option value="OFFICES">Offices</option>
-                                        <option value="HOTELS">Hotels</option>
-                                        <option value="RESIDENTIALS">Residentials</option>
-                                        <option value="RESTAURANTS">Restaurants</option>
-                                    </select>
+                                    <input type="text" value={title} onChange={e => setTitle(e.target.value)} name="title" id="title" className='px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 border border-border-base focus:border-accent' autoComplete='off' autoCorrect='off' autoCapitalize='off' spellCheck='false' />
                                 </div>
                             </div>
                         </div>
                         <div className='mb-4 text-end'>
-                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Edit Project</button>
+                            <button type="submit" className='inline-flex items-center justify-center flex-shrink-0 font-normal leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 bg-green-400 text-white border border-transparent hover:bg-accent-hover px-5 py-0 h-12'>Edit Picture</button>
                         </div>
                     </form>
                 </section>
@@ -133,4 +122,4 @@ const ProductbyId = props => {
     );
 }
 
-export default ProductbyId;    
+export default PicturebyId;    
